@@ -9,7 +9,7 @@
 <meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
 <meta name="dcterms.date" content="2026-09-10">
 
-<title>1&nbsp; Pengantar R dan RStudio untuk Uji Sensoris – Praktikum Uji Sensoris dengan R</title>
+<title>1&nbsp; Pengantar R dan RStudio untuk Uji Sensoris – Modul Praktikum Uji Sensoris dengan R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Praktikum Uji Sensoris dengan R</a> 
+      <a href="./">Modul Praktikum Uji Sensoris dengan R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP" title="Kode Sumber" class="quarto-navigation-tool px-1" aria-label="Kode Sumber"><i class="bi bi-github"></i></a>
 </div>
@@ -184,14 +184,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">1.1</span> Tujuan Pembelajaran</a></li>
-  <li><a href="#instalasi" id="toc-instalasi" class="nav-link" data-scroll-target="#instalasi"><span class="header-section-number">1.2</span> Instalasi</a>
+  <li><a href="#instalasi" id="toc-instalasi" class="nav-link" data-scroll-target="#instalasi"><span class="header-section-number">1.2</span> Instalasi</a></li>
+  <li><a href="#mengenal-rstudio" id="toc-mengenal-rstudio" class="nav-link" data-scroll-target="#mengenal-rstudio"><span class="header-section-number">1.3</span> Mengenal <code>RStudio</code></a>
   <ul class="collapse">
-  <li><a href="#memeriksa-hasil-instalasi" id="toc-memeriksa-hasil-instalasi" class="nav-link" data-scroll-target="#memeriksa-hasil-instalasi"><span class="header-section-number">1.2.1</span> Memeriksa hasil instalasi</a></li>
-  <li><a href="#memasang-paket-yang-dibutuhkan" id="toc-memasang-paket-yang-dibutuhkan" class="nav-link" data-scroll-target="#memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.2.2</span> Memasang paket yang dibutuhkan</a></li>
+  <li><a href="#memeriksa-hasil-instalasi" id="toc-memeriksa-hasil-instalasi" class="nav-link" data-scroll-target="#memeriksa-hasil-instalasi"><span class="header-section-number">1.3.1</span> Memeriksa hasil instalasi</a></li>
   </ul></li>
-  <li><a href="#mengenal-rstudio" id="toc-mengenal-rstudio" class="nav-link" data-scroll-target="#mengenal-rstudio"><span class="header-section-number">1.3</span> Mengenal <code>RStudio</code></a></li>
   <li><a href="#objek-dan-assignment" id="toc-objek-dan-assignment" class="nav-link" data-scroll-target="#objek-dan-assignment"><span class="header-section-number">1.4</span> Objek dan Assignment</a></li>
-  <li><a href="#tipe-data-dasar" id="toc-tipe-data-dasar" class="nav-link" data-scroll-target="#tipe-data-dasar"><span class="header-section-number">1.5</span> Tipe Data Dasar</a></li>
+  <li><a href="#tipe-data-dasar" id="toc-tipe-data-dasar" class="nav-link" data-scroll-target="#tipe-data-dasar"><span class="header-section-number">1.5</span> Tipe Data Dasar</a>
+  <ul class="collapse">
+  <li><a href="#memasang-paket-yang-dibutuhkan" id="toc-memasang-paket-yang-dibutuhkan" class="nav-link" data-scroll-target="#memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.5.1</span> Memasang paket yang dibutuhkan</a></li>
+  </ul></li>
   <li><a href="#memuat-dan-memeriksa-data" id="toc-memuat-dan-memeriksa-data" class="nav-link" data-scroll-target="#memuat-dan-memeriksa-data"><span class="header-section-number">1.6</span> Memuat dan Memeriksa Data</a>
   <ul class="collapse">
   <li><a href="#membaca-file" id="toc-membaca-file" class="nav-link" data-scroll-target="#membaca-file"><span class="header-section-number">1.6.1</span> Membaca File</a></li>
@@ -294,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="instalasi" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="instalasi"><span class="header-section-number">1.2</span> Instalasi</h2>
-<p>Kita memerlukan dua program yang berbeda. R adalah <em>mesin</em> yang menghitung; <code>RStudio</code> adalah <em>ruang kerja</em> tempat kita menulis kode. Keduanya gratis.</p>
+<p>Terdapat dua program berbeda untuk melakukan data analisis pada <code>RStudio</code>. R adalah bahasa pemrograman, sedangkan <code>RStudio</code> adalah <em>tempat kerja</em> untuk menulis kode R. Pemasangan harus dimulai dengan R, kemudian dilanjutkan dengan <code>RStudio</code>. Jika <code>RStudio</code> dipasang terlebih dahulu, bahasa R tidak akan dapat terbuka.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -317,82 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <blockquote class="blockquote">
-<p><strong>Urutan pemasangan penting:</strong> pasang <strong>R terlebih dahulu</strong>, baru <code>RStudio</code>. Jika <code>RStudio</code> dipasang lebih dulu, ia tidak akan menemukan mesin R dan akan menolak terbuka.</p>
+<p><strong>Pastikan install sesuai dengan <em>operating system</em> masing-masing.</strong></p>
 </blockquote>
-<section id="memeriksa-hasil-instalasi" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="memeriksa-hasil-instalasi"><span class="header-section-number">1.2.1</span> Memeriksa hasil instalasi</h3>
-<p>Buka <code>RStudio</code>, lalu ketik perintah berikut di <strong>Console</strong> (panel kiri bawah):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "R version 4.6.1 (2026-06-24)"</code></pre>
-</div>
-</div>
-<p>Jika muncul keterangan versi R, instalasi Anda berhasil.</p>
-</section>
-<section id="memasang-paket-yang-dibutuhkan" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.2.2</span> Memasang paket yang dibutuhkan</h3>
-<p>Paket (<em>package</em>) adalah kumpulan fungsi tambahan buatan komunitas R. Untuk praktikum ini kita memerlukan lima paket:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Paket</th>
-<th>Kegunaan dalam praktikum</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>ggplot2</code></td>
-<td>Membuat grafik (histogram, boxplot, profil sensoris)</td>
-</tr>
-<tr class="even">
-<td><code>dplyr</code></td>
-<td>Menyaring dan meringkas data</td>
-</tr>
-<tr class="odd">
-<td><code>tidyr</code></td>
-<td>Mengubah bentuk tabel (lebar ke panjang)</td>
-</tr>
-<tr class="even">
-<td><code>readxl</code></td>
-<td>Membaca file Excel (<code>.xlsx</code>) ke dalam R</td>
-</tr>
-<tr class="odd">
-<td><code>FactoMineR</code></td>
-<td>Analisis multivariat, termasuk PCA</td>
-</tr>
-<tr class="even">
-<td><code>factoextra</code></td>
-<td>Memvisualisasikan hasil PCA</td>
-</tr>
-<tr class="odd">
-<td><code>agricolae</code></td>
-<td>Uji lanjut (<em>post-hoc</em>) dengan notasi huruf</td>
-</tr>
-</tbody>
-</table>
-<p>Jalankan perintah berikut <strong>satu kali saja</strong> di Console (bukan di dalam dokumen, karena tidak perlu diulang setiap <em>knit</em>):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"readxl"</span>,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"FactoMineR"</span>, <span class="st">"factoextra"</span>, <span class="st">"agricolae"</span>))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Setelah terpasang, paket harus <strong>dimuat</strong> setiap kali sesi R dimulai:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<blockquote class="blockquote">
-<p><strong>Analogi:</strong> <code>install.packages()</code> seperti membeli reagen dan menaruhnya di lemari laboratorium — cukup sekali. <code>library()</code> seperti mengambil reagen itu dari lemari ke meja kerja — harus diulang setiap kali praktikum.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>Pesan galat yang sering muncul:</strong> <code>Error in library(ggplot2) : there is no package called 'ggplot2'</code> berarti paket belum dipasang, bukan berarti kode Anda salah. Jalankan <code>install.packages("ggplot2")</code> terlebih dahulu.</p>
-</blockquote>
-</section>
 </section>
 <section id="mengenal-rstudio" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="mengenal-rstudio"><span class="header-section-number">1.3</span> Mengenal <code>RStudio</code></h2>
@@ -434,47 +362,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <blockquote class="blockquote">
-<p><strong>Think-aloud (I Do):</strong> “Saya membuka <code>RStudio</code> dan melihat empat panel. Kode pendek untuk mencoba-coba saya ketik di Console; tetapi semua langkah analisis data sensoris saya tulis di Source Editor dan saya simpan, supaya bulan depan saya masih bisa menelusuri bagaimana angka pada laporan saya dihasilkan.”</p>
+<p><strong>Think-aloud:</strong> “Saya membuka <code>RStudio</code> dan melihat empat panel. Kode dapat ditulis langsung di Source Editor dan Console. Kode pendek untuk mencoba-coba saya ketik di Console; tetapi semua langkah analisis data sensoris saya tulis di Source Editor dan saya simpan, supaya besok saya masih bisa menelusuri bagaimana angka pada laporan saya dihasilkan.”</p>
 </blockquote>
+<section id="memeriksa-hasil-instalasi" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="memeriksa-hasil-instalasi"><span class="header-section-number">1.3.1</span> Memeriksa hasil instalasi</h3>
+<p>Buka <code>RStudio</code>, lalu ketik perintah berikut di <strong>Console</strong> (panel kiri bawah):</p>
+<p><em>PS: Seluruh kode dapat langsung disalin dengan icon copy yang berada pada pojok kanan kotak abu-abu!</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R version 4.6.1 (2026-06-24)"</code></pre>
+</div>
+</div>
+<p>Jika muncul keterangan versi R, instalasi Anda berhasil.</p>
+</section>
 </section>
 <section id="objek-dan-assignment" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="objek-dan-assignment"><span class="header-section-number">1.4</span> Objek dan Assignment</h2>
 <p>Dalam R, kita menyimpan data dalam <em>objek</em> menggunakan operator assignment <code>&lt;-</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi satu angka: jumlah panelis</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n_panelis <span class="ot">&lt;-</span> <span class="dv">90</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi teks: nama produk yang diuji</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>produk <span class="ot">&lt;-</span> <span class="st">"Kopi susu X"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi deret angka: skor kesukaan dari 6 panelis (skala 1-9)</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>skor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat isi objek</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>n_panelis</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat objek bernama 'x' yang berisi angka 5</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat objek bernama 'nama' yang berisi teks</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>nama <span class="ot">&lt;-</span> <span class="st">"TPHP"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat objek bernama 'angka' yang berisi deret angka</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>angka <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat isi objek</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nama</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "TPHP"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>angka</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<p>Dalam data sensoris, kita bisa juga mengisi data seperti contoh ini:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi satu angka: jumlah panelis</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n_panelis <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi teks: nama produk yang diuji</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>produk <span class="ot">&lt;-</span> <span class="st">"Kopi susu X"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Objek berisi deret angka: skor kesukaan dari 6 panelis (skala 1-9)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>skor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">7</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat isi objek</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>n_panelis</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>produk</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>produk</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Kopi susu X"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>skor</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>skor</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7 8 6 9 5 7</code></pre>
 </div>
 </div>
 <p>Objek dapat langsung dihitung:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(skor)   <span class="co"># rata-rata skor kesukaan</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(skor)   <span class="co"># rata-rata skor kesukaan</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(skor)     <span class="co"># simpangan baku</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(skor)     <span class="co"># simpangan baku</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.414214</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(skor) <span class="co"># banyaknya nilai</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(skor) <span class="co"># banyaknya nilai</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -490,32 +455,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tipe-data-dasar" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="tipe-data-dasar"><span class="header-section-number">1.5</span> Tipe Data Dasar</h2>
+<p><code>R</code> memiliki beberapa tipe data yang penting untuk diketahui:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric (angka) - skor kesukaan, intensitas atribut</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>skor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(skor)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric (angka)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>skor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(skor)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Character (teks) - kode panelis</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>kode_panelis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"K001"</span>, <span class="st">"K002"</span>, <span class="st">"K003"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kode_panelis)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Character (teks)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>kode_panelis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"K001"</span>, <span class="st">"K002"</span>, <span class="st">"K003"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kode_panelis)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor (kategori) - kode produk</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>kode_produk <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span>, <span class="st">"X"</span>, <span class="st">"Y"</span>))</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kode_produk)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor (kategori)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>kode_produk <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span>, <span class="st">"X"</span>, <span class="st">"Y"</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(kode_produk)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "factor"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(kode_produk)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(kode_produk)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "X" "Y" "Z"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical (TRUE/FALSE) - hasil perbandingan</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>suka <span class="ot">&lt;-</span> skor <span class="sc">&gt;</span> <span class="dv">6</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>suka</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical (TRUE/FALSE) - hasil perbandingan</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>suka <span class="ot">&lt;-</span> skor <span class="sc">&gt;</span> <span class="dv">6</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>suka</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  TRUE  TRUE FALSE  TRUE</code></pre>
 </div>
@@ -523,18 +489,87 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Mengapa <code>factor</code> penting dalam uji sensoris?</strong> Kode produk sering ditulis dengan tiga digit angka acak (misalnya 384, 726, 951). Jika dibiarkan sebagai <code>numeric</code>, R akan mengira 951 “lebih besar” daripada 384 dan mencoba menghitung rata-ratanya — padahal itu hanya label. Ubahlah menjadi <code>factor</code> sebelum analisis: <code>data$produk &lt;- as.factor(data$produk)</code>.</p>
 </blockquote>
+<section id="memasang-paket-yang-dibutuhkan" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.5.1</span> Memasang paket yang dibutuhkan</h3>
+<p>Paket (<em>package</em>) adalah kumpulan fungsi tambahan R. Beberapa paket yang sering digunakan dalam analisis sensoris diantaranya:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Paket</th>
+<th>Kegunaan dalam praktikum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ggplot2</code></td>
+<td>Membuat grafik (histogram, boxplot, profil sensoris)</td>
+</tr>
+<tr class="even">
+<td><code>dplyr</code></td>
+<td>Menyaring dan meringkas data</td>
+</tr>
+<tr class="odd">
+<td><code>tidyr</code></td>
+<td>Mengubah bentuk tabel (lebar ke panjang)</td>
+</tr>
+<tr class="even">
+<td><code>readxl</code></td>
+<td>Membaca file Excel (<code>.xlsx</code>) ke dalam R</td>
+</tr>
+<tr class="odd">
+<td><code>FactoMineR</code></td>
+<td>Analisis multivariat, termasuk PCA</td>
+</tr>
+<tr class="even">
+<td><code>factoextra</code></td>
+<td>Memvisualisasikan hasil PCA</td>
+</tr>
+<tr class="odd">
+<td><code>agricolae</code></td>
+<td>Uji lanjut (<em>post-hoc</em>) dengan notasi huruf</td>
+</tr>
+</tbody>
+</table>
+<p>Jalankan perintah berikut <strong>satu kali saja</strong> di Console (bukan di dalam dokumen, karena tidak perlu diulang setiap <em>knit</em>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyr"</span>, <span class="st">"readxl"</span>,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"FactoMineR"</span>, <span class="st">"factoextra"</span>, <span class="st">"agricolae"</span>))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Setelah terpasang, paket harus <strong>dimuat</strong> setiap kali sesi R dimulai:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Analogi:</strong> <code>install.packages()</code> seperti membeli peralatan masak yang kemudian di simpan di dalam dapur. <code>library()</code> seperti mengambil peralatan masak yang dibutuhkan (e.g.&nbsp;panci, blender, pisau, dll).</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Pesan galat yang sering muncul:</strong> <code>Error in library(ggplot2) : there is no package called 'ggplot2'</code> berarti paket belum dipasang, bukan berarti kode Anda salah. Jalankan <code>install.packages("ggplot2")</code> terlebih dahulu. Jika ada pesan ini lagi, kuncinya adalah memasukkan library yang diminta melalui <code>install.packages("NAMA LIBRARY")</code></p>
+</blockquote>
+</section>
 </section>
 <section id="memuat-dan-memeriksa-data" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="memuat-dan-memeriksa-data"><span class="header-section-number">1.6</span> Memuat dan Memeriksa Data</h2>
-<p>Kita akan menggunakan data <strong>uji hedonik</strong> (uji kesukaan) tiga produk kopi susu kemasan (X, Y, Z) oleh 90 panelis konsumen. Setiap panelis mencicip ketiga produk dan memberi skor pada skala hedonik 9 titik (1 = sangat tidak suka, 9 = sangat suka).</p>
+<p>Untuk melihat apa saja yang R bisa lakukan, kita akan menggunakan data imajiner <strong>uji hedonik</strong> tiga produk kopi susu kemasan (X, Y, Z) oleh 90 panelis konsumen. Setiap panelis mencicip ketiga produk dan memberi skor pada skala hedonik 9 titik (1 = sangat tidak suka, 9 = sangat suka).</p>
 <section id="membaca-file" class="level3" data-number="1.6.1">
 <h3 data-number="1.6.1" class="anchored" data-anchor-id="membaca-file"><span class="header-section-number">1.6.1</span> Membaca File</h3>
-<p>Data praktikum disimpan dalam file Excel <code>uji_hedonik_kopi.xlsx</code>. File tersebut memiliki dua lembar (<em>sheet</em>): <strong>Data</strong> berisi angkanya, dan <strong>Keterangan</strong> berisi penjelasan setiap kolom — bacalah lembar Keterangan terlebih dahulu.</p>
+<p>Data praktikum biasanya disimpan dalam file Excel. Pada contoh ini, file disimpan pada <code>uji_hedonik_kopi.xlsx</code>. File tersebut memiliki dua lembar (<em>sheet</em>): <strong>Data</strong> berisi angkanya, dan <strong>Keterangan</strong> berisi penjelasan setiap kolom. Bacalah lembar Keterangan terlebih dahulu.</p>
+<p>Terdapat 2 cara dalam membaca file:</p>
+<ol type="1">
+<li><p>Cara Manual</p>
+<p>Dilakukan dengan klik Import Dataset (di bagian kolom Environment) &gt; From Excel &gt; Browse &gt; Ubah Name: hedonik &gt; Ubah Sheet: Data &gt; Copy Code yang bertulisan seperti ini: <code>hedonik &lt;- read_excel("LOKASI FILE ANDA/uji_hedonik_kopi.xlsx", sheet = "Data")</code> ke Source Code agar file dapat dengan mudah diakses kembali.</p></li>
+</ol>
+<p><img src="images/SCR-20260910-pahj.png" class="img-fluid"></p>
+<ol start="2" type="1">
+<li><p>Cara Automatis</p>
+<p>Pastikan file <code>uji_hedonik_kopi.xlsx</code> Anda sudah berada pada folder yang sesuai sehingga dapat langsung dipanggil kembali.</p></li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"assets/data/uji_hedonik_kopi.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Data"</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubah menjadi data.frame biasa agar output R lebih mudah dibaca</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"assets/data/uji_hedonik_kopi.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Data"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubah menjadi data.frame biasa agar output R lebih mudah dibaca</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
 <p><strong>Mengapa perlu <code>sheet = "Data"</code>?</strong> Tanpa argumen itu, R akan membaca lembar pertama. Menuliskannya secara eksplisit membuat kode Anda tetap benar walaupun urutan lembar berubah.</p>
@@ -549,8 +584,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="memeriksa-struktur-data" class="level3" data-number="1.6.2">
 <h3 data-number="1.6.2" class="anchored" data-anchor-id="memeriksa-struktur-data"><span class="header-section-number">1.6.2</span> Memeriksa Struktur Data</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat 6 baris pertama</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat 6 baris pertama</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -558,8 +593,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat struktur lengkap data</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat struktur lengkap data</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   270 obs. of  8 variables:
  $ panelis             : chr  "K001" "K001" "K001" "K002" ...
@@ -571,8 +606,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ kesukaan_tekstur    : num  5 4 6 7 4 9 5 6 8 7 ...
  $ kesukaan_keseluruhan: num  5 5 7 6 5 7 5 4 8 6 ...</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ringkasan statistik</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ringkasan statistik</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      panelis      jenis_kelamin      usia             produk   
  Length   :270   Length   :270   Min.   :18.00   Length   :270  
@@ -591,14 +626,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Think-aloud (I Do):</strong> “Saya menjalankan <code>str(hedonik)</code> dan melihat 270 observasi. Angka ini masuk akal: 90 panelis × 3 produk = 270 baris. Kalau yang muncul hanya 90 baris, berarti datanya berformat lebar dan perlu saya ubah dulu. Saya juga melihat <code>produk</code> masih bertipe <code>chr</code>, jadi saya perlu mengubahnya menjadi <code>factor</code>.”</p>
+<p><strong>Think-aloud:</strong> “Saya menjalankan <code>str(hedonik)</code> dan melihat 270 observasi. Angka ini masuk akal: 90 panelis × 3 produk = 270 baris. Kalau yang muncul hanya 90 baris, berarti datanya berformat lebar dan perlu saya ubah dulu. Saya juga melihat <code>produk</code> masih bertipe <code>chr</code>, jadi saya perlu mengubahnya menjadi <code>factor</code>.”</p>
 </blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengubah kolom kategorikal menjadi factor</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>produk <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hedonik<span class="sc">$</span>produk)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>jenis_kelamin <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hedonik<span class="sc">$</span>jenis_kelamin)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengubah kolom kategorikal menjadi factor</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>produk <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hedonik<span class="sc">$</span>produk)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>jenis_kelamin <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(hedonik<span class="sc">$</span>jenis_kelamin)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   270 obs. of  8 variables:
  $ panelis             : chr  "K001" "K001" "K001" "K002" ...
@@ -632,13 +667,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="subsetting-data" class="level2" data-number="1.7">
 <h2 data-number="1.7" class="anchored" data-anchor-id="subsetting-data"><span class="header-section-number">1.7</span> Subsetting Data</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil satu kolom dengan $</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>kesukaan_keseluruhan[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]   <span class="co"># 10 nilai pertama</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil satu kolom dengan $</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>kesukaan_keseluruhan[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]   <span class="co"># 10 nilai pertama</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 5 5 7 6 5 7 5 4 8 6</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil baris dan kolom dengan [ ]</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>hedonik[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]            <span class="co"># 5 baris pertama, semua kolom</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil baris dan kolom dengan [ ]</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>hedonik[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]            <span class="co"># 5 baris pertama, semua kolom</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -646,7 +681,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>hedonik[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">"produk"</span>, <span class="st">"kesukaan_rasa"</span>)]</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>hedonik[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">"produk"</span>, <span class="st">"kesukaan_rasa"</span>)]</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -654,9 +689,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menyaring baris dengan dplyr</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>produk_X <span class="ot">&lt;-</span> <span class="fu">filter</span>(hedonik, produk <span class="sc">==</span> <span class="st">"X"</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(produk_X)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menyaring baris dengan library dplyr dengan fungsi filter()</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>produk_X <span class="ot">&lt;-</span> <span class="fu">filter</span>(hedonik, produk <span class="sc">==</span> <span class="st">"X"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(produk_X)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -664,7 +699,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(produk_X)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(produk_X)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90</code></pre>
 </div>
@@ -673,8 +708,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="1.7.1" class="anchored" data-anchor-id="meringkas-data-per-produk"><span class="header-section-number">1.7.1</span> Meringkas Data per Produk</h3>
 <p>Inilah operasi yang paling sering Anda butuhkan pada data sensoris: menghitung rata-rata skor untuk setiap produk.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cara dasar (base R)</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(kesukaan_keseluruhan <span class="sc">~</span> produk, <span class="at">data =</span> hedonik, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cara dasar (base R)</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(kesukaan_keseluruhan <span class="sc">~</span> produk, <span class="at">data =</span> hedonik, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -683,15 +718,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<p>Anda bisa mengubah-ubah bagian <code>kesukaan_keseluruhan</code> dengan variabel lainnya seperti <code>kesukaan_aroma</code> dan sebagainya. Coba yuk!</p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cara dplyr - lebih fleksibel karena bisa beberapa statistik sekaligus</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>hedonik <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk) <span class="sc">%&gt;%</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n     =</span> <span class="fu">n</span>(),</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rerata =</span> <span class="fu">round</span>(<span class="fu">mean</span>(kesukaan_keseluruhan), <span class="dv">2</span>),</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(kesukaan_keseluruhan), <span class="dv">2</span>)</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cara library dplyr - lebih fleksibel karena bisa beberapa statistik sekaligus</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>hedonik <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n     =</span> <span class="fu">n</span>(),</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rerata =</span> <span class="fu">round</span>(<span class="fu">mean</span>(kesukaan_keseluruhan), <span class="dv">2</span>),</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(kesukaan_keseluruhan), <span class="dv">2</span>)</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -701,7 +739,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Catatan:</strong> rata-rata saja belum cukup untuk menyimpulkan bahwa satu produk lebih disukai daripada yang lain. Selisih 0,3 poin bisa saja muncul karena kebetulan. Untuk menguji apakah selisih itu nyata, kita memerlukan ANOVA — yang akan dibahas pada sesi berikutnya.</p>
+<p><strong>Catatan:</strong> rata-rata saja belum cukup untuk menyimpulkan bahwa satu produk lebih disukai daripada yang lain. Selisih 0,3 poin bisa saja muncul karena kebetulan. Untuk menguji apakah selisih itu nyata, kita memerlukan ANOVA.</p>
 </blockquote>
 </section>
 </section>
@@ -710,16 +748,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="histogram-bagaimana-sebaran-skor-kesukaan" class="level3" data-number="1.8.1">
 <h3 data-number="1.8.1" class="anchored" data-anchor-id="histogram-bagaimana-sebaran-skor-kesukaan"><span class="header-section-number">1.8.1</span> Histogram: bagaimana sebaran skor kesukaan?</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> kesukaan_keseluruhan)) <span class="sc">+</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Sebaran Skor Kesukaan Keseluruhan"</span>,</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Skor hedonik (1-9)"</span>,</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frekuensi"</span>) <span class="sc">+</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> kesukaan_keseluruhan)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribusi Skor Hedonik (Overall)"</span>,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Skor hedonik (1-9)"</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frekuensi"</span>) <span class="sc">+</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="00_r-basics-sensori_id_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="00_r-basics-sensori_id_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -728,17 +766,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="boxplot-bagaimana-perbandingan-antar-produk" class="level3" data-number="1.8.2">
 <h3 data-number="1.8.2" class="anchored" data-anchor-id="boxplot-bagaimana-perbandingan-antar-produk"><span class="header-section-number">1.8.2</span> Boxplot: bagaimana perbandingan antar produk?</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> kesukaan_keseluruhan, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Perbandingan Kesukaan Keseluruhan Antar Produk"</span>,</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Produk kopi susu"</span>,</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Skor hedonik (1-9)"</span>) <span class="sc">+</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> kesukaan_keseluruhan, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Perbandingan Overall Liking Antar Produk"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Produk kopi susu"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Skor hedonik (1-9)"</span>) <span class="sc">+</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="00_r-basics-sensori_id_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="00_r-basics-sensori_id_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -756,44 +794,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Muat kembali data dan periksa strukturnya:</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_excel</span>(<span class="st">"assets/data/uji_hedonik_kopi.xlsx"</span>,</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">sheet =</span> <span class="st">"Data"</span>))</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_excel</span>(<span class="st">"assets/data/uji_hedonik_kopi.xlsx"</span>,</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">sheet =</span> <span class="st">"Data"</span>))</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hedonik)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Berapa banyak panelis laki-laki dan perempuan dalam data ini?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hedonik<span class="sc">$</span>jenis_kelamin)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(hedonik<span class="sc">$</span>jenis_kelamin)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Berapa rentang usia panelis?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(hedonik<span class="sc">$</span>usia)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(hedonik<span class="sc">$</span>usia)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="latihan-2-ringkasan-dan-grafik" class="level3" data-number="1.9.2">
 <h3 data-number="1.9.2" class="anchored" data-anchor-id="latihan-2-ringkasan-dan-grafik"><span class="header-section-number">1.9.2</span> Latihan 2: Ringkasan dan Grafik</h3>
 <ol type="1">
-<li>Hitung rata-rata dan simpangan baku <code>kesukaan_rasa</code> untuk setiap produk.</li>
+<li>Hitung rata-rata dan standar deviasi <code>kesukaan_rasa</code> untuk setiap produk.</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk) <span class="sc">%&gt;%</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rerata =</span> <span class="fu">mean</span>(kesukaan_rasa),</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(kesukaan_rasa))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>hedonik <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rerata =</span> <span class="fu">mean</span>(kesukaan_rasa),</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(kesukaan_rasa))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Buat boxplot <code>kesukaan_aroma</code> per produk. Apakah urutan produknya sama dengan urutan pada <code>kesukaan_keseluruhan</code>?</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> kesukaan_aroma, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produk"</span>, <span class="at">y =</span> <span class="st">"Kesukaan aroma (1-9)"</span>) <span class="sc">+</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> kesukaan_aroma, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Produk"</span>, <span class="at">y =</span> <span class="st">"Kesukaan aroma (1-9)"</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="latihan-3-challenges" class="level3" data-number="1.9.3">
