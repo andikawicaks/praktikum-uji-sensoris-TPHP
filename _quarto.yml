@@ -1,0 +1,33 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Praktikum Uji Sensoris dengan R"
+  subtitle: "Modul praktikum untuk mahasiswa S1"
+  author: "Nama Anda"
+  date: today
+  search: true
+  repo-url: https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP
+  repo-actions: [source, issue]
+  sidebar:
+    style: docked
+  chapters:
+    - index.qmd
+    - 00_r-basics-sensori_id.Rmd
+    - 01_QDA-ANOVA-PCA_id.Rmd
+
+lang: id
+
+execute:
+  freeze: auto
+  warning: false
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-title: "Isi halaman"
+    code-copy: true
+    code-overflow: wrap
+    df-print: paged

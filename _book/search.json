@@ -1,0 +1,272 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Praktikum Uji Sensoris dengan R",
+    "section": "",
+    "text": "Selamat Datang\nModul ini memperkenalkan analisis data uji sensoris menggunakan R, mulai dari instalasi hingga analisis data Quantitative Descriptive Analysis (QDA).",
+    "crumbs": [
+      "Selamat Datang"
+    ]
+  },
+  {
+    "objectID": "index.html#sebelum-memulai",
+    "href": "index.html#sebelum-memulai",
+    "title": "Praktikum Uji Sensoris dengan R",
+    "section": "Sebelum Memulai",
+    "text": "Sebelum Memulai\nPastikan Anda sudah memasang:\n\nR versi 4.3 atau lebih baru\nRStudio Desktop\n\nLangkah pemasangannya dibahas pada bab pertama.",
+    "crumbs": [
+      "Selamat Datang"
+    ]
+  },
+  {
+    "objectID": "index.html#data-praktikum",
+    "href": "index.html#data-praktikum",
+    "title": "Praktikum Uji Sensoris dengan R",
+    "section": "Data Praktikum",
+    "text": "Data Praktikum\nSeluruh file data tersedia di repositori modul ini, di dalam folder assets/data/. Cara termudah mengunduhnya: klik tombol Code di halaman repositori, lalu pilih Download ZIP.",
+    "crumbs": [
+      "Selamat Datang"
+    ]
+  },
+  {
+    "objectID": "index.html#cara-menggunakan-modul-ini",
+    "href": "index.html#cara-menggunakan-modul-ini",
+    "title": "Praktikum Uji Sensoris dengan R",
+    "section": "Cara Menggunakan Modul Ini",
+    "text": "Cara Menggunakan Modul Ini\nSetiap bab berisi kode yang bisa langsung disalin — arahkan kursor ke kotak kode, lalu klik ikon salin di pojok kanan atas. Kerjakan bagian Latihan tanpa melihat contoh terlebih dahulu.",
+    "crumbs": [
+      "Selamat Datang"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html",
+    "href": "00_r-basics-sensori_id.html",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "",
+    "text": "1.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#tujuan-pembelajaran",
+    "href": "00_r-basics-sensori_id.html#tujuan-pembelajaran",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nCara memasang R, RStudio, dan paket tambahan\nR menyimpan data sensori dalam objek yang dapat diperiksa, disubsetting, dan divisualisasikan\nMemasang paket dengan install.packages() dan memuatnya dengan library()\n\n\nOperator assignment &lt;-\nStruktur data uji sensoris: satu baris = satu panelis menilai satu produk\nMemuat data hasil uji hedonik dari file Excel dengan read_excel()\n\n\nTipe data (numeric, character, factor, data.frame)\nMengapa kode panelis dan kode produk harus berupa factor, bukan angka\nMemeriksa struktur data dengan str() dan summary()\n\n\nFungsi dasar: head(), str(), summary(), aggregate()\n\nMembuat histogram dan boxplot skor kesukaan dengan ggplot2",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#instalasi",
+    "href": "00_r-basics-sensori_id.html#instalasi",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.2 Instalasi",
+    "text": "1.2 Instalasi\nKita memerlukan dua program yang berbeda. R adalah mesin yang menghitung; RStudio adalah ruang kerja tempat kita menulis kode. Keduanya gratis.\n\n\n\nKomponen\nFungsi\nTautan unduh\n\n\n\n\nR (versi 4.3 atau lebih baru)\nBahasa dan mesin perhitungan\nhttps://cran.r-project.org/\n\n\nRStudio Desktop\nIntegrated Development Environment (IDE) tempat kita bekerja\nhttps://posit.co/download/rstudio-desktop/\n\n\n\n\nUrutan pemasangan penting: pasang R terlebih dahulu, baru RStudio. Jika RStudio dipasang lebih dulu, ia tidak akan menemukan mesin R dan akan menolak terbuka.\n\n\n1.2.1 Memeriksa hasil instalasi\nBuka RStudio, lalu ketik perintah berikut di Console (panel kiri bawah):\n\nR.version.string\n\n[1] \"R version 4.6.1 (2026-06-24)\"\n\n\nJika muncul keterangan versi R, instalasi Anda berhasil.\n\n\n1.2.2 Memasang paket yang dibutuhkan\nPaket (package) adalah kumpulan fungsi tambahan buatan komunitas R. Untuk praktikum ini kita memerlukan lima paket:\n\n\n\n\n\n\n\nPaket\nKegunaan dalam praktikum\n\n\n\n\nggplot2\nMembuat grafik (histogram, boxplot, profil sensoris)\n\n\ndplyr\nMenyaring dan meringkas data\n\n\ntidyr\nMengubah bentuk tabel (lebar ke panjang)\n\n\nreadxl\nMembaca file Excel (.xlsx) ke dalam R\n\n\nFactoMineR\nAnalisis multivariat, termasuk PCA\n\n\nfactoextra\nMemvisualisasikan hasil PCA\n\n\nagricolae\nUji lanjut (post-hoc) dengan notasi huruf\n\n\n\nJalankan perintah berikut satu kali saja di Console (bukan di dalam dokumen, karena tidak perlu diulang setiap knit):\n\ninstall.packages(c(\"ggplot2\", \"dplyr\", \"tidyr\", \"readxl\",\n                   \"FactoMineR\", \"factoextra\", \"agricolae\"))\n\nSetelah terpasang, paket harus dimuat setiap kali sesi R dimulai:\n\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(readxl)\n\n\nAnalogi: install.packages() seperti membeli reagen dan menaruhnya di lemari laboratorium — cukup sekali. library() seperti mengambil reagen itu dari lemari ke meja kerja — harus diulang setiap kali praktikum.\n\n\nPesan galat yang sering muncul: Error in library(ggplot2) : there is no package called 'ggplot2' berarti paket belum dipasang, bukan berarti kode Anda salah. Jalankan install.packages(\"ggplot2\") terlebih dahulu.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#mengenal-rstudio",
+    "href": "00_r-basics-sensori_id.html#mengenal-rstudio",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.3 Mengenal RStudio",
+    "text": "1.3 Mengenal RStudio\nSaat RStudio terbuka, Anda akan melihat empat panel:\n\n\n\n\n\n\n\n\nPanel\nLokasi\nFungsi\n\n\n\n\nConsole\nKiri bawah\nTempat R mengeksekusi kode dan menampilkan output\n\n\nSource Editor\nKiri atas\nTempat menulis dan menyimpan script (.R) atau dokumen (.Rmd)\n\n\nEnvironment\nKanan atas\nMenampilkan objek yang ada di memori R\n\n\nFiles/Plots/Packages/Help\nKanan bawah\nNavigasi file, melihat grafik, mengelola paket, dan dokumentasi\n\n\n\n\nThink-aloud (I Do): “Saya membuka RStudio dan melihat empat panel. Kode pendek untuk mencoba-coba saya ketik di Console; tetapi semua langkah analisis data sensoris saya tulis di Source Editor dan saya simpan, supaya bulan depan saya masih bisa menelusuri bagaimana angka pada laporan saya dihasilkan.”",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#objek-dan-assignment",
+    "href": "00_r-basics-sensori_id.html#objek-dan-assignment",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.4 Objek dan Assignment",
+    "text": "1.4 Objek dan Assignment\nDalam R, kita menyimpan data dalam objek menggunakan operator assignment &lt;-:\n\n# Objek berisi satu angka: jumlah panelis\nn_panelis &lt;- 90\n\n# Objek berisi teks: nama produk yang diuji\nproduk &lt;- \"Kopi susu X\"\n\n# Objek berisi deret angka: skor kesukaan dari 6 panelis (skala 1-9)\nskor &lt;- c(7, 8, 6, 9, 5, 7)\n\n# Melihat isi objek\nn_panelis\n\n[1] 90\n\nproduk\n\n[1] \"Kopi susu X\"\n\nskor\n\n[1] 7 8 6 9 5 7\n\n\nObjek dapat langsung dihitung:\n\nmean(skor)   # rata-rata skor kesukaan\n\n[1] 7\n\nsd(skor)     # simpangan baku\n\n[1] 1.414214\n\nlength(skor) # banyaknya nilai\n\n[1] 6\n\n\n\nMengapa &lt;- bukan =? Keduanya bisa digunakan, tetapi &lt;- adalah konvensi R dan membuat kode lebih mudah dibaca.\n\n\nSelf-explanation prompts:\n1. Apa bedanya mengetik mean(c(7, 8, 6)) langsung, dibandingkan menyimpannya dulu sebagai skor &lt;- c(7, 8, 6) lalu mean(skor)?\n2. Apa yang terjadi pada isi skor jika kita menjalankan skor &lt;- c(1, 2, 3) setelahnya?",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#tipe-data-dasar",
+    "href": "00_r-basics-sensori_id.html#tipe-data-dasar",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.5 Tipe Data Dasar",
+    "text": "1.5 Tipe Data Dasar\n\n# Numeric (angka) - skor kesukaan, intensitas atribut\nskor &lt;- c(7, 8, 6, 9)\nclass(skor)\n\n[1] \"numeric\"\n\n# Character (teks) - kode panelis\nkode_panelis &lt;- c(\"K001\", \"K002\", \"K003\")\nclass(kode_panelis)\n\n[1] \"character\"\n\n# Factor (kategori) - kode produk\nkode_produk &lt;- factor(c(\"X\", \"Y\", \"Z\", \"X\", \"Y\"))\nclass(kode_produk)\n\n[1] \"factor\"\n\nlevels(kode_produk)\n\n[1] \"X\" \"Y\" \"Z\"\n\n# Logical (TRUE/FALSE) - hasil perbandingan\nsuka &lt;- skor &gt; 6\nsuka\n\n[1]  TRUE  TRUE FALSE  TRUE\n\n\n\nMengapa factor penting dalam uji sensoris? Kode produk sering ditulis dengan tiga digit angka acak (misalnya 384, 726, 951). Jika dibiarkan sebagai numeric, R akan mengira 951 “lebih besar” daripada 384 dan mencoba menghitung rata-ratanya — padahal itu hanya label. Ubahlah menjadi factor sebelum analisis: data$produk &lt;- as.factor(data$produk).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#memuat-dan-memeriksa-data",
+    "href": "00_r-basics-sensori_id.html#memuat-dan-memeriksa-data",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.6 Memuat dan Memeriksa Data",
+    "text": "1.6 Memuat dan Memeriksa Data\nKita akan menggunakan data uji hedonik (uji kesukaan) tiga produk kopi susu kemasan (X, Y, Z) oleh 90 panelis konsumen. Setiap panelis mencicip ketiga produk dan memberi skor pada skala hedonik 9 titik (1 = sangat tidak suka, 9 = sangat suka).\n\n1.6.1 Membaca File\nData praktikum disimpan dalam file Excel uji_hedonik_kopi.xlsx. File tersebut memiliki dua lembar (sheet): Data berisi angkanya, dan Keterangan berisi penjelasan setiap kolom — bacalah lembar Keterangan terlebih dahulu.\n\nhedonik &lt;- read_excel(\"assets/data/uji_hedonik_kopi.xlsx\", sheet = \"Data\")\n\n# Ubah menjadi data.frame biasa agar output R lebih mudah dibaca\nhedonik &lt;- as.data.frame(hedonik)\n\n\nMengapa perlu sheet = \"Data\"? Tanpa argumen itu, R akan membaca lembar pertama. Menuliskannya secara eksplisit membuat kode Anda tetap benar walaupun urutan lembar berubah.\n\n\nTiga kesalahan yang paling sering terjadi saat input di Excel:\n1. Desimal ditulis dengan koma (7,5). R akan membacanya sebagai teks, bukan angka. Gunakan titik (7.5), atau ubah pengaturan regional Excel Anda.\n2. Judul kolom lebih dari satu baris, atau ada baris kosong dan judul praktikum di atas tabel. Baris pertama harus langsung berisi nama kolom.\n3. Nama kolom mengandung spasi (kesukaan rasa). R akan mengubahnya menjadi `kesukaan rasa` yang merepotkan. Gunakan garis bawah: kesukaan_rasa.\n\n\n\n1.6.2 Memeriksa Struktur Data\n\n# Melihat 6 baris pertama\nhead(hedonik)\n\n\n  \n\n\n# Melihat struktur lengkap data\nstr(hedonik)\n\n'data.frame':   270 obs. of  8 variables:\n $ panelis             : chr  \"K001\" \"K001\" \"K001\" \"K002\" ...\n $ jenis_kelamin       : chr  \"Perempuan\" \"Perempuan\" \"Perempuan\" \"Perempuan\" ...\n $ usia                : num  23 23 23 25 25 25 19 19 19 23 ...\n $ produk              : chr  \"X\" \"Y\" \"Z\" \"X\" ...\n $ kesukaan_aroma      : num  8 4 6 9 6 8 6 5 7 8 ...\n $ kesukaan_rasa       : num  5 4 6 7 4 6 8 6 7 6 ...\n $ kesukaan_tekstur    : num  5 4 6 7 4 9 5 6 8 7 ...\n $ kesukaan_keseluruhan: num  5 5 7 6 5 7 5 4 8 6 ...\n\n# Ringkasan statistik\nsummary(hedonik)\n\n      panelis      jenis_kelamin      usia             produk   \n Length   :270   Length   :270   Min.   :18.00   Length   :270  \n N.unique : 90   N.unique :  2   1st Qu.:19.00   N.unique :  3  \n N.blank  :  0   N.blank  :  0   Median :21.00   N.blank  :  0  \n Min.nchar:  4   Min.nchar:  9   Mean   :21.18   Min.nchar:  1  \n Max.nchar:  4   Max.nchar:  9   3rd Qu.:23.00   Max.nchar:  1  \n                                 Max.   :25.00                  \n kesukaan_aroma  kesukaan_rasa  kesukaan_tekstur kesukaan_keseluruhan\n Min.   :2.000   Min.   :2.00   Min.   :3.000    Min.   :4.000       \n 1st Qu.:6.000   1st Qu.:6.00   1st Qu.:6.000    1st Qu.:6.000       \n Median :7.000   Median :7.00   Median :7.000    Median :7.000       \n Mean   :6.644   Mean   :6.67   Mean   :6.641    Mean   :6.626       \n 3rd Qu.:8.000   3rd Qu.:8.00   3rd Qu.:8.000    3rd Qu.:7.000       \n Max.   :9.000   Max.   :9.00   Max.   :9.000    Max.   :9.000       \n\n\n\nThink-aloud (I Do): “Saya menjalankan str(hedonik) dan melihat 270 observasi. Angka ini masuk akal: 90 panelis × 3 produk = 270 baris. Kalau yang muncul hanya 90 baris, berarti datanya berformat lebar dan perlu saya ubah dulu. Saya juga melihat produk masih bertipe chr, jadi saya perlu mengubahnya menjadi factor.”\n\n\n# Mengubah kolom kategorikal menjadi factor\nhedonik$produk &lt;- as.factor(hedonik$produk)\nhedonik$jenis_kelamin &lt;- as.factor(hedonik$jenis_kelamin)\n\nstr(hedonik)\n\n'data.frame':   270 obs. of  8 variables:\n $ panelis             : chr  \"K001\" \"K001\" \"K001\" \"K002\" ...\n $ jenis_kelamin       : Factor w/ 2 levels \"Laki-laki\",\"Perempuan\": 2 2 2 2 2 2 2 2 2 1 ...\n $ usia                : num  23 23 23 25 25 25 19 19 19 23 ...\n $ produk              : Factor w/ 3 levels \"X\",\"Y\",\"Z\": 1 2 3 1 2 3 1 2 3 1 ...\n $ kesukaan_aroma      : num  8 4 6 9 6 8 6 5 7 8 ...\n $ kesukaan_rasa       : num  5 4 6 7 4 6 8 6 7 6 ...\n $ kesukaan_tekstur    : num  5 4 6 7 4 9 5 6 8 7 ...\n $ kesukaan_keseluruhan: num  5 5 7 6 5 7 5 4 8 6 ...\n\n\n\n\n1.6.3 Hinge Question\n\nSebelum melanjutkan, coba jawab pertanyaan berikut: Data uji hedonik Anda memiliki 270 baris, sedangkan panelisnya hanya 90 orang. Apa artinya?\n\nAda 180 baris data yang terduplikasi dan harus dihapus\n\nSetiap panelis menilai lebih dari satu produk, sehingga satu panelis mengisi beberapa baris\n\nDatanya salah input\n\nAda 270 panelis yang sebagian tidak tercatat namanya\n\nJawaban: B. Satu baris = satu kombinasi panelis × produk. Ini disebut format panjang (long format) dan merupakan bentuk yang dibutuhkan R untuk analisis.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#subsetting-data",
+    "href": "00_r-basics-sensori_id.html#subsetting-data",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.7 Subsetting Data",
+    "text": "1.7 Subsetting Data\n\n# Mengambil satu kolom dengan $\nhedonik$kesukaan_keseluruhan[1:10]   # 10 nilai pertama\n\n [1] 5 5 7 6 5 7 5 4 8 6\n\n# Mengambil baris dan kolom dengan [ ]\nhedonik[1:5, ]            # 5 baris pertama, semua kolom\n\n\n  \n\n\nhedonik[1:5, c(\"produk\", \"kesukaan_rasa\")]\n\n\n  \n\n\n# Menyaring baris dengan dplyr\nproduk_X &lt;- filter(hedonik, produk == \"X\")\nhead(produk_X)\n\n\n  \n\n\nnrow(produk_X)\n\n[1] 90\n\n\n\n1.7.1 Meringkas Data per Produk\nInilah operasi yang paling sering Anda butuhkan pada data sensoris: menghitung rata-rata skor untuk setiap produk.\n\n# Cara dasar (base R)\naggregate(kesukaan_keseluruhan ~ produk, data = hedonik, FUN = mean)\n\n\n  \n\n\n\n\n# Cara dplyr - lebih fleksibel karena bisa beberapa statistik sekaligus\nhedonik %&gt;%\n  group_by(produk) %&gt;%\n  summarise(\n    n     = n(),\n    rerata = round(mean(kesukaan_keseluruhan), 2),\n    sd     = round(sd(kesukaan_keseluruhan), 2)\n  )\n\n\n  \n\n\n\n\nCatatan: rata-rata saja belum cukup untuk menyimpulkan bahwa satu produk lebih disukai daripada yang lain. Selisih 0,3 poin bisa saja muncul karena kebetulan. Untuk menguji apakah selisih itu nyata, kita memerlukan ANOVA — yang akan dibahas pada sesi berikutnya.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#visualisasi-dasar-dengan-ggplot2",
+    "href": "00_r-basics-sensori_id.html#visualisasi-dasar-dengan-ggplot2",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.8 Visualisasi Dasar dengan ggplot2",
+    "text": "1.8 Visualisasi Dasar dengan ggplot2\n\n1.8.1 Histogram: bagaimana sebaran skor kesukaan?\n\nggplot(hedonik, aes(x = kesukaan_keseluruhan)) +\n  geom_histogram(binwidth = 1, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Sebaran Skor Kesukaan Keseluruhan\",\n       x = \"Skor hedonik (1-9)\",\n       y = \"Frekuensi\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n1.8.2 Boxplot: bagaimana perbandingan antar produk?\n\nggplot(hedonik, aes(x = produk, y = kesukaan_keseluruhan, fill = produk)) +\n  geom_boxplot() +\n  labs(title = \"Perbandingan Kesukaan Keseluruhan Antar Produk\",\n       x = \"Produk kopi susu\",\n       y = \"Skor hedonik (1-9)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\nThink-aloud (I Do): “Dalam ggplot2 saya selalu mulai dengan ggplot(data, aes(...)) untuk menentukan data dan pemetaan sumbu, lalu menambahkan layer dengan tanda +. geom_histogram() untuk sebaran satu variabel, geom_boxplot() untuk membandingkan kelompok. Dari boxplot ini saya sudah bisa menduga produk Y paling tidak disukai, tetapi dugaan itu masih perlu diuji secara statistik.”",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#latihan-you-do",
+    "href": "00_r-basics-sensori_id.html#latihan-you-do",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.9 Latihan (You Do)",
+    "text": "1.9 Latihan (You Do)\n\n1.9.1 Latihan 1: Eksplorasi Data\n\nMuat kembali data dan periksa strukturnya:\n\n\nhedonik &lt;- as.data.frame(read_excel(\"assets/data/uji_hedonik_kopi.xlsx\",\n                                    sheet = \"Data\"))\nstr(hedonik)\nsummary(hedonik)\n\n\nBerapa banyak panelis laki-laki dan perempuan dalam data ini?\n\n\ntable(hedonik$jenis_kelamin)\n\n\nBerapa rentang usia panelis?\n\n\nrange(hedonik$usia)\n\n\n\n1.9.2 Latihan 2: Ringkasan dan Grafik\n\nHitung rata-rata dan simpangan baku kesukaan_rasa untuk setiap produk.\n\n\nhedonik %&gt;%\n  group_by(produk) %&gt;%\n  summarise(rerata = mean(kesukaan_rasa),\n            sd = sd(kesukaan_rasa))\n\n\nBuat boxplot kesukaan_aroma per produk. Apakah urutan produknya sama dengan urutan pada kesukaan_keseluruhan?\n\n\nggplot(hedonik, aes(x = produk, y = kesukaan_aroma, fill = produk)) +\n  geom_boxplot() +\n  labs(x = \"Produk\", y = \"Kesukaan aroma (1-9)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n1.9.3 Latihan 3: Challenges\n\nBuat boxplot kesukaan_keseluruhan per produk yang dipisahkan berdasarkan jenis kelamin (petunjuk: tambahkan facet_wrap(~ jenis_kelamin)).\nBuat scatter plot antara kesukaan_rasa (sumbu x) dan kesukaan_keseluruhan (sumbu y), diberi warna menurut produk. Atribut mana yang tampak paling menentukan kesukaan keseluruhan?\nBuat subset berisi hanya panelis berusia di bawah 21 tahun, lalu hitung ulang rata-rata kesukaan per produk. Apakah urutan produknya berubah?",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "00_r-basics-sensori_id.html#ringkasan",
+    "href": "00_r-basics-sensori_id.html#ringkasan",
+    "title": "1  Pengantar R dan RStudio untuk Uji Sensoris",
+    "section": "1.10 Ringkasan",
+    "text": "1.10 Ringkasan\nDalam sesi ini kita telah mempelajari:\n- Memasang R, RStudio, dan paket tambahan dengan install.packages() serta memuatnya dengan library()\n- Objek dan assignment dengan &lt;-\n- Tipe data dasar: numeric, character, factor, logical, dan mengapa kode produk harus berupa factor\n- Membaca data sensoris dari file Excel dengan read_excel() dan memeriksanya dengan str(), summary(), head()\n- Format panjang: satu baris = satu panelis menilai satu produk\n- Subsetting dengan $, [ ], dan dplyr::filter()\n- Meringkas per produk dengan aggregate() dan group_by() + summarise()\n- Visualisasi dasar dengan ggplot2: histogram dan boxplot\nPada sesi berikutnya kita akan menggunakan kemampuan ini untuk menganalisis data Quantitative Descriptive Analysis (QDA) dengan ANOVA, uji lanjut, dan PCA.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pengantar R dan `RStudio` untuk Uji Sensoris</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html",
+    "href": "01_QDA-ANOVA-PCA_id.html",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "",
+    "text": "2.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#tujuan-pembelajaran",
+    "href": "01_QDA-ANOVA-PCA_id.html#tujuan-pembelajaran",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nStruktur data QDA: panelis × produk × replikasi × atribut\nANOVA menjawab “apakah produk berbeda?”, uji lanjut menjawab “produk mana yang berbeda?”\nMenjalankan ANOVA dengan aov() untuk satu atribut\n\n\nArti nilai p dan taraf nyata \\(\\alpha\\) = 0,05\nMengapa panelis dimasukkan ke dalam model ANOVA\nMelakukan uji lanjut Tukey dengan TukeyHSD() dan HSD.test()\n\n\nKonsep dasar PCA: mengubah banyak atribut menjadi sedikit dimensi\nTidak semua atribut mampu membedakan produk\nMembuat peta produk dengan PCA() dan fviz_pca_biplot()\n\n\nIstilah loading, dimensi, dan % varians\n\nMenafsirkan sumbu PCA menggunakan atribut yang menyusunnya",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#sekilas-tentang-qda",
+    "href": "01_QDA-ANOVA-PCA_id.html#sekilas-tentang-qda",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.2 Sekilas tentang QDA",
+    "text": "2.2 Sekilas tentang QDA\nQuantitative Descriptive Analysis (QDA) adalah metode di mana sekelompok panelis terlatih menilai intensitas atribut sensoris suatu produk — bukan kesukaannya. Panelis terlatih berperan seperti instrumen ukur: mereka dilatih hingga memberikan angka yang konsisten untuk konsep yang sama.\nData yang akan kita gunakan berasal dari uji QDA terhadap 5 merek nugget ayam (A, B, C, D, E) oleh 12 panelis terlatih dengan 2 kali replikasi. Setiap panelis menilai 8 atribut pada skala garis 0–15.\n\n\n\n\n\n\n\n\nKelompok\nAtribut\nDefinisi singkat\n\n\n\n\nTekstur\nkerenyahan\nBunyi dan rasa renyah lapisan luar pada gigitan pertama\n\n\nTekstur\nkekerasan\nGaya yang dibutuhkan untuk menggigit sampai putus\n\n\nTekstur\nkejuisian\nBanyaknya cairan yang keluar saat dikunyah\n\n\nTekstur\nkekenyalan\nKemampuan sampel kembali ke bentuk semula setelah ditekan\n\n\nFlavour\ngurih\nIntensitas rasa gurih/umami\n\n\nFlavour\nasin\nIntensitas rasa asin\n\n\nFlavour\naroma_ayam\nIntensitas aroma daging ayam\n\n\nFlavour\naroma_rempah\nIntensitas aroma bumbu (bawang, merica)\n\n\n\nTotal baris data: 12 panelis × 5 produk × 2 replikasi = 120 baris.\nData tersimpan pada file qda_nugget.xlsx, lembar Data. Lembar Keterangan pada file yang sama memuat definisi setiap kolom. Jika Anda ingin menginput data hasil praktikum kelompok Anda sendiri, gunakan template_input_qda.xlsx yang formatnya sudah sesuai — cukup hapus baris contoh berwarna kuning, isi datanya, lalu ganti nama file pada perintah read_excel() di bawah.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#memuat-data",
+    "href": "01_QDA-ANOVA-PCA_id.html#memuat-data",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.3 Memuat Data",
+    "text": "2.3 Memuat Data\n\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(readxl)\nlibrary(FactoMineR)\nlibrary(factoextra)\nlibrary(agricolae)\n\n\nqda &lt;- as.data.frame(read_excel(\"assets/data/qda_nugget.xlsx\", sheet = \"Data\"))\n\n# Kolom kategorikal harus berupa factor\nqda$panelis   &lt;- as.factor(qda$panelis)\nqda$produk    &lt;- as.factor(qda$produk)\nqda$replikasi &lt;- as.factor(qda$replikasi)\n\nstr(qda)\n\n'data.frame':   120 obs. of  11 variables:\n $ panelis     : Factor w/ 12 levels \"P01\",\"P02\",\"P03\",..: 1 1 1 1 1 1 1 1 1 1 ...\n $ produk      : Factor w/ 5 levels \"A\",\"B\",\"C\",\"D\",..: 1 1 2 2 3 3 4 4 5 5 ...\n $ replikasi   : Factor w/ 2 levels \"1\",\"2\": 1 2 1 2 1 2 1 2 1 2 ...\n $ kerenyahan  : num  10.9 12.8 8.3 12.6 9.8 8.9 5.1 6.1 8.7 7.6 ...\n $ kekerasan   : num  7.1 7.3 9.4 7.8 10.9 9.4 12.6 11.5 8.9 7.8 ...\n $ kejuisian   : num  8.9 9.1 9.5 7.8 4 2.6 2.1 3.6 5.6 5.1 ...\n $ kekenyalan  : num  7.5 6.9 8.5 9.4 11.8 11.5 10.6 10.3 12.4 12.6 ...\n $ gurih       : num  12.7 11.6 12 9.8 8.6 7.4 6.3 6.7 9.3 10.2 ...\n $ asin        : num  8.5 6.2 8.5 10 8.2 8 9.1 7.5 8.2 9.1 ...\n $ aroma_ayam  : num  8.7 11.2 9.8 12.1 7.5 4.9 4 5.9 9.4 7.7 ...\n $ aroma_rempah: num  8.3 5.7 9.7 8.1 9.1 7.7 8 7.9 5.6 5.2 ...\n\nhead(qda)\n\n\n  \n\n\n\n\nThink-aloud (I Do): “Sebelum menganalisis apa pun, saya memeriksa apakah rancangannya lengkap. Saya jalankan table(qda$panelis, qda$produk) — kalau semua selnya berisi 2, artinya setiap panelis menilai setiap produk sebanyak dua kali. Rancangan yang lengkap dan seimbang membuat ANOVA jauh lebih mudah ditafsirkan.”\n\n\ntable(qda$panelis, qda$produk)\n\n     \n      A B C D E\n  P01 2 2 2 2 2\n  P02 2 2 2 2 2\n  P03 2 2 2 2 2\n  P04 2 2 2 2 2\n  P05 2 2 2 2 2\n  P06 2 2 2 2 2\n  P07 2 2 2 2 2\n  P08 2 2 2 2 2\n  P09 2 2 2 2 2\n  P10 2 2 2 2 2\n  P11 2 2 2 2 2\n  P12 2 2 2 2 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#eksplorasi-awal",
+    "href": "01_QDA-ANOVA-PCA_id.html#eksplorasi-awal",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.4 Eksplorasi Awal",
+    "text": "2.4 Eksplorasi Awal\n\n# Rata-rata setiap atribut untuk setiap produk\ntabel_rata &lt;- aggregate(cbind(kerenyahan, kekerasan, kejuisian, kekenyalan,\n                              gurih, asin, aroma_ayam, aroma_rempah) ~ produk,\n                        data = qda, FUN = mean)\n\ntabel_rata_bulat &lt;- tabel_rata\ntabel_rata_bulat[, -1] &lt;- round(tabel_rata_bulat[, -1], 2)\ntabel_rata_bulat\n\n\n  \n\n\n\nUntuk membuat grafik semua atribut sekaligus, data perlu diubah ke format panjang — satu baris untuk satu kombinasi produk × atribut × panelis:\n\nqda_panjang &lt;- pivot_longer(qda,\n                            cols = kerenyahan:aroma_rempah,\n                            names_to = \"atribut\",\n                            values_to = \"intensitas\")\n\nhead(qda_panjang)\n\n\n  \n\n\n\n\nggplot(qda_panjang, aes(x = produk, y = intensitas, fill = produk)) +\n  geom_boxplot() +\n  facet_wrap(~ atribut, ncol = 4) +\n  labs(title = \"Profil Sensoris 5 Merek Nugget Ayam\",\n       x = \"Produk\", y = \"Intensitas (skala 0-15)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\nAmati grafik ini sebelum menghitung apa pun. Pada atribut mana kotak-kotaknya jelas terpisah antar produk? Pada atribut mana kotak-kotaknya bertumpuk? Dugaan Anda dari grafik akan kita uji dengan ANOVA di bagian berikutnya.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#anova-untuk-satu-atribut",
+    "href": "01_QDA-ANOVA-PCA_id.html#anova-untuk-satu-atribut",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.5 ANOVA untuk Satu Atribut",
+    "text": "2.5 ANOVA untuk Satu Atribut\nPertanyaannya: apakah kelima produk berbeda nyata dalam kerenyahan?\n\n\\(H_0\\) (hipotesis nol): rata-rata kerenyahan kelima produk sama\n\\(H_1\\) (hipotesis alternatif): paling tidak ada satu produk yang berbeda\n\n\nmodel_renyah &lt;- aov(kerenyahan ~ produk + panelis, data = qda)\nsummary(model_renyah)\n\n             Df Sum Sq Mean Sq F value   Pr(&gt;F)    \nproduk        4  479.1  119.78  77.855  &lt; 2e-16 ***\npanelis      11  127.9   11.63   7.559 1.99e-09 ***\nResiduals   104  160.0    1.54                     \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nCara membacanya:\n\n\n\n\n\n\n\nKolom\nArti\n\n\n\n\nDf\nDerajat bebas. Untuk 5 produk \\(\\rightarrow\\) 5 - 1 = 4\n\n\nF value\nRasio keragaman antar produk terhadap keragaman sisa. Makin besar, makin kuat bukti adanya perbedaan\n\n\nPr(&gt;F)\nNilai p. Inilah yang kita baca. Jika &lt; 0,05 \\(\\rightarrow\\) tolak \\(H_0\\)\n\n\n***\nPenanda tingkat signifikansi (*** = p &lt; 0,001)\n\n\n\n\nMengapa panelis ikut dimasukkan ke dalam model? Setiap panelis punya kebiasaan menggunakan skala secara berbeda — ada yang cenderung memberi nilai tinggi, ada yang pelit. Perbedaan itu bukan efek produk, tetapi tetap menambah keragaman data. Dengan menuliskan + panelis, keragaman antar panelis “dikeluarkan” dari sisa (residual), sehingga uji terhadap efek produk menjadi lebih peka. Ini adalah gagasan yang sama dengan rancangan acak kelompok (RAK), dengan panelis sebagai kelompok.\n\n\n2.5.1 Hinge Question\n\nSebelum melanjutkan, jawablah: Hasil ANOVA menunjukkan nilai p untuk produk sebesar 2e-16. Apa kesimpulan yang benar?\n\nKelima produk berbeda nyata satu sama lain\n\nPaling tidak ada satu produk yang berbeda nyata dari yang lain, tetapi kita belum tahu yang mana\n\nProduk A adalah yang paling renyah\n\nPanelis menilai dengan tidak konsisten\n\nJawaban: B. ANOVA hanya menjawab “apakah ada perbedaan”, bukan “produk mana yang berbeda”. Untuk itu kita memerlukan uji lanjut.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#uji-lanjut-post-hoc",
+    "href": "01_QDA-ANOVA-PCA_id.html#uji-lanjut-post-hoc",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.6 Uji Lanjut (Post-hoc)",
+    "text": "2.6 Uji Lanjut (Post-hoc)\n\n2.6.1 Tukey HSD\nUji Tukey membandingkan semua pasangan produk, sambil mengendalikan peluang salah menyimpulkan akibat banyaknya perbandingan.\n\ntukey_renyah &lt;- TukeyHSD(model_renyah, which = \"produk\")\ntukey_renyah\n\n  Tukey multiple comparisons of means\n    95% family-wise confidence level\n\nFit: aov(formula = kerenyahan ~ produk + panelis, data = qda)\n\n$produk\n          diff        lwr         upr     p adj\nB-A -0.5083333 -1.5023904  0.48572372 0.6164750\nC-A -4.1000000 -5.0940571 -3.10594294 0.0000000\nD-A -5.1791667 -6.1732237 -4.18510961 0.0000000\nE-A -2.6041667 -3.5982237 -1.61010961 0.0000000\nC-B -3.5916667 -4.5857237 -2.59760961 0.0000000\nD-B -4.6708333 -5.6648904 -3.67677628 0.0000000\nE-B -2.0958333 -3.0898904 -1.10177628 0.0000006\nD-C -1.0791667 -2.0732237 -0.08510961 0.0262983\nE-C  1.4958333  0.5017763  2.48989039 0.0005788\nE-D  2.5750000  1.5809429  3.56905706 0.0000000\n\n\nSetiap baris adalah satu pasangan produk. Kolom p adj adalah nilai p yang sudah dikoreksi: jika &lt; 0,05, kedua produk itu berbeda nyata.\n\nplot(tukey_renyah, las = 1)\n\n\n\n\n\n\n\n\n\nCara membaca grafik ini: setiap garis adalah selang kepercayaan untuk selisih rata-rata sepasang produk. Jika garisnya memotong angka nol (garis putus-putus), kedua produk tersebut tidak berbeda nyata.\n\n\n\n2.6.2 Notasi Huruf\nUntuk laporan praktikum, hasil uji lanjut biasanya disajikan sebagai notasi huruf: produk dengan huruf yang sama berarti tidak berbeda nyata.\n\nhsd_renyah &lt;- HSD.test(model_renyah, \"produk\", group = TRUE)\nhsd_renyah$groups\n\n\n  \n\n\n\n\nThink-aloud (I Do): “Saya membaca tabel ini dari atas ke bawah — produk sudah diurutkan dari rata-rata tertinggi. Produk yang berbagi huruf yang sama tidak berbeda nyata. Inilah bentuk yang saya salin ke tabel laporan, dengan huruf ditulis sebagai superskrip di belakang nilai rata-rata ± simpangan baku.”",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#anova-untuk-semua-atribut-sekaligus",
+    "href": "01_QDA-ANOVA-PCA_id.html#anova-untuk-semua-atribut-sekaligus",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.7 ANOVA untuk Semua Atribut Sekaligus",
+    "text": "2.7 ANOVA untuk Semua Atribut Sekaligus\nMengulang kode di atas delapan kali akan melelahkan dan rawan salah salin. Kita bisa membuat R melakukannya secara otomatis:\n\natribut &lt;- c(\"kerenyahan\", \"kekerasan\", \"kejuisian\", \"kekenyalan\",\n             \"gurih\", \"asin\", \"aroma_ayam\", \"aroma_rempah\")\n\nnilai_p &lt;- sapply(atribut, function(a) {\n  rumus &lt;- as.formula(paste(a, \"~ produk + panelis\"))\n  model &lt;- aov(rumus, data = qda)\n  # baris pertama tabel ANOVA adalah efek 'produk'\n  summary(model)[[1]][[\"Pr(&gt;F)\"]][1]\n})\n\nhasil_anova &lt;- data.frame(\n  atribut     = atribut,\n  p_value     = signif(nilai_p, 3),\n  kesimpulan  = ifelse(nilai_p &lt; 0.05,\n                       \"Berbeda nyata\", \"Tidak berbeda nyata\")\n)\n\nhasil_anova\n\n\n  \n\n\n\n\nInilah temuan terpenting dari sebuah studi QDA. Atribut dengan nilai p kecil adalah atribut yang mampu membedakan produk — atribut inilah yang layak dibahas. Atribut dengan nilai p besar berarti kelima produk terasa sama pada atribut tersebut. Hasil “tidak berbeda nyata” bukan kegagalan praktikum: itu informasi yang sah, misalnya bahwa semua merek memakai tingkat penggaraman yang serupa.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#pca-memetakan-produk",
+    "href": "01_QDA-ANOVA-PCA_id.html#pca-memetakan-produk",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.8 PCA: Memetakan Produk",
+    "text": "2.8 PCA: Memetakan Produk\nKita sekarang punya 8 atribut. Membandingkan 5 produk pada 8 sumbu sekaligus sulit dilakukan di kepala. Principal Component Analysis (PCA) memampatkan 8 atribut itu menjadi dua atau tiga dimensi baru yang dapat digambar sebagai peta.\nGagasannya sederhana: atribut yang bergerak bersama-sama (misalnya produk yang renyah cenderung juga juicy) dianggap membawa informasi yang mirip, sehingga bisa diringkas menjadi satu sumbu.\n\n2.8.1 Menyiapkan Tabel Rata-rata\nPada QDA, PCA dilakukan terhadap tabel rata-rata produk × atribut — bukan terhadap 120 baris data mentah — karena yang ingin kita petakan adalah produknya, bukan panelisnya.\n\ntabel_pca &lt;- tabel_rata[, -1]              # buang kolom 'produk'\nrownames(tabel_pca) &lt;- tabel_rata$produk   # jadikan nama baris\nround(tabel_pca, 2)\n\n\n  \n\n\n\n\n\n2.8.2 Menjalankan PCA\n\nhasil_pca &lt;- PCA(tabel_pca, scale.unit = TRUE, graph = FALSE)\n\n\nMengapa scale.unit = TRUE? Perintah ini menstandarkan setiap atribut sehingga semuanya memiliki bobot yang sama. Tanpa itu, atribut yang kebetulan memiliki rentang nilai lebar akan mendominasi peta hanya karena satuannya, bukan karena informasinya lebih penting.\n\n\n\n2.8.3 Berapa Dimensi yang Perlu Dilihat?\n\nround(hasil_pca$eig, 2)\n\n       eigenvalue percentage of variance cumulative percentage of variance\ncomp 1       6.38                  79.76                             79.76\ncomp 2       1.28                  16.05                             95.81\ncomp 3       0.27                   3.43                             99.24\ncomp 4       0.06                   0.76                            100.00\n\n\n\nfviz_eig(hasil_pca, addlabels = TRUE,\n         barfill = \"steelblue\", barcolor = \"steelblue\") +\n  labs(title = \"Persentase Varians yang Dijelaskan Tiap Dimensi\",\n       x = \"Dimensi\", y = \"% varians\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\nKolom ketiga tabel eig adalah persentase kumulatif. Jika dua dimensi pertama sudah menjelaskan lebih dari ±70% keragaman, peta dua dimensi sudah cukup mewakili data.\n\n\n2.8.4 Peta Produk dan Atribut\n\nfviz_pca_biplot(hasil_pca,\n                repel = TRUE,\n                col.var = \"darkred\",   # warna panah atribut\n                col.ind = \"steelblue\", # warna titik produk\n                title = \"Peta Sensoris 5 Merek Nugget Ayam\")\n\n\n\n\n\n\n\n\nCara membaca biplot:\n\n\n\n\n\n\n\nYang Anda lihat\nArtinya\n\n\n\n\nTitik biru\nProduk. Dua produk yang berdekatan memiliki profil sensoris yang mirip\n\n\nPanah merah\nAtribut. Arah panah menunjukkan ke mana produk dengan intensitas tinggi pada atribut itu berada\n\n\nPanah panjang\nAtribut tersebut terwakili dengan baik pada peta ini\n\n\nDua panah searah\nKedua atribut berkorelasi positif\n\n\nDua panah berlawanan arah\nKedua atribut berkorelasi negatif\n\n\nPanah tegak lurus\nKedua atribut tidak berkorelasi\n\n\nProduk searah dengan panah\nProduk itu tinggi pada atribut tersebut\n\n\n\n\nThink-aloud (I Do): “Saya menafsirkan peta ini dari sumbunya terlebih dahulu, bukan dari titik produknya. Saya lihat atribut apa yang berada di ujung kanan Dimensi 1 dan apa yang di ujung kiri — dari situ saya beri nama sumbunya, misalnya ‘renyah dan juicy’ versus ‘keras dan kenyal’. Setelah sumbunya punya nama, posisi produk menjadi mudah dijelaskan dalam satu kalimat.”\n\nUntuk melihat sumbangan tiap atribut terhadap kedua dimensi secara angka:\n\nround(hasil_pca$var$coord[, 1:2], 2)\n\n             Dim.1 Dim.2\nkerenyahan    0.98  0.14\nkekerasan    -0.96 -0.16\nkejuisian     0.98  0.18\nkekenyalan   -0.96  0.23\ngurih         0.97  0.23\nasin         -0.27  0.94\naroma_ayam    0.99  0.12\naroma_rempah -0.78  0.44\n\n\nNilai ini disebut loading: makin mendekati +1 atau -1, makin kuat atribut tersebut menyusun dimensi yang bersangkutan.\n\nPeringatan penting. Peta PCA hanya meringkas rata-rata; ia tidak menguji apakah perbedaannya nyata. Dua produk bisa tampak berjauhan pada peta padahal ANOVA menyatakan mereka tidak berbeda. Karena itu, PCA selalu dibaca bersama tabel hasil ANOVA — bukan menggantikannya. Perhatikan juga bahwa atribut yang tidak nyata pada ANOVA tetap digambar sebagai panah pada peta, padahal panah itu hanya menggambarkan galat pengukuran.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#menyusun-kesimpulan",
+    "href": "01_QDA-ANOVA-PCA_id.html#menyusun-kesimpulan",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.9 Menyusun Kesimpulan",
+    "text": "2.9 Menyusun Kesimpulan\nSebuah kesimpulan QDA yang baik menggabungkan ketiga analisis tadi:\n\nANOVA \\(\\rightarrow\\) atribut mana yang mampu membedakan produk?\nUji lanjut \\(\\rightarrow\\) pada atribut tersebut, produk mana yang berbeda dari mana?\nPCA \\(\\rightarrow\\) bagaimana kelima produk tersusun secara keseluruhan, dan atribut apa yang menjelaskan susunan itu?\n\n\nLatihan menulis: Susun satu paragraf (4–6 kalimat) yang menjawab ketiga pertanyaan di atas untuk data nugget ini. Sebutkan nilai p dan notasi huruf sebagai pendukung, bukan sebagai isi utama kalimat.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#latihan-you-do",
+    "href": "01_QDA-ANOVA-PCA_id.html#latihan-you-do",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.10 Latihan (You Do)",
+    "text": "2.10 Latihan (You Do)\n\n2.10.1 Latihan 1: ANOVA dan Uji Lanjut Atribut Lain\n\nJalankan ANOVA untuk atribut aroma_ayam:\n\n\nmodel_aroma &lt;- aov(aroma_ayam ~ produk + panelis, data = qda)\nsummary(model_aroma)\n\n\nLakukan uji lanjut dan tampilkan notasi hurufnya:\n\n\nHSD.test(model_aroma, \"produk\", group = TRUE)$groups\n\n\nUlangi untuk asin. Apa yang Anda temukan pada tabel notasi hurufnya, dan mengapa hasilnya seperti itu?\n\n\n\n2.10.2 Latihan 2: Tabel Laporan\nBuat tabel rata-rata ± simpangan baku gurih untuk setiap produk:\n\nqda %&gt;%\n  group_by(produk) %&gt;%\n  summarise(rerata = round(mean(gurih), 2),\n            sd     = round(sd(gurih), 2))\n\nKemudian tambahkan notasi huruf dari uji lanjut ke dalam tabel tersebut secara manual, seperti format yang lazim dipakai pada laporan praktikum.\n\n\n2.10.3 Latihan 3: Challenges\n\nJalankan ulang PCA hanya menggunakan atribut yang berbeda nyata menurut ANOVA. Apakah posisi produk pada peta berubah? Apakah persentase varians Dimensi 1 naik atau turun? Mengapa?\n\n\natribut_nyata &lt;- hasil_anova$atribut[hasil_anova$p_value &lt; 0.05]\npca2 &lt;- PCA(tabel_pca[, atribut_nyata], scale.unit = TRUE, graph = FALSE)\nfviz_pca_biplot(pca2, repel = TRUE)\n\n\nTambahkan efek interaksi produk:panelis ke dalam model ANOVA untuk kerenyahan. Interaksi yang nyata menandakan panelis tidak sepakat dalam mengurutkan produk. Apakah panel ini sepakat?\n\n\nmodel_interaksi &lt;- aov(kerenyahan ~ produk + panelis + produk:panelis,\n                       data = qda)\nsummary(model_interaksi)\n\n\nBuat grafik profil garis (bukan boxplot) yang menampilkan rata-rata kelima produk pada kedelapan atribut sekaligus.\n\n\nqda_panjang %&gt;%\n  group_by(produk, atribut) %&gt;%\n  summarise(rerata = mean(intensitas), .groups = \"drop\") %&gt;%\n  ggplot(aes(x = atribut, y = rerata, group = produk, color = produk)) +\n  geom_line(linewidth = 1) +\n  geom_point(size = 2) +\n  labs(x = NULL, y = \"Intensitas rata-rata (0-15)\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  },
+  {
+    "objectID": "01_QDA-ANOVA-PCA_id.html#ringkasan",
+    "href": "01_QDA-ANOVA-PCA_id.html#ringkasan",
+    "title": "2  Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA",
+    "section": "2.11 Ringkasan",
+    "text": "2.11 Ringkasan\nDalam sesi ini kita telah mempelajari:\n- Struktur data QDA: panelis × produk × replikasi × atribut dalam format panjang\n- ANOVA dengan aov(atribut ~ produk + panelis) dan alasan memasukkan panelis ke dalam model\n- Membaca nilai p untuk menentukan atribut mana yang mampu membedakan produk\n- Uji lanjut Tukey dengan TukeyHSD() dan notasi huruf dengan HSD.test()\n- Menjalankan ANOVA untuk semua atribut sekaligus menggunakan sapply()\n- PCA pada tabel rata-rata produk × atribut dengan PCA() dan menafsirkan biplot\n- Bahwa PCA meringkas, sedangkan ANOVA menguji — keduanya saling melengkapi\nBacaan lanjutan. Bagi yang ingin mendalami, buku Analyzing Sensory Data with R (Lê & Worch, CRC Press, 2015) membahas topik ini jauh lebih dalam, termasuk penilaian kinerja panel dan panelis serta penambahan elips kepercayaan pada peta produk melalui paket SensoMineR.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
+    ]
+  }
+]

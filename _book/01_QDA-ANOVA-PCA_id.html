@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="id" xml:lang="id"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
+<meta name="dcterms.date" content="2026-09-10">
+
+<title>2&nbsp; Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA – Praktikum Uji Sensoris dengan R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./00_r-basics-sensori_id.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ca13f3598d766c34924b4e560fa18cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tidak ada hasil",
+    "search-matching-documents-text": "dokumen cocok",
+    "search-copy-link-title": "Salin tautan untuk mencari",
+    "search-hide-matches-text": "Sembunyikan kecocokan lainnya",
+    "search-more-match-text": "kecocokan lainnya di dokumen ini",
+    "search-more-matches-text": "kecocokan lainnya di dokumen ini",
+    "search-clear-button-title": "Hapus",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Batal",
+    "search-submit-button-title": "Kirim",
+    "search-label": "Mencari"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_QDA-ANOVA-PCA_id.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Mencari" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Praktikum Uji Sensoris dengan R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP" title="Kode Sumber" class="quarto-navigation-tool px-1" aria-label="Kode Sumber"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Mencari"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selamat Datang</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_r-basics-sensori_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Isi halaman</h2>
+   
+  <ul>
+  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</a></li>
+  <li><a href="#sekilas-tentang-qda" id="toc-sekilas-tentang-qda" class="nav-link" data-scroll-target="#sekilas-tentang-qda"><span class="header-section-number">2.2</span> Sekilas tentang QDA</a></li>
+  <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">2.3</span> Memuat Data</a></li>
+  <li><a href="#eksplorasi-awal" id="toc-eksplorasi-awal" class="nav-link" data-scroll-target="#eksplorasi-awal"><span class="header-section-number">2.4</span> Eksplorasi Awal</a></li>
+  <li><a href="#anova-untuk-satu-atribut" id="toc-anova-untuk-satu-atribut" class="nav-link" data-scroll-target="#anova-untuk-satu-atribut"><span class="header-section-number">2.5</span> ANOVA untuk Satu Atribut</a>
+  <ul class="collapse">
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">2.5.1</span> <em>Hinge Question</em></a></li>
+  </ul></li>
+  <li><a href="#uji-lanjut-post-hoc" id="toc-uji-lanjut-post-hoc" class="nav-link" data-scroll-target="#uji-lanjut-post-hoc"><span class="header-section-number">2.6</span> Uji Lanjut (<em>Post-hoc</em>)</a>
+  <ul class="collapse">
+  <li><a href="#tukey-hsd" id="toc-tukey-hsd" class="nav-link" data-scroll-target="#tukey-hsd"><span class="header-section-number">2.6.1</span> Tukey HSD</a></li>
+  <li><a href="#notasi-huruf" id="toc-notasi-huruf" class="nav-link" data-scroll-target="#notasi-huruf"><span class="header-section-number">2.6.2</span> Notasi Huruf</a></li>
+  </ul></li>
+  <li><a href="#anova-untuk-semua-atribut-sekaligus" id="toc-anova-untuk-semua-atribut-sekaligus" class="nav-link" data-scroll-target="#anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">2.7</span> ANOVA untuk Semua Atribut Sekaligus</a></li>
+  <li><a href="#pca-memetakan-produk" id="toc-pca-memetakan-produk" class="nav-link" data-scroll-target="#pca-memetakan-produk"><span class="header-section-number">2.8</span> PCA: Memetakan Produk</a>
+  <ul class="collapse">
+  <li><a href="#menyiapkan-tabel-rata-rata" id="toc-menyiapkan-tabel-rata-rata" class="nav-link" data-scroll-target="#menyiapkan-tabel-rata-rata"><span class="header-section-number">2.8.1</span> Menyiapkan Tabel Rata-rata</a></li>
+  <li><a href="#menjalankan-pca" id="toc-menjalankan-pca" class="nav-link" data-scroll-target="#menjalankan-pca"><span class="header-section-number">2.8.2</span> Menjalankan PCA</a></li>
+  <li><a href="#berapa-dimensi-yang-perlu-dilihat" id="toc-berapa-dimensi-yang-perlu-dilihat" class="nav-link" data-scroll-target="#berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">2.8.3</span> Berapa Dimensi yang Perlu Dilihat?</a></li>
+  <li><a href="#peta-produk-dan-atribut" id="toc-peta-produk-dan-atribut" class="nav-link" data-scroll-target="#peta-produk-dan-atribut"><span class="header-section-number">2.8.4</span> Peta Produk dan Atribut</a></li>
+  </ul></li>
+  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">2.9</span> Menyusun Kesimpulan</a></li>
+  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">2.10</span> Latihan (You Do)</a>
+  <ul class="collapse">
+  <li><a href="#latihan-1-anova-dan-uji-lanjut-atribut-lain" id="toc-latihan-1-anova-dan-uji-lanjut-atribut-lain" class="nav-link" data-scroll-target="#latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">2.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</a></li>
+  <li><a href="#latihan-2-tabel-laporan" id="toc-latihan-2-tabel-laporan" class="nav-link" data-scroll-target="#latihan-2-tabel-laporan"><span class="header-section-number">2.10.2</span> Latihan 2: Tabel Laporan</a></li>
+  <li><a href="#latihan-3-challenges" id="toc-latihan-3-challenges" class="nav-link" data-scroll-target="#latihan-3-challenges"><span class="header-section-number">2.10.3</span> Latihan 3: <em>Challenges</em></a></li>
+  </ul></li>
+  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">2.11</span> Ringkasan</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/01_QDA-ANOVA-PCA_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></h1>
+<p class="subtitle lead">Membandingkan profil tekstur dan flavour antar produk</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Penulis</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tim Pengampu Praktikum Uji Sensoris </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Diterbitkan</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">10 September 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="tujuan-pembelajaran" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</h2>
+<p>Setelah sesi ini, mahasiswa akan mampu:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mengetahui</th>
+<th>Memahami</th>
+<th>Melakukan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Struktur data QDA: panelis × produk × replikasi × atribut</td>
+<td>ANOVA menjawab “apakah produk berbeda?”, uji lanjut menjawab “produk mana yang berbeda?”</td>
+<td>Menjalankan ANOVA dengan <code>aov()</code> untuk satu atribut</td>
+</tr>
+<tr class="even">
+<td>Arti nilai <em>p</em> dan taraf nyata <span class="math inline">\(\alpha\)</span> = 0,05</td>
+<td>Mengapa panelis dimasukkan ke dalam model ANOVA</td>
+<td>Melakukan uji lanjut Tukey dengan <code>TukeyHSD()</code> dan <code>HSD.test()</code></td>
+</tr>
+<tr class="odd">
+<td>Konsep dasar PCA: mengubah banyak atribut menjadi sedikit dimensi</td>
+<td>Tidak semua atribut mampu membedakan produk</td>
+<td>Membuat peta produk dengan <code>PCA()</code> dan <code>fviz_pca_biplot()</code></td>
+</tr>
+<tr class="even">
+<td>Istilah <em>loading</em>, <em>dimensi</em>, dan % varians</td>
+<td></td>
+<td>Menafsirkan sumbu PCA menggunakan atribut yang menyusunnya</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sekilas-tentang-qda" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sekilas-tentang-qda"><span class="header-section-number">2.2</span> Sekilas tentang QDA</h2>
+<p><strong>Quantitative Descriptive Analysis (QDA)</strong> adalah metode di mana sekelompok <strong>panelis terlatih</strong> menilai <strong>intensitas</strong> atribut sensoris suatu produk — bukan kesukaannya. Panelis terlatih berperan seperti instrumen ukur: mereka dilatih hingga memberikan angka yang konsisten untuk konsep yang sama.</p>
+<p>Data yang akan kita gunakan berasal dari uji QDA terhadap <strong>5 merek nugget ayam</strong> (A, B, C, D, E) oleh <strong>12 panelis terlatih</strong> dengan <strong>2 kali replikasi</strong>. Setiap panelis menilai 8 atribut pada <strong>skala garis 0–15</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kelompok</th>
+<th>Atribut</th>
+<th>Definisi singkat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tekstur</td>
+<td><code>kerenyahan</code></td>
+<td>Bunyi dan rasa renyah lapisan luar pada gigitan pertama</td>
+</tr>
+<tr class="even">
+<td>Tekstur</td>
+<td><code>kekerasan</code></td>
+<td>Gaya yang dibutuhkan untuk menggigit sampai putus</td>
+</tr>
+<tr class="odd">
+<td>Tekstur</td>
+<td><code>kejuisian</code></td>
+<td>Banyaknya cairan yang keluar saat dikunyah</td>
+</tr>
+<tr class="even">
+<td>Tekstur</td>
+<td><code>kekenyalan</code></td>
+<td>Kemampuan sampel kembali ke bentuk semula setelah ditekan</td>
+</tr>
+<tr class="odd">
+<td>Flavour</td>
+<td><code>gurih</code></td>
+<td>Intensitas rasa gurih/umami</td>
+</tr>
+<tr class="even">
+<td>Flavour</td>
+<td><code>asin</code></td>
+<td>Intensitas rasa asin</td>
+</tr>
+<tr class="odd">
+<td>Flavour</td>
+<td><code>aroma_ayam</code></td>
+<td>Intensitas aroma daging ayam</td>
+</tr>
+<tr class="even">
+<td>Flavour</td>
+<td><code>aroma_rempah</code></td>
+<td>Intensitas aroma bumbu (bawang, merica)</td>
+</tr>
+</tbody>
+</table>
+<p>Total baris data: 12 panelis × 5 produk × 2 replikasi = <strong>120 baris</strong>.</p>
+<p>Data tersimpan pada file <code>qda_nugget.xlsx</code>, lembar <strong>Data</strong>. Lembar <strong>Keterangan</strong> pada file yang sama memuat definisi setiap kolom. Jika Anda ingin menginput data hasil praktikum kelompok Anda sendiri, gunakan <code>template_input_qda.xlsx</code> yang formatnya sudah sesuai — cukup hapus baris contoh berwarna kuning, isi datanya, lalu ganti nama file pada perintah <code>read_excel()</code> di bawah.</p>
+</section>
+<section id="memuat-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="memuat-data"><span class="header-section-number">2.3</span> Memuat Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qda <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_excel</span>(<span class="st">"assets/data/qda_nugget.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Data"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Kolom kategorikal harus berupa factor</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>qda<span class="sc">$</span>panelis   <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(qda<span class="sc">$</span>panelis)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>qda<span class="sc">$</span>produk    <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(qda<span class="sc">$</span>produk)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>qda<span class="sc">$</span>replikasi <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(qda<span class="sc">$</span>replikasi)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(qda)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   120 obs. of  11 variables:
+ $ panelis     : Factor w/ 12 levels "P01","P02","P03",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ produk      : Factor w/ 5 levels "A","B","C","D",..: 1 1 2 2 3 3 4 4 5 5 ...
+ $ replikasi   : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+ $ kerenyahan  : num  10.9 12.8 8.3 12.6 9.8 8.9 5.1 6.1 8.7 7.6 ...
+ $ kekerasan   : num  7.1 7.3 9.4 7.8 10.9 9.4 12.6 11.5 8.9 7.8 ...
+ $ kejuisian   : num  8.9 9.1 9.5 7.8 4 2.6 2.1 3.6 5.6 5.1 ...
+ $ kekenyalan  : num  7.5 6.9 8.5 9.4 11.8 11.5 10.6 10.3 12.4 12.6 ...
+ $ gurih       : num  12.7 11.6 12 9.8 8.6 7.4 6.3 6.7 9.3 10.2 ...
+ $ asin        : num  8.5 6.2 8.5 10 8.2 8 9.1 7.5 8.2 9.1 ...
+ $ aroma_ayam  : num  8.7 11.2 9.8 12.1 7.5 4.9 4 5.9 9.4 7.7 ...
+ $ aroma_rempah: num  8.3 5.7 9.7 8.1 9.1 7.7 8 7.9 5.6 5.2 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(qda)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["panelis"],"name":[1],"type":["fct"],"align":["left"]},{"label":["produk"],"name":[2],"type":["fct"],"align":["left"]},{"label":["replikasi"],"name":[3],"type":["fct"],"align":["left"]},{"label":["kerenyahan"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["kekerasan"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["kejuisian"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["kekenyalan"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["gurih"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["asin"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["aroma_ayam"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["aroma_rempah"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"P01","2":"A","3":"1","4":"10.9","5":"7.1","6":"8.9","7":"7.5","8":"12.7","9":"8.5","10":"8.7","11":"8.3","_rn_":"1"},{"1":"P01","2":"A","3":"2","4":"12.8","5":"7.3","6":"9.1","7":"6.9","8":"11.6","9":"6.2","10":"11.2","11":"5.7","_rn_":"2"},{"1":"P01","2":"B","3":"1","4":"8.3","5":"9.4","6":"9.5","7":"8.5","8":"12.0","9":"8.5","10":"9.8","11":"9.7","_rn_":"3"},{"1":"P01","2":"B","3":"2","4":"12.6","5":"7.8","6":"7.8","7":"9.4","8":"9.8","9":"10.0","10":"12.1","11":"8.1","_rn_":"4"},{"1":"P01","2":"C","3":"1","4":"9.8","5":"10.9","6":"4.0","7":"11.8","8":"8.6","9":"8.2","10":"7.5","11":"9.1","_rn_":"5"},{"1":"P01","2":"C","3":"2","4":"8.9","5":"9.4","6":"2.6","7":"11.5","8":"7.4","9":"8.0","10":"4.9","11":"7.7","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Think-aloud (I Do):</strong> “Sebelum menganalisis apa pun, saya memeriksa apakah rancangannya lengkap. Saya jalankan <code>table(qda$panelis, qda$produk)</code> — kalau semua selnya berisi 2, artinya setiap panelis menilai setiap produk sebanyak dua kali. Rancangan yang lengkap dan seimbang membuat ANOVA jauh lebih mudah ditafsirkan.”</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(qda<span class="sc">$</span>panelis, qda<span class="sc">$</span>produk)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     
+      A B C D E
+  P01 2 2 2 2 2
+  P02 2 2 2 2 2
+  P03 2 2 2 2 2
+  P04 2 2 2 2 2
+  P05 2 2 2 2 2
+  P06 2 2 2 2 2
+  P07 2 2 2 2 2
+  P08 2 2 2 2 2
+  P09 2 2 2 2 2
+  P10 2 2 2 2 2
+  P11 2 2 2 2 2
+  P12 2 2 2 2 2</code></pre>
+</div>
+</div>
+</section>
+<section id="eksplorasi-awal" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="eksplorasi-awal"><span class="header-section-number">2.4</span> Eksplorasi Awal</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rata-rata setiap atribut untuk setiap produk</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tabel_rata <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(kerenyahan, kekerasan, kejuisian, kekenyalan,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                              gurih, asin, aroma_ayam, aroma_rempah) <span class="sc">~</span> produk,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> qda, <span class="at">FUN =</span> mean)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>tabel_rata_bulat <span class="ot">&lt;-</span> tabel_rata</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>tabel_rata_bulat[, <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(tabel_rata_bulat[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>tabel_rata_bulat</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["produk"],"name":[1],"type":["fct"],"align":["left"]},{"label":["kerenyahan"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kekerasan"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["kejuisian"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["kekenyalan"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["gurih"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["asin"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["aroma_ayam"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["aroma_rempah"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"A","2":"11.78","3":"6.57","4":"9.44","5":"7.34","6":"10.65","7":"7.96","8":"11.42","9":"6.61"},{"1":"B","2":"11.28","3":"7.35","4":"8.93","5":"8.41","6":"10.47","7":"8.38","8":"10.57","9":"6.98"},{"1":"C","2":"7.68","3":"8.69","4":"5.88","5":"9.46","6":"7.76","7":"8.22","8":"7.79","9":"7.06"},{"1":"D","2":"6.60","3":"10.45","4":"4.28","5":"9.88","6":"6.41","7":"8.17","8":"5.82","9":"7.01"},{"1":"E","2":"9.18","3":"7.79","4":"7.28","5":"9.39","6":"8.98","7":"8.40","8":"8.74","9":"6.83"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Untuk membuat grafik semua atribut sekaligus, data perlu diubah ke format <strong>panjang</strong> — satu baris untuk satu kombinasi produk × atribut × panelis:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>qda_panjang <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(qda,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">cols =</span> kerenyahan<span class="sc">:</span>aroma_rempah,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">names_to =</span> <span class="st">"atribut"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">values_to =</span> <span class="st">"intensitas"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(qda_panjang)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["panelis"],"name":[1],"type":["fct"],"align":["left"]},{"label":["produk"],"name":[2],"type":["fct"],"align":["left"]},{"label":["replikasi"],"name":[3],"type":["fct"],"align":["left"]},{"label":["atribut"],"name":[4],"type":["chr"],"align":["left"]},{"label":["intensitas"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"P01","2":"A","3":"1","4":"kerenyahan","5":"10.9"},{"1":"P01","2":"A","3":"1","4":"kekerasan","5":"7.1"},{"1":"P01","2":"A","3":"1","4":"kejuisian","5":"8.9"},{"1":"P01","2":"A","3":"1","4":"kekenyalan","5":"7.5"},{"1":"P01","2":"A","3":"1","4":"gurih","5":"12.7"},{"1":"P01","2":"A","3":"1","4":"asin","5":"8.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(qda_panjang, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> intensitas, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> atribut, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Profil Sensoris 5 Merek Nugget Ayam"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Produk"</span>, <span class="at">y =</span> <span class="st">"Intensitas (skala 0-15)"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_QDA-ANOVA-PCA_id_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Amati grafik ini sebelum menghitung apa pun.</strong> Pada atribut mana kotak-kotaknya jelas terpisah antar produk? Pada atribut mana kotak-kotaknya bertumpuk? Dugaan Anda dari grafik akan kita uji dengan ANOVA di bagian berikutnya.</p>
+</blockquote>
+</section>
+<section id="anova-untuk-satu-atribut" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="anova-untuk-satu-atribut"><span class="header-section-number">2.5</span> ANOVA untuk Satu Atribut</h2>
+<p>Pertanyaannya: <strong>apakah kelima produk berbeda nyata dalam kerenyahan?</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span> (hipotesis nol): rata-rata kerenyahan kelima produk <strong>sama</strong></li>
+<li><span class="math inline">\(H_1\)</span> (hipotesis alternatif): <strong>paling tidak ada satu</strong> produk yang berbeda</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_renyah <span class="ot">&lt;-</span> <span class="fu">aov</span>(kerenyahan <span class="sc">~</span> produk <span class="sc">+</span> panelis, <span class="at">data =</span> qda)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_renyah)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+produk        4  479.1  119.78  77.855  &lt; 2e-16 ***
+panelis      11  127.9   11.63   7.559 1.99e-09 ***
+Residuals   104  160.0    1.54                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Cara membacanya:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kolom</th>
+<th>Arti</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Df</code></td>
+<td>Derajat bebas. Untuk 5 produk <span class="math inline">\(\rightarrow\)</span> 5 - 1 = 4</td>
+</tr>
+<tr class="even">
+<td><code>F value</code></td>
+<td>Rasio keragaman antar produk terhadap keragaman sisa. Makin besar, makin kuat bukti adanya perbedaan</td>
+</tr>
+<tr class="odd">
+<td><code>Pr(&gt;F)</code></td>
+<td>Nilai <em>p</em>. <strong>Inilah yang kita baca.</strong> Jika &lt; 0,05 <span class="math inline">\(\rightarrow\)</span> tolak <span class="math inline">\(H_0\)</span></td>
+</tr>
+<tr class="even">
+<td><code>***</code></td>
+<td>Penanda tingkat signifikansi (<code>***</code> = p &lt; 0,001)</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Mengapa <code>panelis</code> ikut dimasukkan ke dalam model?</strong> Setiap panelis punya kebiasaan menggunakan skala secara berbeda — ada yang cenderung memberi nilai tinggi, ada yang pelit. Perbedaan itu bukan efek produk, tetapi tetap menambah keragaman data. Dengan menuliskan <code>+ panelis</code>, keragaman antar panelis “dikeluarkan” dari sisa (<em>residual</em>), sehingga uji terhadap efek produk menjadi lebih peka. Ini adalah gagasan yang sama dengan rancangan acak kelompok (RAK), dengan panelis sebagai kelompok.</p>
+</blockquote>
+<section id="hinge-question" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">2.5.1</span> <em>Hinge Question</em></h3>
+<blockquote class="blockquote">
+<p><strong>Sebelum melanjutkan, jawablah:</strong> Hasil ANOVA menunjukkan nilai <em>p</em> untuk <code>produk</code> sebesar 2e-16. Apa kesimpulan yang benar?</p>
+<ol type="A">
+<li>Kelima produk berbeda nyata satu sama lain<br>
+</li>
+<li>Paling tidak ada satu produk yang berbeda nyata dari yang lain, tetapi kita belum tahu yang mana<br>
+</li>
+<li>Produk A adalah yang paling renyah<br>
+</li>
+<li>Panelis menilai dengan tidak konsisten</li>
+</ol>
+<p><strong>Jawaban: B.</strong> ANOVA hanya menjawab “apakah ada perbedaan”, bukan “produk mana yang berbeda”. Untuk itu kita memerlukan <strong>uji lanjut</strong>.</p>
+</blockquote>
+</section>
+</section>
+<section id="uji-lanjut-post-hoc" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="uji-lanjut-post-hoc"><span class="header-section-number">2.6</span> Uji Lanjut (<em>Post-hoc</em>)</h2>
+<section id="tukey-hsd" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="tukey-hsd"><span class="header-section-number">2.6.1</span> Tukey HSD</h3>
+<p>Uji Tukey membandingkan <strong>semua pasangan produk</strong>, sambil mengendalikan peluang salah menyimpulkan akibat banyaknya perbandingan.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tukey_renyah <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(model_renyah, <span class="at">which =</span> <span class="st">"produk"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tukey_renyah</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = kerenyahan ~ produk + panelis, data = qda)
+
+$produk
+          diff        lwr         upr     p adj
+B-A -0.5083333 -1.5023904  0.48572372 0.6164750
+C-A -4.1000000 -5.0940571 -3.10594294 0.0000000
+D-A -5.1791667 -6.1732237 -4.18510961 0.0000000
+E-A -2.6041667 -3.5982237 -1.61010961 0.0000000
+C-B -3.5916667 -4.5857237 -2.59760961 0.0000000
+D-B -4.6708333 -5.6648904 -3.67677628 0.0000000
+E-B -2.0958333 -3.0898904 -1.10177628 0.0000006
+D-C -1.0791667 -2.0732237 -0.08510961 0.0262983
+E-C  1.4958333  0.5017763  2.48989039 0.0005788
+E-D  2.5750000  1.5809429  3.56905706 0.0000000</code></pre>
+</div>
+</div>
+<p>Setiap baris adalah satu pasangan produk. Kolom <code>p adj</code> adalah nilai <em>p</em> yang sudah dikoreksi: jika &lt; 0,05, kedua produk itu berbeda nyata.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tukey_renyah, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_QDA-ANOVA-PCA_id_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Cara membaca grafik ini:</strong> setiap garis adalah selang kepercayaan untuk selisih rata-rata sepasang produk. Jika garisnya <strong>memotong angka nol</strong> (garis putus-putus), kedua produk tersebut <strong>tidak</strong> berbeda nyata.</p>
+</blockquote>
+</section>
+<section id="notasi-huruf" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="notasi-huruf"><span class="header-section-number">2.6.2</span> Notasi Huruf</h3>
+<p>Untuk laporan praktikum, hasil uji lanjut biasanya disajikan sebagai notasi huruf: produk dengan huruf yang sama berarti tidak berbeda nyata.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hsd_renyah <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(model_renyah, <span class="st">"produk"</span>, <span class="at">group =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>hsd_renyah<span class="sc">$</span>groups</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["kerenyahan"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["groups"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"11.783333","2":"a","_rn_":"A"},{"1":"11.275000","2":"a","_rn_":"B"},{"1":"9.179167","2":"b","_rn_":"E"},{"1":"7.683333","2":"c","_rn_":"C"},{"1":"6.604167","2":"d","_rn_":"D"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Think-aloud (I Do):</strong> “Saya membaca tabel ini dari atas ke bawah — produk sudah diurutkan dari rata-rata tertinggi. Produk yang berbagi huruf yang sama tidak berbeda nyata. Inilah bentuk yang saya salin ke tabel laporan, dengan huruf ditulis sebagai superskrip di belakang nilai rata-rata ± simpangan baku.”</p>
+</blockquote>
+</section>
+</section>
+<section id="anova-untuk-semua-atribut-sekaligus" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">2.7</span> ANOVA untuk Semua Atribut Sekaligus</h2>
+<p>Mengulang kode di atas delapan kali akan melelahkan dan rawan salah salin. Kita bisa membuat R melakukannya secara otomatis:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>atribut <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"kerenyahan"</span>, <span class="st">"kekerasan"</span>, <span class="st">"kejuisian"</span>, <span class="st">"kekenyalan"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">"gurih"</span>, <span class="st">"asin"</span>, <span class="st">"aroma_ayam"</span>, <span class="st">"aroma_rempah"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>nilai_p <span class="ot">&lt;-</span> <span class="fu">sapply</span>(atribut, <span class="cf">function</span>(a) {</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  rumus <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste</span>(a, <span class="st">"~ produk + panelis"</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">aov</span>(rumus, <span class="at">data =</span> qda)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># baris pertama tabel ANOVA adalah efek 'produk'</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(model)[[<span class="dv">1</span>]][[<span class="st">"Pr(&gt;F)"</span>]][<span class="dv">1</span>]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>hasil_anova <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">atribut     =</span> atribut,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value     =</span> <span class="fu">signif</span>(nilai_p, <span class="dv">3</span>),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">kesimpulan  =</span> <span class="fu">ifelse</span>(nilai_p <span class="sc">&lt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Berbeda nyata"</span>, <span class="st">"Tidak berbeda nyata"</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>hasil_anova</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["atribut"],"name":[1],"type":["chr"],"align":["left"]},{"label":["p_value"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kesimpulan"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"kerenyahan","2":"2.12e-30","3":"Berbeda nyata","_rn_":"kerenyahan"},{"1":"kekerasan","2":"9.25e-24","3":"Berbeda nyata","_rn_":"kekerasan"},{"1":"kejuisian","2":"2.42e-35","3":"Berbeda nyata","_rn_":"kejuisian"},{"1":"kekenyalan","2":"7.47e-13","3":"Berbeda nyata","_rn_":"kekenyalan"},{"1":"gurih","2":"6.00e-27","3":"Berbeda nyata","_rn_":"gurih"},{"1":"asin","2":"5.96e-01","3":"Tidak berbeda nyata","_rn_":"asin"},{"1":"aroma_ayam","2":"6.69e-33","3":"Berbeda nyata","_rn_":"aroma_ayam"},{"1":"aroma_rempah","2":"6.24e-01","3":"Tidak berbeda nyata","_rn_":"aroma_rempah"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Inilah temuan terpenting dari sebuah studi QDA.</strong> Atribut dengan nilai <em>p</em> kecil adalah atribut yang <strong>mampu membedakan</strong> produk — atribut inilah yang layak dibahas. Atribut dengan nilai <em>p</em> besar berarti kelima produk terasa sama pada atribut tersebut. Hasil “tidak berbeda nyata” bukan kegagalan praktikum: itu informasi yang sah, misalnya bahwa semua merek memakai tingkat penggaraman yang serupa.</p>
+</blockquote>
+</section>
+<section id="pca-memetakan-produk" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="pca-memetakan-produk"><span class="header-section-number">2.8</span> PCA: Memetakan Produk</h2>
+<p>Kita sekarang punya 8 atribut. Membandingkan 5 produk pada 8 sumbu sekaligus sulit dilakukan di kepala. <strong>Principal Component Analysis (PCA)</strong> memampatkan 8 atribut itu menjadi dua atau tiga dimensi baru yang dapat digambar sebagai peta.</p>
+<p>Gagasannya sederhana: atribut yang bergerak bersama-sama (misalnya produk yang renyah cenderung juga juicy) dianggap membawa informasi yang mirip, sehingga bisa diringkas menjadi satu sumbu.</p>
+<section id="menyiapkan-tabel-rata-rata" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="menyiapkan-tabel-rata-rata"><span class="header-section-number">2.8.1</span> Menyiapkan Tabel Rata-rata</h3>
+<p>Pada QDA, PCA dilakukan terhadap <strong>tabel rata-rata produk × atribut</strong> — bukan terhadap 120 baris data mentah — karena yang ingin kita petakan adalah produknya, bukan panelisnya.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tabel_pca <span class="ot">&lt;-</span> tabel_rata[, <span class="sc">-</span><span class="dv">1</span>]              <span class="co"># buang kolom 'produk'</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tabel_pca) <span class="ot">&lt;-</span> tabel_rata<span class="sc">$</span>produk   <span class="co"># jadikan nama baris</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(tabel_pca, <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["kerenyahan"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["kekerasan"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kejuisian"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["kekenyalan"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["gurih"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["asin"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["aroma_ayam"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["aroma_rempah"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"11.78","2":"6.57","3":"9.44","4":"7.34","5":"10.65","6":"7.96","7":"11.42","8":"6.61","_rn_":"A"},{"1":"11.28","2":"7.35","3":"8.93","4":"8.41","5":"10.47","6":"8.38","7":"10.57","8":"6.98","_rn_":"B"},{"1":"7.68","2":"8.69","3":"5.88","4":"9.46","5":"7.76","6":"8.22","7":"7.79","8":"7.06","_rn_":"C"},{"1":"6.60","2":"10.45","3":"4.28","4":"9.88","5":"6.41","6":"8.17","7":"5.82","8":"7.01","_rn_":"D"},{"1":"9.18","2":"7.79","3":"7.28","4":"9.39","5":"8.98","6":"8.40","7":"8.74","8":"6.83","_rn_":"E"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="menjalankan-pca" class="level3" data-number="2.8.2">
+<h3 data-number="2.8.2" class="anchored" data-anchor-id="menjalankan-pca"><span class="header-section-number">2.8.2</span> Menjalankan PCA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hasil_pca <span class="ot">&lt;-</span> <span class="fu">PCA</span>(tabel_pca, <span class="at">scale.unit =</span> <span class="cn">TRUE</span>, <span class="at">graph =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Mengapa <code>scale.unit = TRUE</code>?</strong> Perintah ini menstandarkan setiap atribut sehingga semuanya memiliki bobot yang sama. Tanpa itu, atribut yang kebetulan memiliki rentang nilai lebar akan mendominasi peta hanya karena satuannya, bukan karena informasinya lebih penting.</p>
+</blockquote>
+</section>
+<section id="berapa-dimensi-yang-perlu-dilihat" class="level3" data-number="2.8.3">
+<h3 data-number="2.8.3" class="anchored" data-anchor-id="berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">2.8.3</span> Berapa Dimensi yang Perlu Dilihat?</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(hasil_pca<span class="sc">$</span>eig, <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       eigenvalue percentage of variance cumulative percentage of variance
+comp 1       6.38                  79.76                             79.76
+comp 2       1.28                  16.05                             95.81
+comp 3       0.27                   3.43                             99.24
+comp 4       0.06                   0.76                            100.00</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_eig</span>(hasil_pca, <span class="at">addlabels =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">barfill =</span> <span class="st">"steelblue"</span>, <span class="at">barcolor =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Persentase Varians yang Dijelaskan Tiap Dimensi"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dimensi"</span>, <span class="at">y =</span> <span class="st">"% varians"</span>) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_QDA-ANOVA-PCA_id_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kolom ketiga tabel <code>eig</code> adalah persentase kumulatif. Jika dua dimensi pertama sudah menjelaskan lebih dari ±70% keragaman, peta dua dimensi sudah cukup mewakili data.</p>
+</section>
+<section id="peta-produk-dan-atribut" class="level3" data-number="2.8.4">
+<h3 data-number="2.8.4" class="anchored" data-anchor-id="peta-produk-dan-atribut"><span class="header-section-number">2.8.4</span> Peta Produk dan Atribut</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(hasil_pca,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"darkred"</span>,   <span class="co"># warna panah atribut</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>, <span class="co"># warna titik produk</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"Peta Sensoris 5 Merek Nugget Ayam"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_QDA-ANOVA-PCA_id_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cara membaca <em>biplot</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Yang Anda lihat</th>
+<th>Artinya</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Titik biru</strong></td>
+<td>Produk. Dua produk yang berdekatan memiliki profil sensoris yang mirip</td>
+</tr>
+<tr class="even">
+<td><strong>Panah merah</strong></td>
+<td>Atribut. Arah panah menunjukkan ke mana produk dengan intensitas tinggi pada atribut itu berada</td>
+</tr>
+<tr class="odd">
+<td><strong>Panah panjang</strong></td>
+<td>Atribut tersebut terwakili dengan baik pada peta ini</td>
+</tr>
+<tr class="even">
+<td><strong>Dua panah searah</strong></td>
+<td>Kedua atribut berkorelasi positif</td>
+</tr>
+<tr class="odd">
+<td><strong>Dua panah berlawanan arah</strong></td>
+<td>Kedua atribut berkorelasi negatif</td>
+</tr>
+<tr class="even">
+<td><strong>Panah tegak lurus</strong></td>
+<td>Kedua atribut tidak berkorelasi</td>
+</tr>
+<tr class="odd">
+<td><strong>Produk searah dengan panah</strong></td>
+<td>Produk itu tinggi pada atribut tersebut</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Think-aloud (I Do):</strong> “Saya menafsirkan peta ini dari sumbunya terlebih dahulu, bukan dari titik produknya. Saya lihat atribut apa yang berada di ujung kanan Dimensi 1 dan apa yang di ujung kiri — dari situ saya beri nama sumbunya, misalnya ‘renyah dan juicy’ versus ‘keras dan kenyal’. Setelah sumbunya punya nama, posisi produk menjadi mudah dijelaskan dalam satu kalimat.”</p>
+</blockquote>
+<p>Untuk melihat sumbangan tiap atribut terhadap kedua dimensi secara angka:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(hasil_pca<span class="sc">$</span>var<span class="sc">$</span>coord[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Dim.1 Dim.2
+kerenyahan    0.98  0.14
+kekerasan    -0.96 -0.16
+kejuisian     0.98  0.18
+kekenyalan   -0.96  0.23
+gurih         0.97  0.23
+asin         -0.27  0.94
+aroma_ayam    0.99  0.12
+aroma_rempah -0.78  0.44</code></pre>
+</div>
+</div>
+<p>Nilai ini disebut <em>loading</em>: makin mendekati +1 atau -1, makin kuat atribut tersebut menyusun dimensi yang bersangkutan.</p>
+<blockquote class="blockquote">
+<p><strong>Peringatan penting.</strong> Peta PCA hanya meringkas rata-rata; ia <strong>tidak menguji</strong> apakah perbedaannya nyata. Dua produk bisa tampak berjauhan pada peta padahal ANOVA menyatakan mereka tidak berbeda. Karena itu, PCA selalu dibaca <strong>bersama</strong> tabel hasil ANOVA — bukan menggantikannya. Perhatikan juga bahwa atribut yang tidak nyata pada ANOVA tetap digambar sebagai panah pada peta, padahal panah itu hanya menggambarkan galat pengukuran.</p>
+</blockquote>
+</section>
+</section>
+<section id="menyusun-kesimpulan" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">2.9</span> Menyusun Kesimpulan</h2>
+<p>Sebuah kesimpulan QDA yang baik menggabungkan ketiga analisis tadi:</p>
+<ol type="1">
+<li><strong>ANOVA</strong> <span class="math inline">\(\rightarrow\)</span> atribut mana yang mampu membedakan produk?</li>
+<li><strong>Uji lanjut</strong> <span class="math inline">\(\rightarrow\)</span> pada atribut tersebut, produk mana yang berbeda dari mana?</li>
+<li><strong>PCA</strong> <span class="math inline">\(\rightarrow\)</span> bagaimana kelima produk tersusun secara keseluruhan, dan atribut apa yang menjelaskan susunan itu?</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Latihan menulis:</strong> Susun satu paragraf (4–6 kalimat) yang menjawab ketiga pertanyaan di atas untuk data nugget ini. Sebutkan nilai <em>p</em> dan notasi huruf sebagai pendukung, bukan sebagai isi utama kalimat.</p>
+</blockquote>
+</section>
+<section id="latihan-you-do" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">2.10</span> Latihan (You Do)</h2>
+<section id="latihan-1-anova-dan-uji-lanjut-atribut-lain" class="level3" data-number="2.10.1">
+<h3 data-number="2.10.1" class="anchored" data-anchor-id="latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">2.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</h3>
+<ol type="1">
+<li>Jalankan ANOVA untuk atribut <code>aroma_ayam</code>:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model_aroma <span class="ot">&lt;-</span> <span class="fu">aov</span>(aroma_ayam <span class="sc">~</span> produk <span class="sc">+</span> panelis, <span class="at">data =</span> qda)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_aroma)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Lakukan uji lanjut dan tampilkan notasi hurufnya:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(model_aroma, <span class="st">"produk"</span>, <span class="at">group =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>groups</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Ulangi untuk <code>asin</code>. Apa yang Anda temukan pada tabel notasi hurufnya, dan mengapa hasilnya seperti itu?</li>
+</ol>
+</section>
+<section id="latihan-2-tabel-laporan" class="level3" data-number="2.10.2">
+<h3 data-number="2.10.2" class="anchored" data-anchor-id="latihan-2-tabel-laporan"><span class="header-section-number">2.10.2</span> Latihan 2: Tabel Laporan</h3>
+<p>Buat tabel rata-rata ± simpangan baku <code>gurih</code> untuk setiap produk:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>qda <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rerata =</span> <span class="fu">round</span>(<span class="fu">mean</span>(gurih), <span class="dv">2</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd     =</span> <span class="fu">round</span>(<span class="fu">sd</span>(gurih), <span class="dv">2</span>))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Kemudian tambahkan notasi huruf dari uji lanjut ke dalam tabel tersebut secara manual, seperti format yang lazim dipakai pada laporan praktikum.</p>
+</section>
+<section id="latihan-3-challenges" class="level3" data-number="2.10.3">
+<h3 data-number="2.10.3" class="anchored" data-anchor-id="latihan-3-challenges"><span class="header-section-number">2.10.3</span> Latihan 3: <em>Challenges</em></h3>
+<ol type="1">
+<li>Jalankan ulang PCA <strong>hanya menggunakan atribut yang berbeda nyata</strong> menurut ANOVA. Apakah posisi produk pada peta berubah? Apakah persentase varians Dimensi 1 naik atau turun? Mengapa?</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>atribut_nyata <span class="ot">&lt;-</span> hasil_anova<span class="sc">$</span>atribut[hasil_anova<span class="sc">$</span>p_value <span class="sc">&lt;</span> <span class="fl">0.05</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>pca2 <span class="ot">&lt;-</span> <span class="fu">PCA</span>(tabel_pca[, atribut_nyata], <span class="at">scale.unit =</span> <span class="cn">TRUE</span>, <span class="at">graph =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca2, <span class="at">repel =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li>Tambahkan efek interaksi <code>produk:panelis</code> ke dalam model ANOVA untuk <code>kerenyahan</code>. Interaksi yang nyata menandakan panelis tidak sepakat dalam mengurutkan produk. Apakah panel ini sepakat?</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model_interaksi <span class="ot">&lt;-</span> <span class="fu">aov</span>(kerenyahan <span class="sc">~</span> produk <span class="sc">+</span> panelis <span class="sc">+</span> produk<span class="sc">:</span>panelis,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> qda)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_interaksi)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Buat grafik profil garis (bukan boxplot) yang menampilkan rata-rata kelima produk pada kedelapan atribut sekaligus.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>qda_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(produk, atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rerata =</span> <span class="fu">mean</span>(intensitas), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> atribut, <span class="at">y =</span> rerata, <span class="at">group =</span> produk, <span class="at">color =</span> produk)) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Intensitas rata-rata (0-15)"</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="ringkasan" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">2.11</span> Ringkasan</h2>
+<p>Dalam sesi ini kita telah mempelajari:<br>
+- Struktur data QDA: panelis × produk × replikasi × atribut dalam format panjang<br>
+- ANOVA dengan <code>aov(atribut ~ produk + panelis)</code> dan alasan memasukkan panelis ke dalam model<br>
+- Membaca nilai <em>p</em> untuk menentukan atribut mana yang mampu membedakan produk<br>
+- Uji lanjut Tukey dengan <code>TukeyHSD()</code> dan notasi huruf dengan <code>HSD.test()</code><br>
+- Menjalankan ANOVA untuk semua atribut sekaligus menggunakan <code>sapply()</code><br>
+- PCA pada tabel rata-rata produk × atribut dengan <code>PCA()</code> dan menafsirkan <em>biplot</em><br>
+- Bahwa PCA meringkas, sedangkan ANOVA menguji — keduanya saling melengkapi</p>
+<p><strong>Bacaan lanjutan.</strong> Bagi yang ingin mendalami, buku <em>Analyzing Sensory Data with R</em> (Lê &amp; Worch, CRC Press, 2015) membahas topik ini jauh lebih dalam, termasuk penilaian kinerja panel dan panelis serta penambahan elips kepercayaan pada peta produk melalui paket <code>SensoMineR</code>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Disalin!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Disalin!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./00_r-basics-sensori_id.html" class="pagination-link" aria-label="Pengantar R dan `RStudio` untuk Uji Sensoris">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/01_QDA-ANOVA-PCA_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></div></div></footer></body></html>

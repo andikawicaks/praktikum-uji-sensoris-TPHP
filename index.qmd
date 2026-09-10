@@ -1,0 +1,26 @@
+# Selamat Datang {.unnumbered}
+
+Modul ini memperkenalkan analisis data uji sensoris menggunakan R,
+mulai dari instalasi hingga analisis data *Quantitative Descriptive
+Analysis* (QDA).
+
+## Sebelum Memulai
+
+Pastikan Anda sudah memasang:
+
+- **R** versi 4.3 atau lebih baru
+- **RStudio Desktop**
+
+Langkah pemasangannya dibahas pada bab pertama.
+
+## Data Praktikum
+
+Seluruh file data tersedia di repositori modul ini, di dalam folder
+`assets/data/`. Cara termudah mengunduhnya: klik tombol **Code** di
+halaman repositori, lalu pilih **Download ZIP**.
+
+## Cara Menggunakan Modul Ini
+
+Setiap bab berisi kode yang bisa langsung disalin — arahkan kursor ke
+kotak kode, lalu klik ikon salin di pojok kanan atas. Kerjakan bagian
+**Latihan** tanpa melihat contoh terlebih dahulu.
