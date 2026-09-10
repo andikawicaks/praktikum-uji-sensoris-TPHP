@@ -23,70 +23,18 @@ Setelah sesi ini, mahasiswa akan mampu:
 
 ## Instalasi
 
-Kita memerlukan dua program yang berbeda. R adalah *mesin* yang
-menghitung; `RStudio` adalah *ruang kerja* tempat kita menulis kode.
-Keduanya gratis.
+Terdapat dua program berbeda untuk melakukan data analisis pada
+`RStudio`. R adalah bahasa pemrograman, sedangkan `RStudio` adalah
+*tempat kerja* untuk menulis kode R. Pemasangan harus dimulai dengan R,
+kemudian dilanjutkan dengan `RStudio`. Jika `RStudio` dipasang terlebih
+dahulu, bahasa R tidak akan dapat terbuka.
 
 | Komponen | Fungsi | Tautan unduh |
 |------------------------|------------------------|------------------------|
 | **R** (versi 4.3 atau lebih baru) | Bahasa dan mesin perhitungan | <https://cran.r-project.org/> |
 | **RStudio Desktop** | *Integrated Development Environment* (IDE) tempat kita bekerja | <https://posit.co/download/rstudio-desktop/> |
 
-> **Urutan pemasangan penting:** pasang **R terlebih dahulu**, baru
-> `RStudio`. Jika `RStudio` dipasang lebih dulu, ia tidak akan menemukan
-> mesin R dan akan menolak terbuka.
-
-### Memeriksa hasil instalasi
-
-Buka `RStudio`, lalu ketik perintah berikut di **Console** (panel kiri
-bawah):
-
-```{r}
-R.version.string
-```
-
-Jika muncul keterangan versi R, instalasi Anda berhasil.
-
-### Memasang paket yang dibutuhkan
-
-Paket (*package*) adalah kumpulan fungsi tambahan buatan komunitas R.
-Untuk praktikum ini kita memerlukan lima paket:
-
-| Paket | Kegunaan dalam praktikum |
-|------------------------------------|------------------------------------|
-| `ggplot2` | Membuat grafik (histogram, boxplot, profil sensoris) |
-| `dplyr` | Menyaring dan meringkas data |
-| `tidyr` | Mengubah bentuk tabel (lebar ke panjang) |
-| `readxl` | Membaca file Excel (`.xlsx`) ke dalam R |
-| `FactoMineR` | Analisis multivariat, termasuk PCA |
-| `factoextra` | Memvisualisasikan hasil PCA |
-| `agricolae` | Uji lanjut (*post-hoc*) dengan notasi huruf |
-
-Jalankan perintah berikut **satu kali saja** di Console (bukan di dalam
-dokumen, karena tidak perlu diulang setiap *knit*):
-
-```{r eval=FALSE}
-install.packages(c("ggplot2", "dplyr", "tidyr", "readxl",
-                   "FactoMineR", "factoextra", "agricolae"))
-```
-
-Setelah terpasang, paket harus **dimuat** setiap kali sesi R dimulai:
-
-```{r message=FALSE, warning=FALSE}
-library(ggplot2)
-library(dplyr)
-library(readxl)
-```
-
-> **Analogi:** `install.packages()` seperti membeli reagen dan
-> menaruhnya di lemari laboratorium — cukup sekali. `library()` seperti
-> mengambil reagen itu dari lemari ke meja kerja — harus diulang setiap
-> kali praktikum.
-
-> **Pesan galat yang sering muncul:** `Error in library(ggplot2) : there
-> is no package called 'ggplot2'` berarti paket belum dipasang, bukan
-> berarti kode Anda salah. Jalankan `install.packages("ggplot2")`
-> terlebih dahulu.
+> **Pastikan install sesuai dengan *operating system* masing-masing.**
 
 ## Mengenal `RStudio`
 
@@ -99,16 +47,49 @@ Saat `RStudio` terbuka, Anda akan melihat empat panel:
 | **Environment** | Kanan atas | Menampilkan objek yang ada di memori R |
 | **Files/Plots/Packages/Help** | Kanan bawah | Navigasi file, melihat grafik, mengelola paket, dan dokumentasi |
 
-> **Think-aloud (I Do):** "Saya membuka `RStudio` dan melihat empat
-> panel. Kode pendek untuk mencoba-coba saya ketik di Console; tetapi
-> semua langkah analisis data sensoris saya tulis di Source Editor dan
-> saya simpan, supaya bulan depan saya masih bisa menelusuri bagaimana
-> angka pada laporan saya dihasilkan."
+> **Think-aloud:** "Saya membuka `RStudio` dan melihat empat panel. Kode
+> dapat ditulis langsung di Source Editor dan Console. Kode pendek untuk
+> mencoba-coba saya ketik di Console; tetapi semua langkah analisis data
+> sensoris saya tulis di Source Editor dan saya simpan, supaya besok
+> saya masih bisa menelusuri bagaimana angka pada laporan saya
+> dihasilkan."
+
+### Memeriksa hasil instalasi
+
+Buka `RStudio`, lalu ketik perintah berikut di **Console** (panel kiri
+bawah):
+
+*PS: Seluruh kode dapat langsung disalin dengan icon copy yang berada
+pada pojok kanan kotak abu-abu!*
+
+```{r}
+R.version.string
+```
+
+Jika muncul keterangan versi R, instalasi Anda berhasil.
 
 ## Objek dan Assignment
 
 Dalam R, kita menyimpan data dalam *objek* menggunakan operator
 assignment `<-`:
+
+```{r}
+# Membuat objek bernama 'x' yang berisi angka 5
+x <- 5
+
+# Membuat objek bernama 'nama' yang berisi teks
+nama <- "TPHP"
+
+# Membuat objek bernama 'angka' yang berisi deret angka
+angka <- c(1, 2, 3, 4, 5)
+
+# Melihat isi objek
+x
+nama
+angka
+```
+
+Dalam data sensoris, kita bisa juga mengisi data seperti contoh ini:
 
 ```{r}
 # Objek berisi satu angka: jumlah panelis
@@ -145,16 +126,18 @@ length(skor) # banyaknya nilai
 
 ## Tipe Data Dasar
 
+`R` memiliki beberapa tipe data yang penting untuk diketahui:
+
 ```{r}
-# Numeric (angka) - skor kesukaan, intensitas atribut
+# Numeric (angka)
 skor <- c(7, 8, 6, 9)
 class(skor)
 
-# Character (teks) - kode panelis
+# Character (teks)
 kode_panelis <- c("K001", "K002", "K003")
 class(kode_panelis)
 
-# Factor (kategori) - kode produk
+# Factor (kategori)
 kode_produk <- factor(c("X", "Y", "Z", "X", "Y"))
 class(kode_produk)
 levels(kode_produk)
@@ -171,19 +154,78 @@ suka
 > Ubahlah menjadi `factor` sebelum analisis:
 > `data$produk <- as.factor(data$produk)`.
 
+### Memasang paket yang dibutuhkan
+
+Paket (*package*) adalah kumpulan fungsi tambahan R. Beberapa paket yang
+sering digunakan dalam analisis sensoris diantaranya:
+
+| Paket        | Kegunaan dalam praktikum                             |
+|--------------|------------------------------------------------------|
+| `ggplot2`    | Membuat grafik (histogram, boxplot, profil sensoris) |
+| `dplyr`      | Menyaring dan meringkas data                         |
+| `tidyr`      | Mengubah bentuk tabel (lebar ke panjang)             |
+| `readxl`     | Membaca file Excel (`.xlsx`) ke dalam R              |
+| `FactoMineR` | Analisis multivariat, termasuk PCA                   |
+| `factoextra` | Memvisualisasikan hasil PCA                          |
+| `agricolae`  | Uji lanjut (*post-hoc*) dengan notasi huruf          |
+
+Jalankan perintah berikut **satu kali saja** di Console (bukan di dalam
+dokumen, karena tidak perlu diulang setiap *knit*):
+
+```{r eval=FALSE}
+install.packages(c("ggplot2", "dplyr", "tidyr", "readxl",
+                   "FactoMineR", "factoextra", "agricolae"))
+```
+
+Setelah terpasang, paket harus **dimuat** setiap kali sesi R dimulai:
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(readxl)
+```
+
+> **Analogi:** `install.packages()` seperti membeli peralatan masak yang
+> kemudian di simpan di dalam dapur. `library()` seperti mengambil
+> peralatan masak yang dibutuhkan (e.g. panci, blender, pisau, dll).
+
+> **Pesan galat yang sering muncul:**
+> `Error in library(ggplot2) : there is no package called 'ggplot2'`
+> berarti paket belum dipasang, bukan berarti kode Anda salah. Jalankan
+> `install.packages("ggplot2")` terlebih dahulu. Jika ada pesan ini
+> lagi, kuncinya adalah memasukkan library yang diminta melalui
+> `install.packages("NAMA LIBRARY")`
+
 ## Memuat dan Memeriksa Data
 
-Kita akan menggunakan data **uji hedonik** (uji kesukaan) tiga produk
-kopi susu kemasan (X, Y, Z) oleh 90 panelis konsumen. Setiap panelis
-mencicip ketiga produk dan memberi skor pada skala hedonik 9 titik
-(1 = sangat tidak suka, 9 = sangat suka).
+Untuk melihat apa saja yang R bisa lakukan, kita akan menggunakan data
+imajiner **uji hedonik** tiga produk kopi susu kemasan (X, Y, Z) oleh 90
+panelis konsumen. Setiap panelis mencicip ketiga produk dan memberi skor
+pada skala hedonik 9 titik (1 = sangat tidak suka, 9 = sangat suka).
 
 ### Membaca File
 
-Data praktikum disimpan dalam file Excel `uji_hedonik_kopi.xlsx`. File
-tersebut memiliki dua lembar (*sheet*): **Data** berisi angkanya, dan
-**Keterangan** berisi penjelasan setiap kolom — bacalah lembar
-Keterangan terlebih dahulu.
+Data praktikum biasanya disimpan dalam file Excel. Pada contoh ini, file
+disimpan pada `uji_hedonik_kopi.xlsx`. File tersebut memiliki dua lembar
+(*sheet*): **Data** berisi angkanya, dan **Keterangan** berisi
+penjelasan setiap kolom. Bacalah lembar Keterangan terlebih dahulu.
+
+Terdapat 2 cara dalam membaca file:
+
+1.  Cara Manual
+
+    Dilakukan dengan klik Import Dataset (di bagian kolom Environment)
+    \> From Excel \> Browse \> Ubah Name: hedonik \> Ubah Sheet: Data \>
+    Copy Code yang bertulisan seperti ini:
+    `hedonik <- read_excel("LOKASI FILE ANDA/uji_hedonik_kopi.xlsx", sheet = "Data")`
+    ke Source Code agar file dapat dengan mudah diakses kembali.
+
+![](images/SCR-20260910-pahj.png)
+
+2.  Cara Automatis
+
+    Pastikan file `uji_hedonik_kopi.xlsx` Anda sudah berada pada folder
+    yang sesuai sehingga dapat langsung dipanggil kembali.
 
 ```{r}
 hedonik <- read_excel("assets/data/uji_hedonik_kopi.xlsx", sheet = "Data")
@@ -220,11 +262,11 @@ str(hedonik)
 summary(hedonik)
 ```
 
-> **Think-aloud (I Do):** "Saya menjalankan `str(hedonik)` dan melihat
-> 270 observasi. Angka ini masuk akal: 90 panelis × 3 produk = 270
-> baris. Kalau yang muncul hanya 90 baris, berarti datanya berformat
-> lebar dan perlu saya ubah dulu. Saya juga melihat `produk` masih
-> bertipe `chr`, jadi saya perlu mengubahnya menjadi `factor`."
+> **Think-aloud:** "Saya menjalankan `str(hedonik)` dan melihat 270
+> observasi. Angka ini masuk akal: 90 panelis × 3 produk = 270 baris.
+> Kalau yang muncul hanya 90 baris, berarti datanya berformat lebar dan
+> perlu saya ubah dulu. Saya juga melihat `produk` masih bertipe `chr`,
+> jadi saya perlu mengubahnya menjadi `factor`."
 
 ```{r}
 # Mengubah kolom kategorikal menjadi factor
@@ -240,11 +282,11 @@ str(hedonik)
 > hedonik Anda memiliki 270 baris, sedangkan panelisnya hanya 90 orang.
 > Apa artinya?
 >
-> A) Ada 180 baris data yang terduplikasi dan harus dihapus\
-> B) Setiap panelis menilai lebih dari satu produk, sehingga satu
-> panelis mengisi beberapa baris\
-> C) Datanya salah input\
-> D) Ada 270 panelis yang sebagian tidak tercatat namanya
+> A)  Ada 180 baris data yang terduplikasi dan harus dihapus\
+> B)  Setiap panelis menilai lebih dari satu produk, sehingga satu
+>     panelis mengisi beberapa baris\
+> C)  Datanya salah input\
+> D)  Ada 270 panelis yang sebagian tidak tercatat namanya
 >
 > **Jawaban: B.** Satu baris = satu kombinasi panelis × produk. Ini
 > disebut format *panjang* (*long format*) dan merupakan bentuk yang
@@ -260,7 +302,7 @@ hedonik$kesukaan_keseluruhan[1:10]   # 10 nilai pertama
 hedonik[1:5, ]            # 5 baris pertama, semua kolom
 hedonik[1:5, c("produk", "kesukaan_rasa")]
 
-# Menyaring baris dengan dplyr
+# Menyaring baris dengan library dplyr dengan fungsi filter()
 produk_X <- filter(hedonik, produk == "X")
 head(produk_X)
 nrow(produk_X)
@@ -276,8 +318,11 @@ menghitung rata-rata skor untuk setiap produk.
 aggregate(kesukaan_keseluruhan ~ produk, data = hedonik, FUN = mean)
 ```
 
+> Anda bisa mengubah-ubah bagian `kesukaan_keseluruhan` dengan variabel
+> lainnya seperti `kesukaan_aroma` dan sebagainya. Coba yuk!
+
 ```{r}
-# Cara dplyr - lebih fleksibel karena bisa beberapa statistik sekaligus
+# Cara library dplyr - lebih fleksibel karena bisa beberapa statistik sekaligus
 hedonik %>%
   group_by(produk) %>%
   summarise(
@@ -290,7 +335,7 @@ hedonik %>%
 > **Catatan:** rata-rata saja belum cukup untuk menyimpulkan bahwa satu
 > produk lebih disukai daripada yang lain. Selisih 0,3 poin bisa saja
 > muncul karena kebetulan. Untuk menguji apakah selisih itu nyata, kita
-> memerlukan ANOVA — yang akan dibahas pada sesi berikutnya.
+> memerlukan ANOVA.
 
 ## Visualisasi Dasar dengan `ggplot2`
 
@@ -299,7 +344,7 @@ hedonik %>%
 ```{r}
 ggplot(hedonik, aes(x = kesukaan_keseluruhan)) +
   geom_histogram(binwidth = 1, fill = "steelblue", color = "white") +
-  labs(title = "Sebaran Skor Kesukaan Keseluruhan",
+  labs(title = "Distribusi Skor Hedonik (Overall)",
        x = "Skor hedonik (1-9)",
        y = "Frekuensi") +
   theme_minimal()
@@ -310,7 +355,7 @@ ggplot(hedonik, aes(x = kesukaan_keseluruhan)) +
 ```{r}
 ggplot(hedonik, aes(x = produk, y = kesukaan_keseluruhan, fill = produk)) +
   geom_boxplot() +
-  labs(title = "Perbandingan Kesukaan Keseluruhan Antar Produk",
+  labs(title = "Perbandingan Overall Liking Antar Produk",
        x = "Produk kopi susu",
        y = "Skor hedonik (1-9)") +
   theme_minimal() +
@@ -320,9 +365,9 @@ ggplot(hedonik, aes(x = produk, y = kesukaan_keseluruhan, fill = produk)) +
 > **Think-aloud (I Do):** "Dalam `ggplot2` saya selalu mulai dengan
 > `ggplot(data, aes(...))` untuk menentukan data dan pemetaan sumbu,
 > lalu menambahkan *layer* dengan tanda `+`. `geom_histogram()` untuk
-> sebaran satu variabel, `geom_boxplot()` untuk membandingkan
-> kelompok. Dari boxplot ini saya sudah bisa menduga produk Y paling
-> tidak disukai, tetapi dugaan itu masih perlu diuji secara statistik."
+> sebaran satu variabel, `geom_boxplot()` untuk membandingkan kelompok.
+> Dari boxplot ini saya sudah bisa menduga produk Y paling tidak
+> disukai, tetapi dugaan itu masih perlu diuji secara statistik."
 
 ## Latihan (You Do)
 
@@ -351,7 +396,7 @@ range(hedonik$usia)
 
 ### Latihan 2: Ringkasan dan Grafik
 
-1.  Hitung rata-rata dan simpangan baku `kesukaan_rasa` untuk setiap
+1.  Hitung rata-rata dan standar deviasi `kesukaan_rasa` untuk setiap
     produk.
 
 ```{r eval=FALSE}
@@ -393,8 +438,7 @@ serta memuatnya dengan `library()`\
 - Tipe data dasar: `numeric`, `character`, `factor`, `logical`, dan
 mengapa kode produk harus berupa `factor`\
 - Membaca data sensoris dari file Excel dengan `read_excel()` dan
-memeriksanya dengan
-`str()`, `summary()`, `head()`\
+memeriksanya dengan `str()`, `summary()`, `head()`\
 - Format *panjang*: satu baris = satu panelis menilai satu produk\
 - Subsetting dengan `$`, `[ ]`, dan `dplyr::filter()`\
 - Meringkas per produk dengan `aggregate()` dan `group_by()` +

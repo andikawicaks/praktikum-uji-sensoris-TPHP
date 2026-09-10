@@ -3,9 +3,9 @@ project:
   output-dir: _book
 
 book:
-  title: "Praktikum Uji Sensoris dengan R"
-  subtitle: "Modul praktikum untuk mahasiswa S1"
-  author: "Nama Anda"
+  title: "Modul Praktikum Uji Sensoris dengan R"
+  subtitle: "Untuk Mahasiswa S1 Dept. Teknologi Pangan dan Hasil Pertanian UGM"
+  author: "Tim Pengampu Praktikum Uji Sensoris"
   date: today
   search: true
   repo-url: https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP
