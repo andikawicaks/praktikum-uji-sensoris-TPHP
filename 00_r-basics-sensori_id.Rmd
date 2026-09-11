@@ -15,7 +15,7 @@ editor_options:
 Setelah sesi ini, mahasiswa akan mampu:
 
 | Mengetahui | Memahami | Melakukan |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Cara memasang R, `RStudio`, dan paket tambahan | R menyimpan data sensori dalam objek yang dapat diperiksa, disubsetting, dan divisualisasikan | Memasang paket dengan `install.packages()` dan memuatnya dengan `library()` |
 | Operator assignment `<-` | Struktur data uji sensoris: satu baris = satu panelis menilai satu produk | Memuat data hasil uji hedonik dari file Excel dengan `read_excel()` |
 | Tipe data (`numeric`, `character`, `factor`, `data.frame`) | Mengapa kode panelis dan kode produk harus berupa `factor`, bukan angka | Memeriksa struktur data dengan `str()` dan `summary()` |
@@ -30,7 +30,7 @@ kemudian dilanjutkan dengan `RStudio`. Jika `RStudio` dipasang terlebih
 dahulu, bahasa R tidak akan dapat terbuka.
 
 | Komponen | Fungsi | Tautan unduh |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **R** (versi 4.3 atau lebih baru) | Bahasa dan mesin perhitungan | <https://cran.r-project.org/> |
 | **RStudio Desktop** | *Integrated Development Environment* (IDE) tempat kita bekerja | <https://posit.co/download/rstudio-desktop/> |
 
@@ -41,7 +41,7 @@ dahulu, bahasa R tidak akan dapat terbuka.
 Saat `RStudio` terbuka, Anda akan melihat empat panel:
 
 | Panel | Lokasi | Fungsi |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Console** | Kiri bawah | Tempat R mengeksekusi kode dan menampilkan output |
 | **Source Editor** | Kiri atas | Tempat menulis dan menyimpan script (`.R`) atau dokumen (`.Rmd`) |
 | **Environment** | Kanan atas | Menampilkan objek yang ada di memori R |
