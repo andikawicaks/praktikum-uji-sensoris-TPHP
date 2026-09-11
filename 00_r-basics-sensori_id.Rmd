@@ -59,9 +59,6 @@ Saat `RStudio` terbuka, Anda akan melihat empat panel:
 Buka `RStudio`, lalu ketik perintah berikut di **Console** (panel kiri
 bawah):
 
-*PS: Seluruh kode dapat langsung disalin dengan icon copy yang berada
-pada pojok kanan kotak abu-abu!*
-
 ```{r}
 R.version.string
 ```

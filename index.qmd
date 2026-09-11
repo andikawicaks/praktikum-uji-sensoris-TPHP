@@ -21,6 +21,6 @@ halaman repositori, lalu pilih **Download ZIP**.
 
 ## Cara Menggunakan Modul Ini
 
-Setiap bab berisi kode yang bisa langsung disalin — arahkan kursor ke
+Setiap bab berisi kode yang bisa langsung disalin dengan mengarahkan kursor ke
 kotak kode, lalu klik ikon salin di pojok kanan atas. Kerjakan bagian
 **Latihan** tanpa melihat contoh terlebih dahulu.
