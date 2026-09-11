@@ -1,8 +1,13 @@
+---
+
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 # Selamat Datang {.unnumbered}
 
-Modul ini memperkenalkan analisis data uji sensoris menggunakan R,
-mulai dari instalasi hingga analisis data *Quantitative Descriptive
-Analysis* (QDA).
+Modul ini memperkenalkan analisis data uji sensoris menggunakan R, mulai dari instalasi hingga analisis data *Quantitative Descriptive Analysis* (QDA).
 
 ## Sebelum Memulai
 
@@ -15,12 +20,8 @@ Langkah pemasangannya dibahas pada bab pertama.
 
 ## Data Praktikum
 
-Seluruh file data tersedia di repositori modul ini, di dalam folder
-`assets/data/`. Cara termudah mengunduhnya: klik tombol **Code** di
-halaman repositori, lalu pilih **Download ZIP**.
+Seluruh file data tersedia di repositori modul ini, di dalam folder `assets/data/`. Cara termudah mengunduhnya: klik tombol **Code** di halaman repositori [Repositori Praktikum Uji Sensoris](https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP), lalu pilih **Download ZIP**.
 
 ## Cara Menggunakan Modul Ini
 
-Setiap bab berisi kode yang bisa langsung disalin dengan mengarahkan kursor ke
-kotak kode, lalu klik ikon salin di pojok kanan atas. Kerjakan bagian
-**Latihan** tanpa melihat contoh terlebih dahulu.
+Setiap bab berisi kode yang bisa langsung disalin dengan mengarahkan kursor ke kotak kode, lalu klik ikon salin di pojok kanan atas. Kerjakan bagian **Latihan** tanpa melihat contoh terlebih dahulu.
