@@ -3,6 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
-
+_book/
 /.quarto/
 **/*.quarto_ipynb
