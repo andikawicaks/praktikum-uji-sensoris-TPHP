@@ -68,7 +68,7 @@ Jika muncul keterangan versi R, instalasi Anda berhasil.
 ## Objek dan Assignment
 
 Dalam R, kita menyimpan data dalam *objek* menggunakan operator
-assignment `<-`:
+assignment `<-`. Jalankan kode dengan menekan **Ctrl + Enter**.
 
 ```{r}
 # Membuat objek bernama 'x' yang berisi angka 5
