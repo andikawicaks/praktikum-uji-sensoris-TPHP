@@ -9,7 +9,7 @@
 <meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
 <meta name="dcterms.date" content="2026-09-10">
 
-<title>1&nbsp; Pengantar R dan RStudio untuk Uji Sensoris – Modul Praktikum Uji Sensoris dengan R</title>
+<title>2&nbsp; Pengantar R dan RStudio untuk Uji Sensoris – Modul Praktikum Uji Sensoris dengan R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -127,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00_r-basics-sensori_id.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00_r-basics-sensori_id.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Mencari" onclick="window.quartoOpenSearch();">
@@ -158,19 +158,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selamat Datang</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">wrap: 72</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./00_r-basics-sensori_id.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
   </div>
 </li>
     </ul>
@@ -183,39 +183,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Isi halaman</h2>
    
   <ul>
-  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">1.1</span> Tujuan Pembelajaran</a></li>
-  <li><a href="#instalasi" id="toc-instalasi" class="nav-link" data-scroll-target="#instalasi"><span class="header-section-number">1.2</span> Instalasi</a></li>
-  <li><a href="#mengenal-rstudio" id="toc-mengenal-rstudio" class="nav-link" data-scroll-target="#mengenal-rstudio"><span class="header-section-number">1.3</span> Mengenal <code>RStudio</code></a>
+  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</a></li>
+  <li><a href="#instalasi" id="toc-instalasi" class="nav-link" data-scroll-target="#instalasi"><span class="header-section-number">2.2</span> Instalasi</a></li>
+  <li><a href="#mengenal-rstudio" id="toc-mengenal-rstudio" class="nav-link" data-scroll-target="#mengenal-rstudio"><span class="header-section-number">2.3</span> Mengenal <code>RStudio</code></a>
   <ul class="collapse">
-  <li><a href="#memeriksa-hasil-instalasi" id="toc-memeriksa-hasil-instalasi" class="nav-link" data-scroll-target="#memeriksa-hasil-instalasi"><span class="header-section-number">1.3.1</span> Memeriksa hasil instalasi</a></li>
+  <li><a href="#memeriksa-hasil-instalasi" id="toc-memeriksa-hasil-instalasi" class="nav-link" data-scroll-target="#memeriksa-hasil-instalasi"><span class="header-section-number">2.3.1</span> Memeriksa hasil instalasi</a></li>
   </ul></li>
-  <li><a href="#objek-dan-assignment" id="toc-objek-dan-assignment" class="nav-link" data-scroll-target="#objek-dan-assignment"><span class="header-section-number">1.4</span> Objek dan Assignment</a></li>
-  <li><a href="#tipe-data-dasar" id="toc-tipe-data-dasar" class="nav-link" data-scroll-target="#tipe-data-dasar"><span class="header-section-number">1.5</span> Tipe Data Dasar</a>
+  <li><a href="#objek-dan-assignment" id="toc-objek-dan-assignment" class="nav-link" data-scroll-target="#objek-dan-assignment"><span class="header-section-number">2.4</span> Objek dan Assignment</a></li>
+  <li><a href="#tipe-data-dasar" id="toc-tipe-data-dasar" class="nav-link" data-scroll-target="#tipe-data-dasar"><span class="header-section-number">2.5</span> Tipe Data Dasar</a>
   <ul class="collapse">
-  <li><a href="#memasang-paket-yang-dibutuhkan" id="toc-memasang-paket-yang-dibutuhkan" class="nav-link" data-scroll-target="#memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.5.1</span> Memasang paket yang dibutuhkan</a></li>
+  <li><a href="#memasang-paket-yang-dibutuhkan" id="toc-memasang-paket-yang-dibutuhkan" class="nav-link" data-scroll-target="#memasang-paket-yang-dibutuhkan"><span class="header-section-number">2.5.1</span> Memasang paket yang dibutuhkan</a></li>
   </ul></li>
-  <li><a href="#memuat-dan-memeriksa-data" id="toc-memuat-dan-memeriksa-data" class="nav-link" data-scroll-target="#memuat-dan-memeriksa-data"><span class="header-section-number">1.6</span> Memuat dan Memeriksa Data</a>
+  <li><a href="#memuat-dan-memeriksa-data" id="toc-memuat-dan-memeriksa-data" class="nav-link" data-scroll-target="#memuat-dan-memeriksa-data"><span class="header-section-number">2.6</span> Memuat dan Memeriksa Data</a>
   <ul class="collapse">
-  <li><a href="#membaca-file" id="toc-membaca-file" class="nav-link" data-scroll-target="#membaca-file"><span class="header-section-number">1.6.1</span> Membaca File</a></li>
-  <li><a href="#memeriksa-struktur-data" id="toc-memeriksa-struktur-data" class="nav-link" data-scroll-target="#memeriksa-struktur-data"><span class="header-section-number">1.6.2</span> Memeriksa Struktur Data</a></li>
-  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">1.6.3</span> <em>Hinge Question</em></a></li>
+  <li><a href="#membaca-file" id="toc-membaca-file" class="nav-link" data-scroll-target="#membaca-file"><span class="header-section-number">2.6.1</span> Membaca File</a></li>
+  <li><a href="#memeriksa-struktur-data" id="toc-memeriksa-struktur-data" class="nav-link" data-scroll-target="#memeriksa-struktur-data"><span class="header-section-number">2.6.2</span> Memeriksa Struktur Data</a></li>
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">2.6.3</span> <em>Hinge Question</em></a></li>
   </ul></li>
-  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link" data-scroll-target="#subsetting-data"><span class="header-section-number">1.7</span> Subsetting Data</a>
+  <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link" data-scroll-target="#subsetting-data"><span class="header-section-number">2.7</span> Subsetting Data</a>
   <ul class="collapse">
-  <li><a href="#meringkas-data-per-produk" id="toc-meringkas-data-per-produk" class="nav-link" data-scroll-target="#meringkas-data-per-produk"><span class="header-section-number">1.7.1</span> Meringkas Data per Produk</a></li>
+  <li><a href="#meringkas-data-per-produk" id="toc-meringkas-data-per-produk" class="nav-link" data-scroll-target="#meringkas-data-per-produk"><span class="header-section-number">2.7.1</span> Meringkas Data per Produk</a></li>
   </ul></li>
-  <li><a href="#visualisasi-dasar-dengan-ggplot2" id="toc-visualisasi-dasar-dengan-ggplot2" class="nav-link" data-scroll-target="#visualisasi-dasar-dengan-ggplot2"><span class="header-section-number">1.8</span> Visualisasi Dasar dengan <code>ggplot2</code></a>
+  <li><a href="#visualisasi-dasar-dengan-ggplot2" id="toc-visualisasi-dasar-dengan-ggplot2" class="nav-link" data-scroll-target="#visualisasi-dasar-dengan-ggplot2"><span class="header-section-number">2.8</span> Visualisasi Dasar dengan <code>ggplot2</code></a>
   <ul class="collapse">
-  <li><a href="#histogram-bagaimana-sebaran-skor-kesukaan" id="toc-histogram-bagaimana-sebaran-skor-kesukaan" class="nav-link" data-scroll-target="#histogram-bagaimana-sebaran-skor-kesukaan"><span class="header-section-number">1.8.1</span> Histogram: bagaimana sebaran skor kesukaan?</a></li>
-  <li><a href="#boxplot-bagaimana-perbandingan-antar-produk" id="toc-boxplot-bagaimana-perbandingan-antar-produk" class="nav-link" data-scroll-target="#boxplot-bagaimana-perbandingan-antar-produk"><span class="header-section-number">1.8.2</span> Boxplot: bagaimana perbandingan antar produk?</a></li>
+  <li><a href="#histogram-bagaimana-sebaran-skor-kesukaan" id="toc-histogram-bagaimana-sebaran-skor-kesukaan" class="nav-link" data-scroll-target="#histogram-bagaimana-sebaran-skor-kesukaan"><span class="header-section-number">2.8.1</span> Histogram: bagaimana sebaran skor kesukaan?</a></li>
+  <li><a href="#boxplot-bagaimana-perbandingan-antar-produk" id="toc-boxplot-bagaimana-perbandingan-antar-produk" class="nav-link" data-scroll-target="#boxplot-bagaimana-perbandingan-antar-produk"><span class="header-section-number">2.8.2</span> Boxplot: bagaimana perbandingan antar produk?</a></li>
   </ul></li>
-  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">1.9</span> Latihan (You Do)</a>
+  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">2.9</span> Latihan (You Do)</a>
   <ul class="collapse">
-  <li><a href="#latihan-1-eksplorasi-data" id="toc-latihan-1-eksplorasi-data" class="nav-link" data-scroll-target="#latihan-1-eksplorasi-data"><span class="header-section-number">1.9.1</span> Latihan 1: Eksplorasi Data</a></li>
-  <li><a href="#latihan-2-ringkasan-dan-grafik" id="toc-latihan-2-ringkasan-dan-grafik" class="nav-link" data-scroll-target="#latihan-2-ringkasan-dan-grafik"><span class="header-section-number">1.9.2</span> Latihan 2: Ringkasan dan Grafik</a></li>
-  <li><a href="#latihan-3-challenges" id="toc-latihan-3-challenges" class="nav-link" data-scroll-target="#latihan-3-challenges"><span class="header-section-number">1.9.3</span> Latihan 3: <em>Challenges</em></a></li>
+  <li><a href="#latihan-1-eksplorasi-data" id="toc-latihan-1-eksplorasi-data" class="nav-link" data-scroll-target="#latihan-1-eksplorasi-data"><span class="header-section-number">2.9.1</span> Latihan 1: Eksplorasi Data</a></li>
+  <li><a href="#latihan-2-ringkasan-dan-grafik" id="toc-latihan-2-ringkasan-dan-grafik" class="nav-link" data-scroll-target="#latihan-2-ringkasan-dan-grafik"><span class="header-section-number">2.9.2</span> Latihan 2: Ringkasan dan Grafik</a></li>
+  <li><a href="#latihan-3-challenges" id="toc-latihan-3-challenges" class="nav-link" data-scroll-target="#latihan-3-challenges"><span class="header-section-number">2.9.3</span> Latihan 3: <em>Challenges</em></a></li>
   </ul></li>
-  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">1.10</span> Ringkasan</a></li>
+  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">2.10</span> Ringkasan</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/00_r-basics-sensori_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></nav>
     </div>
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></h1>
 <p class="subtitle lead">Instalasi dan operasi dasar dengan data sensori</p>
 </div>
 
@@ -254,8 +254,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tujuan-pembelajaran" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">1.1</span> Tujuan Pembelajaran</h2>
+<section id="tujuan-pembelajaran" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</h2>
 <p>Setelah sesi ini, mahasiswa akan mampu:</p>
 <table class="caption-top table">
 <colgroup>
@@ -294,8 +294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="instalasi" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="instalasi"><span class="header-section-number">1.2</span> Instalasi</h2>
+<section id="instalasi" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="instalasi"><span class="header-section-number">2.2</span> Instalasi</h2>
 <p>Terdapat dua program berbeda untuk melakukan data analisis pada <code>RStudio</code>. R adalah bahasa pemrograman, sedangkan <code>RStudio</code> adalah <em>tempat kerja</em> untuk menulis kode R. Pemasangan harus dimulai dengan R, kemudian dilanjutkan dengan <code>RStudio</code>. Jika <code>RStudio</code> dipasang terlebih dahulu, bahasa R tidak akan dapat terbuka.</p>
 <table class="caption-top table">
 <thead>
@@ -322,8 +322,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Pastikan install sesuai dengan <em>operating system</em> masing-masing.</strong></p>
 </blockquote>
 </section>
-<section id="mengenal-rstudio" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="mengenal-rstudio"><span class="header-section-number">1.3</span> Mengenal <code>RStudio</code></h2>
+<section id="mengenal-rstudio" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="mengenal-rstudio"><span class="header-section-number">2.3</span> Mengenal <code>RStudio</code></h2>
 <p>Saat <code>RStudio</code> terbuka, Anda akan melihat empat panel:</p>
 <table class="caption-top table">
 <colgroup>
@@ -364,8 +364,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Think-aloud:</strong> “Saya membuka <code>RStudio</code> dan melihat empat panel. Kode dapat ditulis langsung di Source Editor dan Console. Kode pendek untuk mencoba-coba saya ketik di Console; tetapi semua langkah analisis data sensoris saya tulis di Source Editor dan saya simpan, supaya besok saya masih bisa menelusuri bagaimana angka pada laporan saya dihasilkan.”</p>
 </blockquote>
-<section id="memeriksa-hasil-instalasi" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="memeriksa-hasil-instalasi"><span class="header-section-number">1.3.1</span> Memeriksa hasil instalasi</h3>
+<section id="memeriksa-hasil-instalasi" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="memeriksa-hasil-instalasi"><span class="header-section-number">2.3.1</span> Memeriksa hasil instalasi</h3>
 <p>Buka <code>RStudio</code>, lalu ketik perintah berikut di <strong>Console</strong> (panel kiri bawah):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>R.version.string</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
@@ -376,8 +376,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Jika muncul keterangan versi R, instalasi Anda berhasil.</p>
 </section>
 </section>
-<section id="objek-dan-assignment" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="objek-dan-assignment"><span class="header-section-number">1.4</span> Objek dan Assignment</h2>
+<section id="objek-dan-assignment" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="objek-dan-assignment"><span class="header-section-number">2.4</span> Objek dan Assignment</h2>
 <p>Dalam R, kita menyimpan data dalam <em>objek</em> menggunakan operator assignment <code>&lt;-</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Membuat objek bernama 'x' yang berisi angka 5</span></span>
@@ -452,8 +452,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2. Apa yang terjadi pada isi <code>skor</code> jika kita menjalankan <code>skor &lt;- c(1, 2, 3)</code> setelahnya?</p>
 </blockquote>
 </section>
-<section id="tipe-data-dasar" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="tipe-data-dasar"><span class="header-section-number">1.5</span> Tipe Data Dasar</h2>
+<section id="tipe-data-dasar" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="tipe-data-dasar"><span class="header-section-number">2.5</span> Tipe Data Dasar</h2>
 <p><code>R</code> memiliki beberapa tipe data yang penting untuk diketahui:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric (angka)</span></span>
@@ -488,8 +488,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Mengapa <code>factor</code> penting dalam uji sensoris?</strong> Kode produk sering ditulis dengan tiga digit angka acak (misalnya 384, 726, 951). Jika dibiarkan sebagai <code>numeric</code>, R akan mengira 951 “lebih besar” daripada 384 dan mencoba menghitung rata-ratanya — padahal itu hanya label. Ubahlah menjadi <code>factor</code> sebelum analisis: <code>data$produk &lt;- as.factor(data$produk)</code>.</p>
 </blockquote>
-<section id="memasang-paket-yang-dibutuhkan" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="memasang-paket-yang-dibutuhkan"><span class="header-section-number">1.5.1</span> Memasang paket yang dibutuhkan</h3>
+<section id="memasang-paket-yang-dibutuhkan" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="memasang-paket-yang-dibutuhkan"><span class="header-section-number">2.5.1</span> Memasang paket yang dibutuhkan</h3>
 <p>Paket (<em>package</em>) adalah kumpulan fungsi tambahan R. Beberapa paket yang sering digunakan dalam analisis sensoris diantaranya:</p>
 <table class="caption-top table">
 <thead>
@@ -548,11 +548,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section>
 </section>
-<section id="memuat-dan-memeriksa-data" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="memuat-dan-memeriksa-data"><span class="header-section-number">1.6</span> Memuat dan Memeriksa Data</h2>
+<section id="memuat-dan-memeriksa-data" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="memuat-dan-memeriksa-data"><span class="header-section-number">2.6</span> Memuat dan Memeriksa Data</h2>
 <p>Untuk melihat apa saja yang R bisa lakukan, kita akan menggunakan data imajiner <strong>uji hedonik</strong> tiga produk kopi susu kemasan (X, Y, Z) oleh 90 panelis konsumen. Setiap panelis mencicip ketiga produk dan memberi skor pada skala hedonik 9 titik (1 = sangat tidak suka, 9 = sangat suka).</p>
-<section id="membaca-file" class="level3" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="membaca-file"><span class="header-section-number">1.6.1</span> Membaca File</h3>
+<section id="membaca-file" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="membaca-file"><span class="header-section-number">2.6.1</span> Membaca File</h3>
 <p>Data praktikum biasanya disimpan dalam file Excel. Pada contoh ini, file disimpan pada <code>uji_hedonik_kopi.xlsx</code>. File tersebut memiliki dua lembar (<em>sheet</em>): <strong>Data</strong> berisi angkanya, dan <strong>Keterangan</strong> berisi penjelasan setiap kolom. Bacalah lembar Keterangan terlebih dahulu.</p>
 <p>Terdapat 2 cara dalam membaca file:</p>
 <ol type="1">
@@ -580,8 +580,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3. <strong>Nama kolom mengandung spasi</strong> (<code>kesukaan rasa</code>). R akan mengubahnya menjadi <code>`kesukaan rasa`</code> yang merepotkan. Gunakan garis bawah: <code>kesukaan_rasa</code>.</p>
 </blockquote>
 </section>
-<section id="memeriksa-struktur-data" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="memeriksa-struktur-data"><span class="header-section-number">1.6.2</span> Memeriksa Struktur Data</h3>
+<section id="memeriksa-struktur-data" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="memeriksa-struktur-data"><span class="header-section-number">2.6.2</span> Memeriksa Struktur Data</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Melihat 6 baris pertama</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hedonik)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
@@ -646,8 +646,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="hinge-question" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">1.6.3</span> <em>Hinge Question</em></h3>
+<section id="hinge-question" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">2.6.3</span> <em>Hinge Question</em></h3>
 <blockquote class="blockquote">
 <p><strong>Sebelum melanjutkan, coba jawab pertanyaan berikut:</strong> Data uji hedonik Anda memiliki 270 baris, sedangkan panelisnya hanya 90 orang. Apa artinya?</p>
 <ol type="A">
@@ -663,8 +663,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section>
 </section>
-<section id="subsetting-data" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="subsetting-data"><span class="header-section-number">1.7</span> Subsetting Data</h2>
+<section id="subsetting-data" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="subsetting-data"><span class="header-section-number">2.7</span> Subsetting Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mengambil satu kolom dengan $</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>hedonik<span class="sc">$</span>kesukaan_keseluruhan[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]   <span class="co"># 10 nilai pertama</span></span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
@@ -703,8 +703,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 90</code></pre>
 </div>
 </div>
-<section id="meringkas-data-per-produk" class="level3" data-number="1.7.1">
-<h3 data-number="1.7.1" class="anchored" data-anchor-id="meringkas-data-per-produk"><span class="header-section-number">1.7.1</span> Meringkas Data per Produk</h3>
+<section id="meringkas-data-per-produk" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="meringkas-data-per-produk"><span class="header-section-number">2.7.1</span> Meringkas Data per Produk</h3>
 <p>Inilah operasi yang paling sering Anda butuhkan pada data sensoris: menghitung rata-rata skor untuk setiap produk.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cara dasar (base R)</span></span>
@@ -742,10 +742,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section>
 </section>
-<section id="visualisasi-dasar-dengan-ggplot2" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="visualisasi-dasar-dengan-ggplot2"><span class="header-section-number">1.8</span> Visualisasi Dasar dengan <code>ggplot2</code></h2>
-<section id="histogram-bagaimana-sebaran-skor-kesukaan" class="level3" data-number="1.8.1">
-<h3 data-number="1.8.1" class="anchored" data-anchor-id="histogram-bagaimana-sebaran-skor-kesukaan"><span class="header-section-number">1.8.1</span> Histogram: bagaimana sebaran skor kesukaan?</h3>
+<section id="visualisasi-dasar-dengan-ggplot2" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="visualisasi-dasar-dengan-ggplot2"><span class="header-section-number">2.8</span> Visualisasi Dasar dengan <code>ggplot2</code></h2>
+<section id="histogram-bagaimana-sebaran-skor-kesukaan" class="level3" data-number="2.8.1">
+<h3 data-number="2.8.1" class="anchored" data-anchor-id="histogram-bagaimana-sebaran-skor-kesukaan"><span class="header-section-number">2.8.1</span> Histogram: bagaimana sebaran skor kesukaan?</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> kesukaan_keseluruhan)) <span class="sc">+</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
@@ -762,8 +762,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="boxplot-bagaimana-perbandingan-antar-produk" class="level3" data-number="1.8.2">
-<h3 data-number="1.8.2" class="anchored" data-anchor-id="boxplot-bagaimana-perbandingan-antar-produk"><span class="header-section-number">1.8.2</span> Boxplot: bagaimana perbandingan antar produk?</h3>
+<section id="boxplot-bagaimana-perbandingan-antar-produk" class="level3" data-number="2.8.2">
+<h3 data-number="2.8.2" class="anchored" data-anchor-id="boxplot-bagaimana-perbandingan-antar-produk"><span class="header-section-number">2.8.2</span> Boxplot: bagaimana perbandingan antar produk?</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(hedonik, <span class="fu">aes</span>(<span class="at">x =</span> produk, <span class="at">y =</span> kesukaan_keseluruhan, <span class="at">fill =</span> produk)) <span class="sc">+</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
@@ -785,10 +785,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section>
 </section>
-<section id="latihan-you-do" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">1.9</span> Latihan (You Do)</h2>
-<section id="latihan-1-eksplorasi-data" class="level3" data-number="1.9.1">
-<h3 data-number="1.9.1" class="anchored" data-anchor-id="latihan-1-eksplorasi-data"><span class="header-section-number">1.9.1</span> Latihan 1: Eksplorasi Data</h3>
+<section id="latihan-you-do" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">2.9</span> Latihan (You Do)</h2>
+<section id="latihan-1-eksplorasi-data" class="level3" data-number="2.9.1">
+<h3 data-number="2.9.1" class="anchored" data-anchor-id="latihan-1-eksplorasi-data"><span class="header-section-number">2.9.1</span> Latihan 1: Eksplorasi Data</h3>
 <ol type="1">
 <li>Muat kembali data dan periksa strukturnya:</li>
 </ol>
@@ -811,8 +811,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(hedonik<span class="sc">$</span>usia)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="latihan-2-ringkasan-dan-grafik" class="level3" data-number="1.9.2">
-<h3 data-number="1.9.2" class="anchored" data-anchor-id="latihan-2-ringkasan-dan-grafik"><span class="header-section-number">1.9.2</span> Latihan 2: Ringkasan dan Grafik</h3>
+<section id="latihan-2-ringkasan-dan-grafik" class="level3" data-number="2.9.2">
+<h3 data-number="2.9.2" class="anchored" data-anchor-id="latihan-2-ringkasan-dan-grafik"><span class="header-section-number">2.9.2</span> Latihan 2: Ringkasan dan Grafik</h3>
 <ol type="1">
 <li>Hitung rata-rata dan standar deviasi <code>kesukaan_rasa</code> untuk setiap produk.</li>
 </ol>
@@ -833,8 +833,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="latihan-3-challenges" class="level3" data-number="1.9.3">
-<h3 data-number="1.9.3" class="anchored" data-anchor-id="latihan-3-challenges"><span class="header-section-number">1.9.3</span> Latihan 3: <em>Challenges</em></h3>
+<section id="latihan-3-challenges" class="level3" data-number="2.9.3">
+<h3 data-number="2.9.3" class="anchored" data-anchor-id="latihan-3-challenges"><span class="header-section-number">2.9.3</span> Latihan 3: <em>Challenges</em></h3>
 <ol type="1">
 <li>Buat boxplot <code>kesukaan_keseluruhan</code> per produk yang dipisahkan berdasarkan jenis kelamin (petunjuk: tambahkan <code>facet_wrap(~ jenis_kelamin)</code>).</li>
 <li>Buat <em>scatter plot</em> antara <code>kesukaan_rasa</code> (sumbu x) dan <code>kesukaan_keseluruhan</code> (sumbu y), diberi warna menurut produk. Atribut mana yang tampak paling menentukan kesukaan keseluruhan?</li>
@@ -842,8 +842,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="ringkasan" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">1.10</span> Ringkasan</h2>
+<section id="ringkasan" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">2.10</span> Ringkasan</h2>
 <p>Dalam sesi ini kita telah mempelajari:<br>
 - Memasang R, <code>RStudio</code>, dan paket tambahan dengan <code>install.packages()</code> serta memuatnya dengan <code>library()</code><br>
 - Objek dan assignment dengan <code>&lt;-</code><br>
@@ -1261,13 +1261,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Selamat Datang">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Selamat Datang</span>
+      <a href="./index.html" class="pagination-link" aria-label="wrap: 72">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">wrap: 72</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./01_QDA-ANOVA-PCA_id.html" class="pagination-link" aria-label="Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
