@@ -268,5 +268,135 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span>"
     ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html",
+    "href": "02_baseline-variabilitas_id.html",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "",
+    "text": "3.1 Tujuan Pembelajaran\nSetelah sesi ini, mahasiswa akan mampu:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#tujuan-pembelajaran",
+    "href": "02_baseline-variabilitas_id.html#tujuan-pembelajaran",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nArti baseline sebagai tingkat dasar respon sensoris tiap panelis\nPerbedaan baseline within subject dan between subject\nMengonversi skala tidak terstruktur menjadi skor numerik\n\n\nRumus konversi skala tidak terstruktur\nMengapa selisih \\(\\Delta x\\) lebih informatif daripada skor mentah\nMenghitung \\(\\Delta x\\), \\(\\overline{\\Delta x}\\), dan simpangan baku kelompok\n\n\nArti variabilitas dan rentang SD 5–20%\nMengapa panel dengan SD besar disebut heterogen\nMenentukan batas atas dan batas bawah baseline\n\n\nKategori panelis sensitif dan tidak sensitif\nBahwa sensitivitas berbeda tidak selalu berarti kemampuan berbeda\nMengelompokkan panelis dan membaca sebarannya pada grafik",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#sekilas-tentang-baseline",
+    "href": "02_baseline-variabilitas_id.html#sekilas-tentang-baseline",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.2 Sekilas tentang Baseline",
+    "text": "3.2 Sekilas tentang Baseline\nDalam evaluasi sensoris, setiap orang punya tingkat dasar respon yang berbeda. Ada panelis yang cenderung memakai bagian bawah skala, ada yang selalu memakai bagian atas, meskipun sampel yang dinilai sama. Tingkat dasar inilah yang disebut baseline.\nKarena itu, yang kita nilai bukan skor mentah panelis, melainkan selisih skor antara dua sampel:\n\nBaseline within subject memperhatikan bagaimana satu panelis merespon dua produk. Panelis 1 boleh menilai kedua produk lebih rendah daripada Panelis 2.\nBaseline between subject membandingkan antar panelis. Jika selisih antara produk A dan B pada Panelis 1 sama dengan selisih pada Panelis 2, keduanya dianggap punya kemampuan yang sama walaupun sensitivitasnya berbeda.\n\nVariabilitas adalah derajat penyebaran selisih tersebut di dalam kelompok. Simpangan baku (SD) yang kecil berarti panel seragam, SD yang besar berarti panel heterogen.\nData yang akan kita gunakan berasal dari uji paired comparison dengan rating test terhadap 20 panelis pada salah satu atribut manis atau asin:\n\n\n\nAtribut\nSampel konsentrasi rendah\nSampel konsentrasi tinggi\n\n\n\n\nmanis\nLarutan gula 4%\nLarutan gula 4,3%\n\n\nasin\nLarutan garam 1%\nLarutan garam 1,25%\n\n\n\nSetiap panelis memberi tanda (×) pada skala tidak terstruktur panjang 15 cm, lalu jarak tanda dari ujung kiri diukur dengan penggaris.\nStruktur datanya mengikuti adalah satu baris untuk satu panelis × atribut.\n\n\n\nKolom\nArti\n\n\n\n\npanelis\nNama atau kode panelis\n\n\natribut\nmanis atau asin\n\n\nx_rendah\nHasil ukur (cm) untuk sampel konsentrasi rendah\n\n\nx_tinggi\nHasil ukur (cm) untuk sampel konsentrasi tinggi\n\n\n\nData tersimpan pada file acara3_baseline.xlsx, lembar Data. Jika Anda ingin menginput data kelompok Anda sendiri, gunakan template_input_acara3.xlsx, isi kolomnya, lalu ganti nama file pada perintah read_excel() di bawah.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#memuat-data",
+    "href": "02_baseline-variabilitas_id.html#memuat-data",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.3 Memuat Data",
+    "text": "3.3 Memuat Data\n\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(readxl)\n\n\nbl &lt;- as.data.frame(read_excel(\"assets/data/acara3_baseline.xlsx\",\n                               sheet = \"Sheet1\"))\n\nbl$panelis &lt;- as.factor(bl$panelis)\nbl$atribut &lt;- as.factor(bl$atribut)\n\nstr(bl)\n\n'data.frame':   20 obs. of  4 variables:\n $ panelis : Factor w/ 20 levels \"Panelis 01\",\"Panelis 02\",..: 1 2 3 4 5 6 7 8 9 10 ...\n $ atribut : Factor w/ 1 level \"manis\": 1 1 1 1 1 1 1 1 1 1 ...\n $ x_rendah: num  6.8 7.5 4.1 8.2 5.9 9.1 3.5 7 6.3 8.8 ...\n $ x_tinggi: num  9.2 8.9 11.6 10.4 7.8 11 6 6.4 8.7 10.9 ...\n\nhead(bl)\n\n\n  \n\n\n\n\nThink-aloud: “Sebelum menghitung apa pun, saya menggunakan range(c(bl$x_rendah, bl$x_tinggi)) untuk memastikan tidak ada hasil ukur di luar 0–15 cm. Angka di luar rentang itu hampir selalu salah baca penggaris atau salah ketik, bukan temuan.”\n\n\ntable(bl$atribut)\n\n\nmanis \n   20 \n\nrange(c(bl$x_rendah, bl$x_tinggi))\n\n[1]  3.5 13.2",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#konversi-skala-tidak-terstruktur",
+    "href": "02_baseline-variabilitas_id.html#konversi-skala-tidak-terstruktur",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.4 Konversi Skala Tidak Terstruktur",
+    "text": "3.4 Konversi Skala Tidak Terstruktur\nHasil ukur dalam cm belum bisa langsung dipakai, karena panjang skala pada borang bisa berbeda antar acara. Nilainya dikonversi ke skor pada rentang skala yang disepakati:\n\\[\nx = x_{\\min} + \\left[ \\frac{x_{\\text{terukur}}}{x_{\\text{total}}}\n\\times (x_{\\max} - x_{\\min}) \\right]\n\\]\ndengan \\(x_{\\text{terukur}}\\) = panjang garis dari ujung kiri (cm), dan \\(x_{\\text{total}}\\) = panjang skala pada borang (cm).\n\npanjang_skala &lt;- 15   # panjang garis pada borang (cm)\nskala_min     &lt;- 1    # nilai skala terkecil\nskala_max     &lt;- 10   # nilai skala terbesar\n\nkonversi &lt;- function(x_terukur) {\n  skala_min + (x_terukur / panjang_skala) * (skala_max - skala_min)\n}\n\nbl$skor_rendah &lt;- konversi(bl$x_rendah)\nbl$skor_tinggi &lt;- konversi(bl$x_tinggi)\n\nhead(round(bl[, c(\"skor_rendah\", \"skor_tinggi\")], 2))\n\n\n  \n\n\n\n\nPerhatikan bahwa konversi bersifat linear. Mengalikan dan menggeser semua nilai dengan angka yang sama tidak mengubah urutan panelis, tidak mengubah panelis mana yang paling sensitif, dan tidak mengubah variabilitas relatif. Konversi dilakukan agar angkanya sebanding antar acara praktikum, bukan agar hasil analisisnya berubah.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#menghitung-selisih-delta-x",
+    "href": "02_baseline-variabilitas_id.html#menghitung-selisih-delta-x",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.5 Menghitung Selisih \\(\\Delta x\\)",
+    "text": "3.5 Menghitung Selisih \\(\\Delta x\\)\n\\(\\Delta x\\) adalah kemampuan membedakan panelis: selisih skor antara sampel konsentrasi tinggi dan sampel konsentrasi rendah.\n\nbl$delta_x &lt;- bl$skor_tinggi - bl$skor_rendah\n\nbl &lt;- bl %&gt;%\n  group_by(atribut) %&gt;%\n  mutate(delta_bar  = mean(delta_x),\n         beda_delta = delta_x - delta_bar) %&gt;%\n  ungroup() %&gt;%\n  as.data.frame()\n\nbl %&gt;%\n  transmute(panelis, atribut,\n            skor_rendah = round(skor_rendah, 2),\n            skor_tinggi = round(skor_tinggi, 2),\n            delta_x     = round(delta_x, 2),\n            beda_delta  = round(beda_delta, 2)) %&gt;%\n  arrange(atribut, panelis) %&gt;%\n  head(10)\n\n\n  \n\n\n\nKolom beda_delta adalah kolom terakhir pada Tabel 2.4 modul, yaitu selisih \\(\\Delta x\\) tiap panelis terhadap \\(\\overline{\\Delta x}\\) kelompok.\n\nPenting: \\(\\Delta x\\) dihitung berarah, bukan dimutlakkan. Kita tahu sampel mana yang konsentrasinya lebih tinggi, jadi panelis yang normal seharusnya memberi \\(\\Delta x &gt; 0\\). Panelis dengan \\(\\Delta x &lt; 0\\) menilai larutan yang lebih encer justru lebih manis, artinya arah penilaiannya terbalik. Kalau selisihnya dimutlakkan lebih dahulu, panelis seperti ini justru akan tampak sangat sensitif, padahal sebaliknya.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#baseline-dan-variabilitas-kelompok",
+    "href": "02_baseline-variabilitas_id.html#baseline-dan-variabilitas-kelompok",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.6 Baseline dan Variabilitas Kelompok",
+    "text": "3.6 Baseline dan Variabilitas Kelompok\nBaseline kelompok dinyatakan sebagai \\(\\overline{\\Delta x} \\pm SD\\). Variabilitas dinyatakan sebagai SD relatif terhadap \\(\\overline{\\Delta x}\\), dalam persen. Angka inilah yang dibandingkan dengan rentang 5–20%.\n\nringkasan &lt;- bl %&gt;%\n  group_by(atribut) %&gt;%\n  summarise(n         = n(),\n            delta_bar = mean(delta_x),\n            sd        = sd(delta_x),\n            sd_persen = 100 * sd(delta_x) / mean(delta_x),\n            .groups   = \"drop\") %&gt;%\n  as.data.frame()\n\nround_kolom &lt;- c(\"delta_bar\", \"sd\", \"sd_persen\")\nringkasan[round_kolom] &lt;- round(ringkasan[round_kolom], 2)\nringkasan\n\n\n  \n\n\n\nCara membacanya:\n\n\n\n\n\n\n\nNilai sd_persen\nArti\n\n\n\n\n5–20%\nVariabilitas baik, kelompok panelis cukup seragam\n\n\n&lt; 5%\nSangat seragam\n\n\n&gt; 20%\nKelompok panelis heterogen\n\n\n\n\nMengapa SD dinyatakan dalam persen, bukan dalam satuan skala? SD sebesar 0,5 berarti hal yang sangat berbeda ketika \\(\\overline{\\Delta x}\\)-nya 0,8 dibandingkan ketika \\(\\overline{\\Delta x}\\)-nya 5. Pada kasus pertama sebaran panelis hampir selebar efek yang diukur, pada kasus kedua sebarannya kecil. Karena itu variabilitas selalu dibaca relatif terhadap besarnya selisih yang berhasil dideteksi panel.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#batas-atas-dan-batas-bawah",
+    "href": "02_baseline-variabilitas_id.html#batas-atas-dan-batas-bawah",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.7 Batas Atas dan Batas Bawah",
+    "text": "3.7 Batas Atas dan Batas Bawah\nBatas atas dan batas bawah menentukan panelis mana yang dianggap sensitif. Aturannya mengikuti modul:\n\nJika SD \\(\\leq\\) 20%, batas = \\(\\overline{\\Delta x} \\pm SD\\)\nJika SD \\(&gt;\\) 20%, panel dinyatakan heterogen dan batas dihitung dengan SD paling toleran, yaitu 20% dari \\(\\overline{\\Delta x}\\)\n\n\nringkasan$heterogen &lt;- ringkasan$sd_persen &gt; 20\n\n# lebar pita toleransi\nringkasan$lebar &lt;- ifelse(ringkasan$heterogen,\n                          0.20 * ringkasan$delta_bar,\n                          ringkasan$sd)\n\nringkasan$batas_bawah &lt;- ringkasan$delta_bar - ringkasan$lebar\nringkasan$batas_atas  &lt;- ringkasan$delta_bar + ringkasan$lebar\n\n# pita SD penuh, dipakai saat panel heterogen\nringkasan$sd_bawah &lt;- ringkasan$delta_bar - ringkasan$sd\nringkasan$sd_atas  &lt;- ringkasan$delta_bar + ringkasan$sd\n\nringkasan[, c(\"atribut\", \"delta_bar\", \"sd\", \"sd_persen\",\n              \"heterogen\", \"batas_bawah\", \"batas_atas\")]\n\n\n  \n\n\n\n\n3.7.1 Hinge Question\n\nSebelum melanjutkan, jawablah: Panelis 7 memberi skor 3,1 pada larutan gula 4% dan 5,2 pada larutan gula 4,3%. Panelis 12 memberi skor 7,4 dan 9,5 pada dua larutan yang sama. Manakah pernyataan yang benar?\n\nPanelis 12 lebih sensitif karena skornya lebih tinggi\n\nPanelis 7 lebih sensitif karena memakai bagian bawah skala\n\nKeduanya punya kemampuan membedakan yang sama, tetapi baseline berbeda\n\nPanelis 7 harus ditolak karena skornya terlalu rendah\n\nJawaban: C. Keduanya menghasilkan \\(\\Delta x\\) = 2,1. Yang berbeda hanyalah tingkat dasar penggunaan skala, dan justru inilah alasan analisis dilakukan pada selisih, bukan pada skor mentah. Inilah yang dimaksud baseline between subject pada bagian materi.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#klasifikasi-panelis",
+    "href": "02_baseline-variabilitas_id.html#klasifikasi-panelis",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.8 Klasifikasi Panelis",
+    "text": "3.8 Klasifikasi Panelis\n\nbl &lt;- merge(bl, ringkasan[, c(\"atribut\", \"heterogen\", \"batas_bawah\",\n                              \"batas_atas\", \"sd_bawah\", \"sd_atas\")],\n            by = \"atribut\")\n\nbl$kategori &lt;- ifelse(\n  bl$delta_x &gt;= bl$batas_bawah & bl$delta_x &lt;= bl$batas_atas,\n  \"Sensitif\",\n  ifelse(bl$heterogen &\n           bl$delta_x &gt;= bl$sd_bawah & bl$delta_x &lt;= bl$sd_atas,\n         \"Sensitif, di luar toleransi\",\n         \"Tidak sensitif\"))\n\nbl$kategori &lt;- factor(bl$kategori,\n                      levels = c(\"Sensitif\",\n                                 \"Sensitif, di luar toleransi\",\n                                 \"Tidak sensitif\"))\n\ntable(bl$atribut, bl$kategori)\n\n       \n        Sensitif Sensitif, di luar toleransi Tidak sensitif\n  manis       14                           3              3\n\n\nKategori tengah hanya muncul ketika panel heterogen (SD &gt; 20%), sesuai modul: panelis yang tidak masuk rentang toleransi 20% tetapi masih berada di dalam rentang variabilitas kelompok. Jika SD sudah berada pada rentang baik, hanya ada dua kategori.\n\n# panelis dengan arah penilaian terbalik\nbl %&gt;%\n  filter(delta_x &lt; 0) %&gt;%\n  transmute(atribut, panelis, delta_x = round(delta_x, 2))",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#visualisasi",
+    "href": "02_baseline-variabilitas_id.html#visualisasi",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.9 Visualisasi",
+    "text": "3.9 Visualisasi\n\nwarna_kategori &lt;- c(\n  \"Sensitif\"                    = \"#2E9E4F\",  # hijau\n  \"Sensitif, di luar toleransi\" = \"#E8A33D\",  # kuning keemasan\n  \"Tidak sensitif\"              = \"#D7301F\"   # merah\n)\n\nggplot(bl, aes(x = delta_x, y = reorder(panelis, delta_x))) +\n  geom_rect(data = ringkasan, inherit.aes = FALSE,\n            aes(xmin = batas_bawah, xmax = batas_atas,\n                ymin = -Inf, ymax = Inf),\n            fill = \"steelblue\", alpha = 0.15) +\n  geom_vline(data = ringkasan, aes(xintercept = delta_bar),\n             linetype = \"dashed\", colour = \"grey30\") +\n  geom_vline(xintercept = 0, colour = \"grey80\") +\n  geom_point(aes(colour = kategori), size = 2.5) +\n  facet_wrap(~ atribut) +\n  scale_colour_manual(values = warna_kategori, drop = FALSE) +\n  labs(title = \"Kemampuan Membedakan Tiap Panelis\",\n       subtitle = \"Pita biru = rentang toleransi,\ngaris hitam putus-putus = baseline kelompok,\ngaris kuning putus-putus = batas 1 standar deviasi kelompok\",\n       x = \"Selisih skor (delta x)\", y = NULL, colour = NULL) +\n  theme_minimal() +\n  theme(legend.position = \"bottom\") +\n  geom_vline(data = subset(ringkasan, heterogen),\n           aes(xintercept = sd_bawah), colour = \"#D9A441\",\n           linetype = \"dotted\") +\n  geom_vline(data = subset(ringkasan, heterogen),\n             aes(xintercept = sd_atas), colour = \"#D9A441\",\n             linetype = \"dotted\")\n\n\n\n\n\n\n\n\nCara membaca grafik ini:\n\n\n\n\n\n\n\nYang Anda lihat\nArtinya\n\n\n\n\nTitik di dalam pita biru\nPanelis sensitif, kemampuannya sejalan dengan kelompok\n\n\nTitik di luar pita\nPanelis tidak sensitif untuk atribut tersebut\n\n\nTitik di kiri garis nol\nArah penilaian terbalik, perlu ditinjau\n\n\nPita biru lebar\nKelompok panelis heterogen\n\n\nGaris putus-putus jauh dari nol\nPanel secara keseluruhan berhasil membedakan kedua sampel\n\n\n\nGrafik berikut memisahkan dua hal yang sering tertukar, yaitu baseline dan kemampuan membedakan.\n\nbl_panjang &lt;- bl %&gt;%\n  select(panelis, atribut, skor_rendah, skor_tinggi) %&gt;%\n  pivot_longer(cols = c(skor_rendah, skor_tinggi),\n               names_to = \"level\", values_to = \"skor\") %&gt;%\n  mutate(level = factor(level,\n                        levels = c(\"skor_rendah\", \"skor_tinggi\"),\n                        labels = c(\"Konsentrasi rendah\",\n                                   \"Konsentrasi tinggi\")))\n\nggplot(bl_panjang, aes(x = level, y = skor, group = panelis)) +\n  geom_line(colour = \"grey70\") +\n  geom_point(colour = \"grey40\", size = 1.8) +\n  facet_wrap(~ atribut) +\n  labs(title = \"Baseline Within Subject Tiap Panelis\",\n       x = NULL, y = \"Skor hasil konversi\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThink-aloud: “Saya membaca grafik ini dua kali. Pertama saya lihat tinggi garisnya: itu baseline panelis, ada yang memang selalu menilai rendah. Kedua saya lihat kemiringan garisnya: itu kemampuan membedakan. Garis yang sejajar tapi bertingkat-tingkat berarti panel punya baseline berbeda dengan kemampuan yang sama, dan itu kondisi yang masih bisa diterima. Garis yang saling berpotongan atau menurun berarti panel belum sepakat, dan di situlah pelatihan perlu ditambah.”",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#menyusun-kesimpulan",
+    "href": "02_baseline-variabilitas_id.html#menyusun-kesimpulan",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.10 Menyusun Kesimpulan",
+    "text": "3.10 Menyusun Kesimpulan\nKesimpulan seleksi panelis yang baik menjawab tiga pertanyaan berurutan:\n\nBaseline kelompok \\(\\rightarrow\\) berapa \\(\\overline{\\Delta x}\\), dan apakah panel secara keseluruhan mampu membedakan kedua sampel?\nVariabilitas \\(\\rightarrow\\) berapa SD relatifnya, dan apakah kelompok tergolong seragam atau heterogen?\nKlasifikasi \\(\\rightarrow\\) berapa panelis yang sensitif, dan siapa yang perlu pelatihan lanjutan?\n\n\nLatihan menulis: Susun satu paragraf (4–6 kalimat) yang menjawab ketiga pertanyaan di atas untuk data praktikum kelompok Anda. Sebutkan nilai \\(\\overline{\\Delta x}\\) dan SD sebagai pendukung kalimat, bukan sebagai isi utamanya.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#latihan-you-do",
+    "href": "02_baseline-variabilitas_id.html#latihan-you-do",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.11 Latihan (You Do)",
+    "text": "3.11 Latihan (You Do)\n\n3.11.1 Latihan: Challenges\n\nUbah nilai panjang_skala menjadi 10 cm lalu jalankan ulang seluruh dokumen. Apakah sd_persen berubah? Apakah daftar panelis sensitif berubah? Jelaskan mengapa demikian.\nHitung ulang batas atas dan batas bawah menggunakan simpangan baku populasi (penyebut \\(n\\), bukan \\(n-1\\)):\n\n\nsd_populasi &lt;- function(x) sqrt(sum((x - mean(x))^2) / length(x))\n\nbl %&gt;%\n  group_by(atribut) %&gt;%\n  summarise(sd_sampel   = sd(delta_x),\n            sd_populasi = sd_populasi(delta_x))\n\nSeberapa besar bedanya pada n = 20? Pada n berapa perbedaan itu mulai tidak penting?\n\nUji apakah \\(\\overline{\\Delta x}\\) berbeda nyata dari nol dengan uji t satu sampel. Apa arti hasilnya bagi kesimpulan Acara 3?\n\n\nt.test(subset(bl, atribut == \"manis\")$delta_x, mu = 0)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
+  },
+  {
+    "objectID": "02_baseline-variabilitas_id.html#ringkasan",
+    "href": "02_baseline-variabilitas_id.html#ringkasan",
+    "title": "3  Penentuan Baseline dan Variabilitas Panelis",
+    "section": "3.12 Ringkasan",
+    "text": "3.12 Ringkasan\nDalam sesi ini kita telah mempelajari:\n- Baseline sebagai tingkat dasar respon sensoris, serta perbedaan within subject dan between subject\n- Konversi skala tidak terstruktur ke skor numerik dan mengapa konversinya tidak mengubah kesimpulan\n- Perhitungan \\(\\Delta x\\) secara berarah, dan mengapa selisih berarah lebih informatif daripada nilai absolut\n- Baseline kelompok \\(\\overline{\\Delta x} \\pm SD\\) dan variabilitas sebagai SD relatif dalam persen\n- Aturan rentang SD 5–20% serta penggunaan SD paling toleran ketika panel heterogen\n- Pengelompokan panelis sensitif dan tidak sensitif sebagai dasar seleksi panelis berikutnya\n- Bahwa sensitivitas yang berbeda tidak selalu berarti kemampuan yang berbeda",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Penentuan Baseline dan Variabilitas Panelis</span>"
+    ]
   }
 ]
