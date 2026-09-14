@@ -16,6 +16,7 @@ book:
     - index.qmd
     - 00_r-basics-sensori_id.Rmd
     - 01_QDA-ANOVA-PCA_id.Rmd
+    - 02_baseline-variabilitas_id.Rmd
 
 lang: id
 

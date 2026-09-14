@@ -1,12 +1,13 @@
 ---
-title: "Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA"
-subtitle: "Membandingkan profil tekstur dan flavour antar produk"
-author:
-  - Tim Pengampu Praktikum Uji Sensoris
+title: 'Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA'
+author: "Tim Pengampu Praktikum Uji Sensoris"
 date: "2026-09-10"
-output: html_document
-editor_options: 
-  markdown: 
+output:
+  pdf_document: default
+  html_document: default
+subtitle: Membandingkan profil tekstur dan flavour antar produk
+editor_options:
+  markdown:
     wrap: 72
 ---
 
