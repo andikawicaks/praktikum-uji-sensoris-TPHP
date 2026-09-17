@@ -9,7 +9,7 @@
 <meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
 <meta name="dcterms.date" content="2026-09-14">
 
-<title>3&nbsp; Penentuan Baseline dan Variabilitas Panelis – Modul Praktikum Uji Sensoris dengan R</title>
+<title>2&nbsp; Penentuan Baseline dan Variabilitas Panelis – Modul Praktikum Uji Sensoris dengan R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -73,7 +73,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_QDA-ANOVA-PCA_id.html" rel="prev">
+<link href="./03_seleksi-panelis_id.html" rel="next">
+<link href="./00_r-basics-sensori_id.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -155,7 +156,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_baseline-variabilitas_id.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_baseline-variabilitas_id.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Mencari" onclick="window.quartoOpenSearch();">
@@ -197,14 +198,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
+  <a href="./02_baseline-variabilitas_id.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_baseline-variabilitas_id.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span></a>
+  <a href="./03_seleksi-panelis_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seleksi Panelis dengan Triangle Sequential Test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
   </div>
 </li>
     </ul>
@@ -217,24 +224,24 @@ window.Quarto = {
     <h2 id="toc-title">Isi halaman</h2>
    
   <ul>
-  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">3.1</span> Tujuan Pembelajaran</a></li>
-  <li><a href="#sekilas-tentang-baseline" id="toc-sekilas-tentang-baseline" class="nav-link" data-scroll-target="#sekilas-tentang-baseline"><span class="header-section-number">3.2</span> Sekilas tentang Baseline</a></li>
-  <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">3.3</span> Memuat Data</a></li>
-  <li><a href="#konversi-skala-tidak-terstruktur" id="toc-konversi-skala-tidak-terstruktur" class="nav-link" data-scroll-target="#konversi-skala-tidak-terstruktur"><span class="header-section-number">3.4</span> Konversi Skala Tidak Terstruktur</a></li>
-  <li><a href="#menghitung-selisih-delta-x" id="toc-menghitung-selisih-delta-x" class="nav-link" data-scroll-target="#menghitung-selisih-delta-x"><span class="header-section-number">3.5</span> Menghitung Selisih <span class="math inline">\(\Delta x\)</span></a></li>
-  <li><a href="#baseline-dan-variabilitas-kelompok" id="toc-baseline-dan-variabilitas-kelompok" class="nav-link" data-scroll-target="#baseline-dan-variabilitas-kelompok"><span class="header-section-number">3.6</span> Baseline dan Variabilitas Kelompok</a></li>
-  <li><a href="#batas-atas-dan-batas-bawah" id="toc-batas-atas-dan-batas-bawah" class="nav-link" data-scroll-target="#batas-atas-dan-batas-bawah"><span class="header-section-number">3.7</span> Batas Atas dan Batas Bawah</a>
+  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</a></li>
+  <li><a href="#sekilas-tentang-baseline" id="toc-sekilas-tentang-baseline" class="nav-link" data-scroll-target="#sekilas-tentang-baseline"><span class="header-section-number">2.2</span> Sekilas tentang Baseline</a></li>
+  <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">2.3</span> Memuat Data</a></li>
+  <li><a href="#konversi-skala-tidak-terstruktur" id="toc-konversi-skala-tidak-terstruktur" class="nav-link" data-scroll-target="#konversi-skala-tidak-terstruktur"><span class="header-section-number">2.4</span> Konversi Skala Tidak Terstruktur</a></li>
+  <li><a href="#menghitung-selisih-delta-x" id="toc-menghitung-selisih-delta-x" class="nav-link" data-scroll-target="#menghitung-selisih-delta-x"><span class="header-section-number">2.5</span> Menghitung Selisih <span class="math inline">\(\Delta x\)</span></a></li>
+  <li><a href="#baseline-dan-variabilitas-kelompok" id="toc-baseline-dan-variabilitas-kelompok" class="nav-link" data-scroll-target="#baseline-dan-variabilitas-kelompok"><span class="header-section-number">2.6</span> Baseline dan Variabilitas Kelompok</a></li>
+  <li><a href="#batas-atas-dan-batas-bawah" id="toc-batas-atas-dan-batas-bawah" class="nav-link" data-scroll-target="#batas-atas-dan-batas-bawah"><span class="header-section-number">2.7</span> Batas Atas dan Batas Bawah</a>
   <ul class="collapse">
-  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">3.7.1</span> <em>Hinge Question</em></a></li>
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">2.7.1</span> <em>Hinge Question</em></a></li>
   </ul></li>
-  <li><a href="#klasifikasi-panelis" id="toc-klasifikasi-panelis" class="nav-link" data-scroll-target="#klasifikasi-panelis"><span class="header-section-number">3.8</span> Klasifikasi Panelis</a></li>
-  <li><a href="#visualisasi" id="toc-visualisasi" class="nav-link" data-scroll-target="#visualisasi"><span class="header-section-number">3.9</span> Visualisasi</a></li>
-  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">3.10</span> Menyusun Kesimpulan</a></li>
-  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">3.11</span> Latihan (You Do)</a>
+  <li><a href="#klasifikasi-panelis" id="toc-klasifikasi-panelis" class="nav-link" data-scroll-target="#klasifikasi-panelis"><span class="header-section-number">2.8</span> Klasifikasi Panelis</a></li>
+  <li><a href="#visualisasi" id="toc-visualisasi" class="nav-link" data-scroll-target="#visualisasi"><span class="header-section-number">2.9</span> Visualisasi</a></li>
+  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">2.10</span> Menyusun Kesimpulan</a></li>
+  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">2.11</span> Latihan (You Do)</a>
   <ul class="collapse">
-  <li><a href="#latihan-challenges" id="toc-latihan-challenges" class="nav-link" data-scroll-target="#latihan-challenges"><span class="header-section-number">3.11.1</span> Latihan: <em>Challenges</em></a></li>
+  <li><a href="#latihan-challenges" id="toc-latihan-challenges" class="nav-link" data-scroll-target="#latihan-challenges"><span class="header-section-number">2.11.1</span> Latihan: <em>Challenges</em></a></li>
   </ul></li>
-  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">3.12</span> Ringkasan</a></li>
+  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">2.12</span> Ringkasan</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/02_baseline-variabilitas_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></nav>
     </div>
@@ -243,7 +250,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></h1>
 <p class="subtitle lead">Mengukur kemampuan membedakan dan keseragaman kelompok panelis</p>
 </div>
 
@@ -273,8 +280,8 @@ window.Quarto = {
 </header>
 
 
-<section id="tujuan-pembelajaran" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">3.1</span> Tujuan Pembelajaran</h2>
+<section id="tujuan-pembelajaran" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</h2>
 <p>Setelah sesi ini, mahasiswa akan mampu:</p>
 <table class="caption-top table">
 <colgroup>
@@ -313,8 +320,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="sekilas-tentang-baseline" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sekilas-tentang-baseline"><span class="header-section-number">3.2</span> Sekilas tentang Baseline</h2>
+<section id="sekilas-tentang-baseline" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sekilas-tentang-baseline"><span class="header-section-number">2.2</span> Sekilas tentang Baseline</h2>
 <p>Dalam evaluasi sensoris, setiap orang punya <strong>tingkat dasar</strong> respon yang berbeda. Ada panelis yang cenderung memakai bagian bawah skala, ada yang selalu memakai bagian atas, meskipun sampel yang dinilai sama. Tingkat dasar inilah yang disebut <strong>baseline</strong>.</p>
 <p>Karena itu, yang kita nilai bukan skor mentah panelis, melainkan <strong>selisih</strong> skor antara dua sampel:</p>
 <ul>
@@ -374,8 +381,8 @@ window.Quarto = {
 </table>
 <p>Data tersimpan pada file <code>acara3_baseline.xlsx</code>, lembar <strong>Data</strong>. Jika Anda ingin menginput data kelompok Anda sendiri, gunakan <code>template_input_acara3.xlsx</code>, isi kolomnya, lalu ganti nama file pada perintah <code>read_excel()</code> di bawah.</p>
 </section>
-<section id="memuat-data" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="memuat-data"><span class="header-section-number">3.3</span> Memuat Data</h2>
+<section id="memuat-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="memuat-data"><span class="header-section-number">2.3</span> Memuat Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -422,8 +429,8 @@ manis
 </div>
 </div>
 </section>
-<section id="konversi-skala-tidak-terstruktur" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="konversi-skala-tidak-terstruktur"><span class="header-section-number">3.4</span> Konversi Skala Tidak Terstruktur</h2>
+<section id="konversi-skala-tidak-terstruktur" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="konversi-skala-tidak-terstruktur"><span class="header-section-number">2.4</span> Konversi Skala Tidak Terstruktur</h2>
 <p>Hasil ukur dalam cm belum bisa langsung dipakai, karena panjang skala pada borang bisa berbeda antar acara. Nilainya dikonversi ke skor pada rentang skala yang disepakati:</p>
 <p><span class="math display">\[
 x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
@@ -455,8 +462,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 <p><strong>Perhatikan bahwa konversi bersifat linear.</strong> Mengalikan dan menggeser semua nilai dengan angka yang sama tidak mengubah urutan panelis, tidak mengubah panelis mana yang paling sensitif, dan tidak mengubah variabilitas relatif. Konversi dilakukan agar angkanya sebanding antar acara praktikum, bukan agar hasil analisisnya berubah.</p>
 </blockquote>
 </section>
-<section id="menghitung-selisih-delta-x" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="menghitung-selisih-delta-x"><span class="header-section-number">3.5</span> Menghitung Selisih <span class="math inline">\(\Delta x\)</span></h2>
+<section id="menghitung-selisih-delta-x" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="menghitung-selisih-delta-x"><span class="header-section-number">2.5</span> Menghitung Selisih <span class="math inline">\(\Delta x\)</span></h2>
 <p><span class="math inline">\(\Delta x\)</span> adalah <strong>kemampuan membedakan</strong> panelis: selisih skor antara sampel konsentrasi tinggi dan sampel konsentrasi rendah.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bl<span class="sc">$</span>delta_x <span class="ot">&lt;-</span> bl<span class="sc">$</span>skor_tinggi <span class="sc">-</span> bl<span class="sc">$</span>skor_rendah</span>
@@ -489,8 +496,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 <p><strong>Penting:</strong> <span class="math inline">\(\Delta x\)</span> dihitung berarah, bukan dimutlakkan. Kita tahu sampel mana yang konsentrasinya lebih tinggi, jadi panelis yang normal seharusnya memberi <span class="math inline">\(\Delta x &gt; 0\)</span>. Panelis dengan <span class="math inline">\(\Delta x &lt; 0\)</span> menilai larutan yang lebih encer justru lebih manis, artinya arah penilaiannya terbalik. Kalau selisihnya dimutlakkan lebih dahulu, panelis seperti ini justru akan tampak sangat sensitif, padahal sebaliknya.</p>
 </blockquote>
 </section>
-<section id="baseline-dan-variabilitas-kelompok" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="baseline-dan-variabilitas-kelompok"><span class="header-section-number">3.6</span> Baseline dan Variabilitas Kelompok</h2>
+<section id="baseline-dan-variabilitas-kelompok" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="baseline-dan-variabilitas-kelompok"><span class="header-section-number">2.6</span> Baseline dan Variabilitas Kelompok</h2>
 <p>Baseline kelompok dinyatakan sebagai <span class="math inline">\(\overline{\Delta x} \pm SD\)</span>. Variabilitas dinyatakan sebagai SD <strong>relatif</strong> terhadap <span class="math inline">\(\overline{\Delta x}\)</span>, dalam persen. Angka inilah yang dibandingkan dengan rentang 5–20%.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ringkasan <span class="ot">&lt;-</span> bl <span class="sc">%&gt;%</span></span>
@@ -544,8 +551,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 <p><strong>Mengapa SD dinyatakan dalam persen, bukan dalam satuan skala?</strong> SD sebesar 0,5 berarti hal yang sangat berbeda ketika <span class="math inline">\(\overline{\Delta x}\)</span>-nya 0,8 dibandingkan ketika <span class="math inline">\(\overline{\Delta x}\)</span>-nya 5. Pada kasus pertama sebaran panelis hampir selebar efek yang diukur, pada kasus kedua sebarannya kecil. Karena itu variabilitas selalu dibaca relatif terhadap besarnya selisih yang berhasil dideteksi panel.</p>
 </blockquote>
 </section>
-<section id="batas-atas-dan-batas-bawah" class="level2" data-number="3.7">
-<h2 data-number="3.7" class="anchored" data-anchor-id="batas-atas-dan-batas-bawah"><span class="header-section-number">3.7</span> Batas Atas dan Batas Bawah</h2>
+<section id="batas-atas-dan-batas-bawah" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="batas-atas-dan-batas-bawah"><span class="header-section-number">2.7</span> Batas Atas dan Batas Bawah</h2>
 <p>Batas atas dan batas bawah menentukan panelis mana yang dianggap sensitif. Aturannya mengikuti modul:</p>
 <ul>
 <li>Jika SD <span class="math inline">\(\leq\)</span> 20%, batas = <span class="math inline">\(\overline{\Delta x} \pm SD\)</span></li>
@@ -576,8 +583,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 </div>
 </div>
 </div>
-<section id="hinge-question" class="level3" data-number="3.7.1">
-<h3 data-number="3.7.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">3.7.1</span> <em>Hinge Question</em></h3>
+<section id="hinge-question" class="level3" data-number="2.7.1">
+<h3 data-number="2.7.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">2.7.1</span> <em>Hinge Question</em></h3>
 <blockquote class="blockquote">
 <p><strong>Sebelum melanjutkan, jawablah:</strong> Panelis 7 memberi skor 3,1 pada larutan gula 4% dan 5,2 pada larutan gula 4,3%. Panelis 12 memberi skor 7,4 dan 9,5 pada dua larutan yang sama. Manakah pernyataan yang benar?</p>
 <ol type="A">
@@ -593,8 +600,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 </blockquote>
 </section>
 </section>
-<section id="klasifikasi-panelis" class="level2" data-number="3.8">
-<h2 data-number="3.8" class="anchored" data-anchor-id="klasifikasi-panelis"><span class="header-section-number">3.8</span> Klasifikasi Panelis</h2>
+<section id="klasifikasi-panelis" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="klasifikasi-panelis"><span class="header-section-number">2.8</span> Klasifikasi Panelis</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>bl <span class="ot">&lt;-</span> <span class="fu">merge</span>(bl, ringkasan[, <span class="fu">c</span>(<span class="st">"atribut"</span>, <span class="st">"heterogen"</span>, <span class="st">"batas_bawah"</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"batas_atas"</span>, <span class="st">"sd_bawah"</span>, <span class="st">"sd_atas"</span>)],</span>
@@ -635,8 +642,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 </div>
 </div>
 </section>
-<section id="visualisasi" class="level2" data-number="3.9">
-<h2 data-number="3.9" class="anchored" data-anchor-id="visualisasi"><span class="header-section-number">3.9</span> Visualisasi</h2>
+<section id="visualisasi" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="visualisasi"><span class="header-section-number">2.9</span> Visualisasi</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>warna_kategori <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Sensitif"</span>                    <span class="ot">=</span> <span class="st">"#2E9E4F"</span>,  <span class="co"># hijau</span></span>
@@ -741,8 +748,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 <p><strong>Think-aloud:</strong> “Saya membaca grafik ini dua kali. Pertama saya lihat <strong>tinggi</strong> garisnya: itu baseline panelis, ada yang memang selalu menilai rendah. Kedua saya lihat <strong>kemiringan</strong> garisnya: itu kemampuan membedakan. Garis yang sejajar tapi bertingkat-tingkat berarti panel punya baseline berbeda dengan kemampuan yang sama, dan itu kondisi yang masih bisa diterima. Garis yang saling berpotongan atau menurun berarti panel belum sepakat, dan di situlah pelatihan perlu ditambah.”</p>
 </blockquote>
 </section>
-<section id="menyusun-kesimpulan" class="level2" data-number="3.10">
-<h2 data-number="3.10" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">3.10</span> Menyusun Kesimpulan</h2>
+<section id="menyusun-kesimpulan" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">2.10</span> Menyusun Kesimpulan</h2>
 <p>Kesimpulan seleksi panelis yang baik menjawab tiga pertanyaan berurutan:</p>
 <ol type="1">
 <li><strong>Baseline kelompok</strong> <span class="math inline">\(\rightarrow\)</span> berapa <span class="math inline">\(\overline{\Delta x}\)</span>, dan apakah panel secara keseluruhan mampu membedakan kedua sampel?</li>
@@ -753,10 +760,10 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 <p><strong>Latihan menulis:</strong> Susun satu paragraf (4–6 kalimat) yang menjawab ketiga pertanyaan di atas untuk data praktikum kelompok Anda. Sebutkan nilai <span class="math inline">\(\overline{\Delta x}\)</span> dan SD sebagai pendukung kalimat, bukan sebagai isi utamanya.</p>
 </blockquote>
 </section>
-<section id="latihan-you-do" class="level2" data-number="3.11">
-<h2 data-number="3.11" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">3.11</span> Latihan (You Do)</h2>
-<section id="latihan-challenges" class="level3" data-number="3.11.1">
-<h3 data-number="3.11.1" class="anchored" data-anchor-id="latihan-challenges"><span class="header-section-number">3.11.1</span> Latihan: <em>Challenges</em></h3>
+<section id="latihan-you-do" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">2.11</span> Latihan (You Do)</h2>
+<section id="latihan-challenges" class="level3" data-number="2.11.1">
+<h3 data-number="2.11.1" class="anchored" data-anchor-id="latihan-challenges"><span class="header-section-number">2.11.1</span> Latihan: <em>Challenges</em></h3>
 <ol type="1">
 <li><p>Ubah nilai <code>panjang_skala</code> menjadi 10 cm lalu jalankan ulang seluruh dokumen. Apakah <code>sd_persen</code> berubah? Apakah daftar panelis sensitif berubah? Jelaskan mengapa demikian.</p></li>
 <li><p>Hitung ulang batas atas dan batas bawah menggunakan <strong>simpangan baku populasi</strong> (penyebut <span class="math inline">\(n\)</span>, bukan <span class="math inline">\(n-1\)</span>):</p></li>
@@ -778,8 +785,8 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
 </div>
 </section>
 </section>
-<section id="ringkasan" class="level2" data-number="3.12">
-<h2 data-number="3.12" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">3.12</span> Ringkasan</h2>
+<section id="ringkasan" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">2.12</span> Ringkasan</h2>
 <p>Dalam sesi ini kita telah mempelajari:<br>
 - Baseline sebagai tingkat dasar respon sensoris, serta perbedaan <em>within subject</em> dan <em>between subject</em><br>
 - Konversi skala tidak terstruktur ke skor numerik dan mengapa konversinya tidak mengubah kesimpulan<br>
@@ -1195,11 +1202,14 @@ x = x_{\min} + \left[ \frac{x_{\text{terukur}}}{x_{\text{total}}}
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_QDA-ANOVA-PCA_id.html" class="pagination-link" aria-label="Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span>
+      <a href="./00_r-basics-sensori_id.html" class="pagination-link" aria-label="Pengantar R dan `RStudio` untuk Uji Sensoris">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./03_seleksi-panelis_id.html" class="pagination-link" aria-label="Seleksi Panelis dengan Triangle Sequential Test">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seleksi Panelis dengan Triangle Sequential Test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -9,7 +9,7 @@
 <meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
 <meta name="dcterms.date" content="2026-09-10">
 
-<title>2&nbsp; Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA – Modul Praktikum Uji Sensoris dengan R</title>
+<title>4&nbsp; Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA – Modul Praktikum Uji Sensoris dengan R</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -73,8 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./02_baseline-variabilitas_id.html" rel="next">
-<link href="./00_r-basics-sensori_id.html" rel="prev">
+<link href="./03_seleksi-panelis_id.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -156,7 +155,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_QDA-ANOVA-PCA_id.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_QDA-ANOVA-PCA_id.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Mencari" onclick="window.quartoOpenSearch();">
@@ -198,14 +197,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
+  <a href="./02_baseline-variabilitas_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_baseline-variabilitas_id.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span></a>
+  <a href="./03_seleksi-panelis_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seleksi Panelis dengan Triangle Sequential Test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
   </div>
 </li>
     </ul>
@@ -218,35 +223,35 @@ window.Quarto = {
     <h2 id="toc-title">Isi halaman</h2>
    
   <ul>
-  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</a></li>
-  <li><a href="#sekilas-tentang-qda" id="toc-sekilas-tentang-qda" class="nav-link" data-scroll-target="#sekilas-tentang-qda"><span class="header-section-number">2.2</span> Sekilas tentang QDA</a></li>
-  <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">2.3</span> Memuat Data</a></li>
-  <li><a href="#eksplorasi-awal" id="toc-eksplorasi-awal" class="nav-link" data-scroll-target="#eksplorasi-awal"><span class="header-section-number">2.4</span> Eksplorasi Awal</a></li>
-  <li><a href="#anova-untuk-satu-atribut" id="toc-anova-untuk-satu-atribut" class="nav-link" data-scroll-target="#anova-untuk-satu-atribut"><span class="header-section-number">2.5</span> ANOVA untuk Satu Atribut</a>
+  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">4.1</span> Tujuan Pembelajaran</a></li>
+  <li><a href="#sekilas-tentang-qda" id="toc-sekilas-tentang-qda" class="nav-link" data-scroll-target="#sekilas-tentang-qda"><span class="header-section-number">4.2</span> Sekilas tentang QDA</a></li>
+  <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">4.3</span> Memuat Data</a></li>
+  <li><a href="#eksplorasi-awal" id="toc-eksplorasi-awal" class="nav-link" data-scroll-target="#eksplorasi-awal"><span class="header-section-number">4.4</span> Eksplorasi Awal</a></li>
+  <li><a href="#anova-untuk-satu-atribut" id="toc-anova-untuk-satu-atribut" class="nav-link" data-scroll-target="#anova-untuk-satu-atribut"><span class="header-section-number">4.5</span> ANOVA untuk Satu Atribut</a>
   <ul class="collapse">
-  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">2.5.1</span> <em>Hinge Question</em></a></li>
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">4.5.1</span> <em>Hinge Question</em></a></li>
   </ul></li>
-  <li><a href="#uji-lanjut-post-hoc" id="toc-uji-lanjut-post-hoc" class="nav-link" data-scroll-target="#uji-lanjut-post-hoc"><span class="header-section-number">2.6</span> Uji Lanjut (<em>Post-hoc</em>)</a>
+  <li><a href="#uji-lanjut-post-hoc" id="toc-uji-lanjut-post-hoc" class="nav-link" data-scroll-target="#uji-lanjut-post-hoc"><span class="header-section-number">4.6</span> Uji Lanjut (<em>Post-hoc</em>)</a>
   <ul class="collapse">
-  <li><a href="#tukey-hsd" id="toc-tukey-hsd" class="nav-link" data-scroll-target="#tukey-hsd"><span class="header-section-number">2.6.1</span> Tukey HSD</a></li>
-  <li><a href="#notasi-huruf" id="toc-notasi-huruf" class="nav-link" data-scroll-target="#notasi-huruf"><span class="header-section-number">2.6.2</span> Notasi Huruf</a></li>
+  <li><a href="#tukey-hsd" id="toc-tukey-hsd" class="nav-link" data-scroll-target="#tukey-hsd"><span class="header-section-number">4.6.1</span> Tukey HSD</a></li>
+  <li><a href="#notasi-huruf" id="toc-notasi-huruf" class="nav-link" data-scroll-target="#notasi-huruf"><span class="header-section-number">4.6.2</span> Notasi Huruf</a></li>
   </ul></li>
-  <li><a href="#anova-untuk-semua-atribut-sekaligus" id="toc-anova-untuk-semua-atribut-sekaligus" class="nav-link" data-scroll-target="#anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">2.7</span> ANOVA untuk Semua Atribut Sekaligus</a></li>
-  <li><a href="#pca-memetakan-produk" id="toc-pca-memetakan-produk" class="nav-link" data-scroll-target="#pca-memetakan-produk"><span class="header-section-number">2.8</span> PCA: Memetakan Produk</a>
+  <li><a href="#anova-untuk-semua-atribut-sekaligus" id="toc-anova-untuk-semua-atribut-sekaligus" class="nav-link" data-scroll-target="#anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">4.7</span> ANOVA untuk Semua Atribut Sekaligus</a></li>
+  <li><a href="#pca-memetakan-produk" id="toc-pca-memetakan-produk" class="nav-link" data-scroll-target="#pca-memetakan-produk"><span class="header-section-number">4.8</span> PCA: Memetakan Produk</a>
   <ul class="collapse">
-  <li><a href="#menyiapkan-tabel-rata-rata" id="toc-menyiapkan-tabel-rata-rata" class="nav-link" data-scroll-target="#menyiapkan-tabel-rata-rata"><span class="header-section-number">2.8.1</span> Menyiapkan Tabel Rata-rata</a></li>
-  <li><a href="#menjalankan-pca" id="toc-menjalankan-pca" class="nav-link" data-scroll-target="#menjalankan-pca"><span class="header-section-number">2.8.2</span> Menjalankan PCA</a></li>
-  <li><a href="#berapa-dimensi-yang-perlu-dilihat" id="toc-berapa-dimensi-yang-perlu-dilihat" class="nav-link" data-scroll-target="#berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">2.8.3</span> Berapa Dimensi yang Perlu Dilihat?</a></li>
-  <li><a href="#peta-produk-dan-atribut" id="toc-peta-produk-dan-atribut" class="nav-link" data-scroll-target="#peta-produk-dan-atribut"><span class="header-section-number">2.8.4</span> Peta Produk dan Atribut</a></li>
+  <li><a href="#menyiapkan-tabel-rata-rata" id="toc-menyiapkan-tabel-rata-rata" class="nav-link" data-scroll-target="#menyiapkan-tabel-rata-rata"><span class="header-section-number">4.8.1</span> Menyiapkan Tabel Rata-rata</a></li>
+  <li><a href="#menjalankan-pca" id="toc-menjalankan-pca" class="nav-link" data-scroll-target="#menjalankan-pca"><span class="header-section-number">4.8.2</span> Menjalankan PCA</a></li>
+  <li><a href="#berapa-dimensi-yang-perlu-dilihat" id="toc-berapa-dimensi-yang-perlu-dilihat" class="nav-link" data-scroll-target="#berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">4.8.3</span> Berapa Dimensi yang Perlu Dilihat?</a></li>
+  <li><a href="#peta-produk-dan-atribut" id="toc-peta-produk-dan-atribut" class="nav-link" data-scroll-target="#peta-produk-dan-atribut"><span class="header-section-number">4.8.4</span> Peta Produk dan Atribut</a></li>
   </ul></li>
-  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">2.9</span> Menyusun Kesimpulan</a></li>
-  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">2.10</span> Latihan (You Do)</a>
+  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">4.9</span> Menyusun Kesimpulan</a></li>
+  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">4.10</span> Latihan (You Do)</a>
   <ul class="collapse">
-  <li><a href="#latihan-1-anova-dan-uji-lanjut-atribut-lain" id="toc-latihan-1-anova-dan-uji-lanjut-atribut-lain" class="nav-link" data-scroll-target="#latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">2.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</a></li>
-  <li><a href="#latihan-2-tabel-laporan" id="toc-latihan-2-tabel-laporan" class="nav-link" data-scroll-target="#latihan-2-tabel-laporan"><span class="header-section-number">2.10.2</span> Latihan 2: Tabel Laporan</a></li>
-  <li><a href="#latihan-3-challenges" id="toc-latihan-3-challenges" class="nav-link" data-scroll-target="#latihan-3-challenges"><span class="header-section-number">2.10.3</span> Latihan 3: <em>Challenges</em></a></li>
+  <li><a href="#latihan-1-anova-dan-uji-lanjut-atribut-lain" id="toc-latihan-1-anova-dan-uji-lanjut-atribut-lain" class="nav-link" data-scroll-target="#latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">4.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</a></li>
+  <li><a href="#latihan-2-tabel-laporan" id="toc-latihan-2-tabel-laporan" class="nav-link" data-scroll-target="#latihan-2-tabel-laporan"><span class="header-section-number">4.10.2</span> Latihan 2: Tabel Laporan</a></li>
+  <li><a href="#latihan-3-challenges" id="toc-latihan-3-challenges" class="nav-link" data-scroll-target="#latihan-3-challenges"><span class="header-section-number">4.10.3</span> Latihan 3: <em>Challenges</em></a></li>
   </ul></li>
-  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">2.11</span> Ringkasan</a></li>
+  <li><a href="#ringkasan" id="toc-ringkasan" class="nav-link" data-scroll-target="#ringkasan"><span class="header-section-number">4.11</span> Ringkasan</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/01_QDA-ANOVA-PCA_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></nav>
     </div>
@@ -255,7 +260,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></h1>
 <p class="subtitle lead">Membandingkan profil tekstur dan flavour antar produk</p>
 </div>
 
@@ -285,8 +290,8 @@ window.Quarto = {
 </header>
 
 
-<section id="tujuan-pembelajaran" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">2.1</span> Tujuan Pembelajaran</h2>
+<section id="tujuan-pembelajaran" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">4.1</span> Tujuan Pembelajaran</h2>
 <p>Setelah sesi ini, mahasiswa akan mampu:</p>
 <table class="caption-top table">
 <colgroup>
@@ -325,8 +330,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="sekilas-tentang-qda" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="sekilas-tentang-qda"><span class="header-section-number">2.2</span> Sekilas tentang QDA</h2>
+<section id="sekilas-tentang-qda" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sekilas-tentang-qda"><span class="header-section-number">4.2</span> Sekilas tentang QDA</h2>
 <p><strong>Quantitative Descriptive Analysis (QDA)</strong> adalah metode di mana sekelompok <strong>panelis terlatih</strong> menilai <strong>intensitas</strong> atribut sensoris suatu produk. Panelis terlatih berperan seperti instrumen ukur: mereka dilatih hingga memberikan angka yang konsisten untuk atribut yang sama.</p>
 <p>Data yang akan kita gunakan berasal dari uji QDA terhadap <strong>5 merek nugget ayam</strong> (A, B, C, D, E) oleh <strong>12 panelis terlatih</strong> dengan <strong>3 kali replikasi</strong>. Setiap panelis menilai 8 atribut pada <strong>skala garis 0–15</strong>.</p>
 <table class="caption-top table">
@@ -388,8 +393,8 @@ window.Quarto = {
 <p>Total baris data: 12 panelis × 5 produk × 3 replikasi = <strong>180 baris</strong>.</p>
 <p>Data tersimpan pada file <code>qda_nugget.xlsx</code>, lembar <strong>Data</strong>. Lembar <strong>Keterangan</strong> pada file yang sama memuat definisi setiap kolom. Jika Anda ingin menginput data hasil praktikum kelompok Anda sendiri, gunakan <code>template_input_qda.xlsx</code> yang formatnya sudah sesuai. Cukup hapus baris contoh berwarna kuning, isi datanya, lalu ganti nama file pada perintah <code>read_excel()</code> di bawah.</p>
 </section>
-<section id="memuat-data" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="memuat-data"><span class="header-section-number">2.3</span> Memuat Data</h2>
+<section id="memuat-data" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="memuat-data"><span class="header-section-number">4.3</span> Memuat Data</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -454,8 +459,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="eksplorasi-awal" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="eksplorasi-awal"><span class="header-section-number">2.4</span> Eksplorasi Awal</h2>
+<section id="eksplorasi-awal" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="eksplorasi-awal"><span class="header-section-number">4.4</span> Eksplorasi Awal</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rata-rata setiap atribut untuk setiap produk</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tabel_rata <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(T_kerenyahan, T_kekerasan, T_juiciness, T_kekenyalan,</span>
@@ -510,8 +515,8 @@ window.Quarto = {
 <p><strong>Amati grafik ini sebelum menghitung apa pun.</strong> Pada atribut mana kotak-kotaknya jelas terpisah antar produk? Pada atribut mana kotak-kotaknya bertumpuk? Dugaan Anda dari grafik akan kita uji dengan ANOVA di bagian berikutnya.</p>
 </blockquote>
 </section>
-<section id="anova-untuk-satu-atribut" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="anova-untuk-satu-atribut"><span class="header-section-number">2.5</span> ANOVA untuk Satu Atribut</h2>
+<section id="anova-untuk-satu-atribut" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="anova-untuk-satu-atribut"><span class="header-section-number">4.5</span> ANOVA untuk Satu Atribut</h2>
 <p>Pertanyaannya: <strong>apakah kelima produk berbeda nyata dalam atribut kerenyahan?</strong></p>
 <ul>
 <li><span class="math inline">\(H_0\)</span> (hipotesis nol): rata-rata kerenyahan kelima produk <strong>sama</strong></li>
@@ -563,8 +568,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <blockquote class="blockquote">
 <p><strong>Mengapa <code>panelis</code> ikut dimasukkan ke dalam model?</strong> Setiap panelis punya kebiasaan menggunakan skala secara berbeda, ada yang menggunakan skala bagian atas, maupun bagian bawah. Walaupun perbedaan itu bukan efek produk, perbedaan itu tetap menambah variasi data. Dengan menuliskan <code>+ panelis</code>, variasi antar panelis “dikeluarkan” dari sisa (<em>residual</em>), sehingga uji terhadap efek produk menjadi lebih peka. Konsep ini sama dengan rancangan acak kelompok (RAK), dengan panelis sebagai kelompok.</p>
 </blockquote>
-<section id="hinge-question" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">2.5.1</span> <em>Hinge Question</em></h3>
+<section id="hinge-question" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">4.5.1</span> <em>Hinge Question</em></h3>
 <blockquote class="blockquote">
 <p><strong>Sebelum melanjutkan, jawablah:</strong> Hasil ANOVA menunjukkan nilai <em>p</em> untuk <code>produk</code> sebesar 2e-16. Apa kesimpulan yang benar?</p>
 <ol type="A">
@@ -580,10 +585,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </blockquote>
 </section>
 </section>
-<section id="uji-lanjut-post-hoc" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="uji-lanjut-post-hoc"><span class="header-section-number">2.6</span> Uji Lanjut (<em>Post-hoc</em>)</h2>
-<section id="tukey-hsd" class="level3" data-number="2.6.1">
-<h3 data-number="2.6.1" class="anchored" data-anchor-id="tukey-hsd"><span class="header-section-number">2.6.1</span> Tukey HSD</h3>
+<section id="uji-lanjut-post-hoc" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="uji-lanjut-post-hoc"><span class="header-section-number">4.6</span> Uji Lanjut (<em>Post-hoc</em>)</h2>
+<section id="tukey-hsd" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="tukey-hsd"><span class="header-section-number">4.6.1</span> Tukey HSD</h3>
 <p>Uji Tukey membandingkan <strong>semua pasangan produk</strong>, sambil mengendalikan probabilitas dalam menyimpulkan secara salah akibat banyaknya perbandingan.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tukey_renyah <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(model_renyah, <span class="at">which =</span> <span class="st">"produk"</span>)</span>
@@ -624,8 +629,8 @@ E-D  2.8638889  2.1304526  3.5973252 0.0000000</code></pre>
 </blockquote>
 <p>Pada hasil uji lanjut Tukey, dapat dilihat bahwa hanya produk A-B yang tidak berbeda nyata.</p>
 </section>
-<section id="notasi-huruf" class="level3" data-number="2.6.2">
-<h3 data-number="2.6.2" class="anchored" data-anchor-id="notasi-huruf"><span class="header-section-number">2.6.2</span> Notasi Huruf</h3>
+<section id="notasi-huruf" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="notasi-huruf"><span class="header-section-number">4.6.2</span> Notasi Huruf</h3>
 <p>Hasil uji lanjut biasanya disajikan sebagai notasi huruf: produk dengan huruf yang sama berarti tidak berbeda nyata.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>hsd_renyah <span class="ot">&lt;-</span> <span class="fu">HSD.test</span>(model_renyah, <span class="st">"produk"</span>, <span class="at">group =</span> <span class="cn">TRUE</span>)</span>
@@ -643,8 +648,8 @@ E-D  2.8638889  2.1304526  3.5973252 0.0000000</code></pre>
 </blockquote>
 </section>
 </section>
-<section id="anova-untuk-semua-atribut-sekaligus" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">2.7</span> ANOVA untuk Semua Atribut Sekaligus</h2>
+<section id="anova-untuk-semua-atribut-sekaligus" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="anova-untuk-semua-atribut-sekaligus"><span class="header-section-number">4.7</span> ANOVA untuk Semua Atribut Sekaligus</h2>
 <p>Mengulang kode di atas delapan kali akan melelahkan dan rawan salah salin. Kita bisa membuat R melakukannya secara otomatis:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>atribut <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"T_kerenyahan"</span>, <span class="st">"T_kekerasan"</span>, <span class="st">"T_juiciness"</span>, <span class="st">"T_kekenyalan"</span>,</span>
@@ -676,12 +681,12 @@ E-D  2.8638889  2.1304526  3.5973252 0.0000000</code></pre>
 <p><strong>Inilah hasil terpenting dari QDA.</strong> Atribut dengan <em>p-value</em> kecil adalah atribut yang <strong>mampu membedakan</strong> produk. Atribut inilah yang layak dibahas selanjutnya. Atribut dengan nilai <em>p</em> besar berarti kelima produk terasa sama pada atribut tersebut. Hasil “tidak berbeda nyata” bukan kegagalan proses pengambilan data: informasi tersebut juga tetap valid, misalnya bahwa semua merek memakai tingkat penggunaan garam yang serupa.</p>
 </blockquote>
 </section>
-<section id="pca-memetakan-produk" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="pca-memetakan-produk"><span class="header-section-number">2.8</span> PCA: Memetakan Produk</h2>
+<section id="pca-memetakan-produk" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="pca-memetakan-produk"><span class="header-section-number">4.8</span> PCA: Memetakan Produk</h2>
 <p>Kita sekarang punya 8 atribut. Membandingkan 5 produk pada 8 sumbu sekaligus sulit dilakukan di kepala. <strong>Principal Component Analysis (PCA)</strong> memampatkan 8 atribut itu menjadi dua atau tiga dimensi baru yang dapat divisualisasikan sebagai peta.</p>
 <p>Gagasannya sederhana: atribut yang berkolerasi (misalnya produk yang renyah cenderung juga juicy) dianggap membawa informasi yang mirip, sehingga bisa diringkas menjadi satu sumbu.</p>
-<section id="menyiapkan-tabel-rata-rata" class="level3" data-number="2.8.1">
-<h3 data-number="2.8.1" class="anchored" data-anchor-id="menyiapkan-tabel-rata-rata"><span class="header-section-number">2.8.1</span> Menyiapkan Tabel Rata-rata</h3>
+<section id="menyiapkan-tabel-rata-rata" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="menyiapkan-tabel-rata-rata"><span class="header-section-number">4.8.1</span> Menyiapkan Tabel Rata-rata</h3>
 <p>Pada QDA, PCA dilakukan terhadap <strong>tabel rata-rata produk × atribut</strong>, bukan terhadap 180 baris data mentah, karena yang ingin kita petakan adalah produknya, bukan panelisnya.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>tabel_pca <span class="ot">&lt;-</span> tabel_rata[, <span class="sc">-</span><span class="dv">1</span>]              <span class="co"># buang kolom 'produk'</span></span>
@@ -696,8 +701,8 @@ E-D  2.8638889  2.1304526  3.5973252 0.0000000</code></pre>
 </div>
 </div>
 </section>
-<section id="menjalankan-pca" class="level3" data-number="2.8.2">
-<h3 data-number="2.8.2" class="anchored" data-anchor-id="menjalankan-pca"><span class="header-section-number">2.8.2</span> Menjalankan PCA</h3>
+<section id="menjalankan-pca" class="level3" data-number="4.8.2">
+<h3 data-number="4.8.2" class="anchored" data-anchor-id="menjalankan-pca"><span class="header-section-number">4.8.2</span> Menjalankan PCA</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hasil_pca <span class="ot">&lt;-</span> <span class="fu">PCA</span>(tabel_pca, <span class="at">scale.unit =</span> <span class="cn">TRUE</span>, <span class="at">graph =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -705,8 +710,8 @@ E-D  2.8638889  2.1304526  3.5973252 0.0000000</code></pre>
 <p><strong>Mengapa <code>scale.unit = TRUE</code>?</strong> Perintah ini menstandarkan setiap atribut sehingga semuanya memiliki bobot yang sama. Tanpa itu, atribut yang kebetulan memiliki rentang nilai lebar akan mendominasi peta hanya karena satuannya, bukan karena informasinya lebih penting.</p>
 </blockquote>
 </section>
-<section id="berapa-dimensi-yang-perlu-dilihat" class="level3" data-number="2.8.3">
-<h3 data-number="2.8.3" class="anchored" data-anchor-id="berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">2.8.3</span> Berapa Dimensi yang Perlu Dilihat?</h3>
+<section id="berapa-dimensi-yang-perlu-dilihat" class="level3" data-number="4.8.3">
+<h3 data-number="4.8.3" class="anchored" data-anchor-id="berapa-dimensi-yang-perlu-dilihat"><span class="header-section-number">4.8.3</span> Berapa Dimensi yang Perlu Dilihat?</h3>
 <p>Sebelum membuat peta produknya, kita perlu tahu seberapa besar informasi asli yang terwakili di dalamnya. Kalau terlalu sedikit, posisi produk pada peta tidak bisa dipercaya.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(hasil_pca<span class="sc">$</span>eig, <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
@@ -734,8 +739,8 @@ comp 4       0.06                   0.72                            100.00</code
 </div>
 </div>
 </section>
-<section id="peta-produk-dan-atribut" class="level3" data-number="2.8.4">
-<h3 data-number="2.8.4" class="anchored" data-anchor-id="peta-produk-dan-atribut"><span class="header-section-number">2.8.4</span> Peta Produk dan Atribut</h3>
+<section id="peta-produk-dan-atribut" class="level3" data-number="4.8.4">
+<h3 data-number="4.8.4" class="anchored" data-anchor-id="peta-produk-dan-atribut"><span class="header-section-number">4.8.4</span> Peta Produk dan Atribut</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(hasil_pca,</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
@@ -817,8 +822,8 @@ O_rempah     -0.15  0.91</code></pre>
 </blockquote>
 </section>
 </section>
-<section id="menyusun-kesimpulan" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">2.9</span> Menyusun Kesimpulan</h2>
+<section id="menyusun-kesimpulan" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">4.9</span> Menyusun Kesimpulan</h2>
 <p>Sebuah kesimpulan QDA yang baik menggabungkan ketiga analisis tadi:</p>
 <ol type="1">
 <li><strong>ANOVA</strong> <span class="math inline">\(\rightarrow\)</span> atribut mana yang mampu membedakan produk?</li>
@@ -829,10 +834,10 @@ O_rempah     -0.15  0.91</code></pre>
 <p><strong>Latihan menulis:</strong> Susun satu paragraf (4–6 kalimat) yang menjawab ketiga pertanyaan di atas untuk data nugget ini. Sebutkan nilai <em>p</em> dan notasi huruf sebagai pendukung, bukan sebagai isi utama kalimat.</p>
 </blockquote>
 </section>
-<section id="latihan-you-do" class="level2" data-number="2.10">
-<h2 data-number="2.10" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">2.10</span> Latihan (You Do)</h2>
-<section id="latihan-1-anova-dan-uji-lanjut-atribut-lain" class="level3" data-number="2.10.1">
-<h3 data-number="2.10.1" class="anchored" data-anchor-id="latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">2.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</h3>
+<section id="latihan-you-do" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">4.10</span> Latihan (You Do)</h2>
+<section id="latihan-1-anova-dan-uji-lanjut-atribut-lain" class="level3" data-number="4.10.1">
+<h3 data-number="4.10.1" class="anchored" data-anchor-id="latihan-1-anova-dan-uji-lanjut-atribut-lain"><span class="header-section-number">4.10.1</span> Latihan 1: ANOVA dan Uji Lanjut Atribut Lain</h3>
 <ol type="1">
 <li>Jalankan ANOVA untuk atribut <code>aroma_ayam</code>:</li>
 </ol>
@@ -850,8 +855,8 @@ O_rempah     -0.15  0.91</code></pre>
 <li>Ulangi untuk <code>asin</code>. Apa yang Anda temukan pada tabel notasi hurufnya, dan mengapa hasilnya seperti itu?</li>
 </ol>
 </section>
-<section id="latihan-2-tabel-laporan" class="level3" data-number="2.10.2">
-<h3 data-number="2.10.2" class="anchored" data-anchor-id="latihan-2-tabel-laporan"><span class="header-section-number">2.10.2</span> Latihan 2: Tabel Laporan</h3>
+<section id="latihan-2-tabel-laporan" class="level3" data-number="4.10.2">
+<h3 data-number="4.10.2" class="anchored" data-anchor-id="latihan-2-tabel-laporan"><span class="header-section-number">4.10.2</span> Latihan 2: Tabel Laporan</h3>
 <p>Buat tabel rata-rata ± simpangan baku <code>gurih</code> untuk setiap produk:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>qda <span class="sc">%&gt;%</span></span>
@@ -861,8 +866,8 @@ O_rempah     -0.15  0.91</code></pre>
 </div>
 <p>Kemudian tambahkan notasi huruf dari uji lanjut ke dalam tabel tersebut secara manual, seperti format yang lazim dipakai pada laporan praktikum.</p>
 </section>
-<section id="latihan-3-challenges" class="level3" data-number="2.10.3">
-<h3 data-number="2.10.3" class="anchored" data-anchor-id="latihan-3-challenges"><span class="header-section-number">2.10.3</span> Latihan 3: <em>Challenges</em></h3>
+<section id="latihan-3-challenges" class="level3" data-number="4.10.3">
+<h3 data-number="4.10.3" class="anchored" data-anchor-id="latihan-3-challenges"><span class="header-section-number">4.10.3</span> Latihan 3: <em>Challenges</em></h3>
 <ol type="1">
 <li>Jalankan ulang PCA <strong>hanya menggunakan atribut yang berbeda nyata</strong> menurut ANOVA. Apakah posisi produk pada peta berubah? Apakah persentase varians Dimensi 1 naik atau turun? Mengapa?</li>
 </ol>
@@ -895,8 +900,8 @@ O_rempah     -0.15  0.91</code></pre>
 </div>
 </section>
 </section>
-<section id="ringkasan" class="level2" data-number="2.11">
-<h2 data-number="2.11" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">2.11</span> Ringkasan</h2>
+<section id="ringkasan" class="level2" data-number="4.11">
+<h2 data-number="4.11" class="anchored" data-anchor-id="ringkasan"><span class="header-section-number">4.11</span> Ringkasan</h2>
 <p>Dalam sesi ini kita telah mempelajari:<br>
 - Struktur data QDA: panelis × produk × replikasi × atribut dalam format panjang<br>
 - ANOVA dengan <code>aov(atribut ~ produk + panelis)</code> dan alasan memasukkan panelis ke dalam model<br>
@@ -1312,14 +1317,11 @@ O_rempah     -0.15  0.91</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./00_r-basics-sensori_id.html" class="pagination-link" aria-label="Pengantar R dan `RStudio` untuk Uji Sensoris">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span>
+      <a href="./03_seleksi-panelis_id.html" class="pagination-link" aria-label="Seleksi Panelis dengan Triangle Sequential Test">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seleksi Panelis dengan Triangle Sequential Test</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_baseline-variabilitas_id.html" class="pagination-link" aria-label="Penentuan Baseline dan Variabilitas Panelis">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
