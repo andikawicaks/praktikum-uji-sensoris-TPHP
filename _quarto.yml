@@ -17,6 +17,8 @@ book:
     - 00_r-basics-sensori_id.Rmd
     - 02_baseline-variabilitas_id.Rmd
     - 03_seleksi-panelis_id.Rmd
+    - 04_penentuan-threshold_id.Rmd
+    - 05_intensitas-hue_id.Rmd
     - 01_QDA-ANOVA-PCA_id.Rmd
 
 lang: id

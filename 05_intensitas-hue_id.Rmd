@@ -1,0 +1,510 @@
+---
+title: 'Pengujian Intensitas Hue dengan Scoring Test'
+author: "Tim Pengampu Praktikum Uji Sensoris"
+date: "2026-09-14"
+output:
+  html_document: default
+  pdf_document: default
+subtitle: One-Way ANOVA dan uji lanjut LSD beserta notasi huruf
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+## Tujuan Pembelajaran
+
+Setelah sesi ini, mahasiswa akan mampu:
+
+| Mengetahui | Memahami | Melakukan |
+|------------------------|------------------------|------------------------|
+| Tiga unsur tristimuli warna: *hue*, *value*, dan *chroma* | Mengapa perubahan warna adalah milik sinar, bukan milik benda (metameri) | Menyusun tabulasi data beserta $T_a$, $T_b$, dan rata-rata |
+| Perbedaan *scoring difference test* dan *ranking test* | Arah skala kategori dan akibatnya pada penafsiran rata-rata | Menghitung FK, JKS, JKT, JKE, KTS, KTE, dan F-hitung |
+| Rumus derajat bebas DBS, DBT, dan DBE | Mengapa uji lanjut hanya dilakukan bila ANOVA signifikan | Membandingkan F-hitung dengan F-tabel dan menarik kesimpulan |
+| Prinsip uji lanjut LSD | Mengapa nilai $t$ untuk LSD diambil dua sisi | Menghitung LSD dan menyusun notasi huruf antar sampel |
+
+## Sekilas tentang Penilaian Warna
+
+Warna timbul dari tiga rangsangan yang bekerja serentak, disebut
+**tristimuli**:
+
+| Unsur | Definisi |
+|------------------------------------|------------------------------------|
+| *Hue* | Jenis warna, yaitu panjang gelombang yang paling banyak dipancarkan. Sinar tampak berkisar 380–770 m$\mu$ |
+| *Value* (*lightness*) | Gelap terangnya warna, yaitu jumlah sinar yang dipancarkan |
+| *Chroma* | Intensitas warna, yaitu tingkat kemurnian *hue* |
+
+Dua produk bisa memiliki *hue* yang sama, misalnya hijau, tetapi
+*value* atau *chroma* berbeda. Bila dua produk diberi pewarna dengan
+konsentrasi berbeda, *hue* dan *chroma*-nya sama sedangkan *value*-nya
+berbeda.
+
+Warna yang tampak bergantung pada tiga hal di luar bendanya sendiri:
+
+| Unsur | Akibat pada penilaian |
+|------------------------------------|------------------------------------|
+| **Sumber sinar** | Benda yang dipindahkan ke jenis penyinaran lain akan tampak berubah warna. Peristiwa ini disebut **metameri**: perubahan warna adalah milik sinar, bukan milik bendanya |
+| **Obyek** | Permukaan halus dan kasar memantulkan cahaya berbeda. Pada benda tiga dimensi, tidak seluruh permukaan menerima penyinaran yang sama |
+| **Karakteristik visual panelis** | Tiga tipe sel *cone* sensitif pada panjang gelombang pendek, menengah, dan panjang. Kecepatan adaptasi terhadap perubahan penyinaran berbeda antar orang |
+
+Karena itu ukuran objek, wadah, sumber sinar, dan kesadaran panelis
+wajib dikendalikan. Kalau *booth* satu lebih terang daripada yang lain,
+yang terukur sebagian adalah pencahayaan, bukan sampelnya.
+
+Metode yang dipakai adalah **scoring test dengan skala kategori**.
+Bedanya dengan *ranking test*: pada *scoring*, panelis boleh memberi
+nilai **sama** untuk sampel berbeda, sedangkan pada *ranking* tidak
+boleh ada peringkat kembar.
+
+Skala kategori yang digunakan mengikuti contoh pada modul, dengan tujuh
+kategori:
+
+| Nilai | Kategori |
+|:-----:|------------------------------------|
+| 1 | Amat sangat pekat |
+| 2 | Sangat pekat |
+| 3 | Pekat |
+| 4 | Sedikit pekat |
+| 5 | Agak pekat |
+| 6 | Agak tidak pekat |
+| 7 | Tidak pekat |
+
+> **Perhatikan arah skalanya!** Nilai **kecil** berarti intensitas
+> *hue* **tinggi**. Jadi sampel dengan rata-rata skor terendah adalah
+> sampel yang **paling pekat**, bukan yang paling pudar. Seluruh
+> perhitungan ANOVA dan LSD berjalan sama saja untuk arah skala mana
+> pun, tetapi **penafsiran** hasilnya terbalik. Inilah kesalahan yang
+> paling sering muncul pada pembahasan laporan.
+
+Data yang akan kita gunakan berasal dari penilaian **20 panelis**
+terhadap **5 sampel** santan encer yang diberi pewarna dengan
+konsentrasi berbeda, dengan kode tiga digit.
+
+| Kolom | Arti |
+|------------------------------------|------------------------------------|
+| `panelis` | Nama atau kode panelis |
+| `sampel` | Kode tiga digit sampel |
+| `skor` | Skor kategori intensitas *hue*, bilangan bulat 1 sampai 7 |
+
+Data tersimpan pada file `acara6_hue.xlsx`, lembar **Data**. Untuk
+menginput data kelompok Anda sendiri, gunakan
+`template_input_acara6.xlsx`.
+
+## Memuat Data
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readxl)
+```
+
+```{r}
+hue <- as.data.frame(read_excel("assets/data/acara6_hue.xlsx",
+                                sheet = "Data"))
+
+hue$panelis <- as.factor(hue$panelis)
+hue$sampel  <- as.factor(hue$sampel)
+
+str(hue)
+head(hue)
+```
+
+> **Think-aloud:** "Saya periksa dua hal sebelum menghitung. Pertama
+> `table(hue$panelis, hue$sampel)` harus berisi 1 di setiap sel, karena
+> rumus derajat bebas pada modul mengandaikan setiap panelis menilai
+> setiap sampel tepat satu kali. Kedua `range(hue$skor)` harus di dalam
+> 1 sampai 7; skor 0 atau 8 biasanya berarti panelis mengisi borang
+> acara lain."
+
+```{r}
+table(hue$panelis, hue$sampel)
+range(hue$skor)
+```
+
+## Tabulasi Data
+
+$T_a$ adalah jumlah nilai per kolom (per sampel) dan $T_b$ adalah
+jumlah nilai per baris (per panelis).
+
+```{r}
+# tabel silang panelis x sampel, seperti Tabel 3.3 pada modul
+tabulasi <- hue %>%
+  pivot_wider(names_from = sampel, values_from = skor) %>%
+  as.data.frame()
+
+tabulasi$Tb <- rowSums(tabulasi[, -1])
+tabulasi
+```
+
+```{r}
+Ta <- hue %>%
+  group_by(sampel) %>%
+  summarise(Ta          = sum(skor),
+            Ta_kuadrat  = sum(skor)^2,
+            rata_rata   = mean(skor),
+            .groups     = "drop") %>%
+  as.data.frame()
+
+Ta$rata_rata <- round(Ta$rata_rata, 2)
+Ta
+```
+
+```{r}
+n <- length(unique(hue$sampel))    # jumlah sampel
+p <- length(unique(hue$panelis))   # jumlah panelis
+
+total_skor         <- sum(hue$skor)
+total_skor_kuadrat <- sum(hue$skor^2)
+
+c(n = n, p = p, total = total_skor, total_kuadrat = total_skor_kuadrat)
+```
+
+## Perhitungan ANOVA
+
+Derajat bebas mengikuti rumus pada modul:
+
+$$
+DBS = n - 1, \qquad DBT = (n \cdot p) - 1, \qquad DBE = n(p - 1)
+$$
+
+```{r}
+dbs <- n - 1
+dbt <- (n * p) - 1
+dbe <- n * (p - 1)
+
+c(DBS = dbs, DBT = dbt, DBE = dbe)
+```
+
+Faktor koreksi dan jumlah kuadrat:
+
+$$
+FK = \frac{(\sum X)^2}{n \cdot p}, \qquad
+JKS = \frac{\sum T_a^2}{p} - FK, \qquad
+JKT = \sum X^2 - FK, \qquad
+JKE = JKT - JKS
+$$
+
+```{r}
+FK  <- total_skor^2 / (n * p)
+JKS <- sum(Ta$Ta^2) / p - FK
+JKT <- total_skor_kuadrat - FK
+JKE <- JKT - JKS
+
+round(c(FK = FK, JKS = JKS, JKT = JKT, JKE = JKE), 3)
+```
+
+Rata-rata kuadrat dan F-hitung:
+
+$$
+KTS = \frac{JKS}{DBS}, \qquad KTE = \frac{JKE}{DBE}, \qquad
+F_{hitung} = \frac{KTS}{KTE}
+$$
+
+```{r}
+KTS <- JKS / dbs
+KTE <- JKE / dbe
+F_hitung <- KTS / KTE
+
+alpha   <- 0.05
+F_tabel <- qf(1 - alpha, dbs, dbe)   # setara =F.INV.RT(alpha; dbs; dbe)
+
+round(c(KTS = KTS, KTE = KTE, F_hitung = F_hitung,
+        F_tabel = F_tabel), 3)
+```
+
+```{r}
+anova_tabel <- data.frame(
+  sumber = c("Sampel", "Error", "Total"),
+  db     = c(dbs, dbe, dbt),
+  JK     = round(c(JKS, JKE, JKT), 3),
+  KT     = c(round(KTS, 3), round(KTE, 3), NA),
+  F_hitung = c(round(F_hitung, 3), NA, NA),
+  F_tabel  = c(round(F_tabel, 3), NA, NA)
+)
+anova_tabel
+```
+
+Sebagai pemeriksaan, hasil yang sama dapat diperoleh dengan `aov()`:
+
+```{r}
+model <- aov(skor ~ sampel, data = hue)
+summary(model)
+```
+
+> **Think-aloud:** "Saya selalu menghitung manual dulu lalu
+> membandingkan dengan `aov()`. Kalau JKS dan JKE-nya tidak sama, yang
+> salah hampir selalu penyebut pada JKS: yang membagi $\sum T_a^2$
+> adalah **jumlah panelis** $p$, bukan jumlah sampel $n$. Kesalahan ini
+> tidak akan terdeteksi dari besarnya angka, karena hasilnya tetap
+> masuk akal."
+
+Hipotesis dan kesimpulannya:
+
+-   $H_0$ = tidak ada perbedaan signifikan di antara sampel
+-   $H_1$ = terdapat perbedaan signifikan di antara sampel
+-   $F_{hitung} > F_{tabel}$ $\rightarrow$ $H_0$ ditolak, $H_1$
+    diterima
+
+```{r}
+ifelse(F_hitung > F_tabel,
+       "F-hitung > F-tabel: H0 ditolak, ada perbedaan antar sampel",
+       "F-hitung < F-tabel: H0 diterima, tidak ada perbedaan antar sampel")
+```
+
+### *Hinge Question*
+
+> **Sebelum melanjutkan, jawablah:** Pada data ini sampel 537
+> memperoleh rata-rata skor 2,40 sedangkan sampel 415 memperoleh 4,40.
+> Manakah pernyataan yang benar?
+>
+> A)  Sampel 415 intensitas *hue*-nya paling tinggi karena skornya
+>     paling besar\
+> B)  Sampel 537 intensitas *hue*-nya paling tinggi karena skor kecil
+>     berarti amat sangat pekat\
+> C)  Keduanya tidak dapat dibandingkan karena kodenya berbeda\
+> D)  Sampel 415 diberi pewarna paling banyak
+>
+> **Jawaban: B.** Skala kategorinya menurun: 1 = amat sangat pekat dan
+> 7 = tidak pekat. Jadi rata-rata **terkecil** menandakan intensitas
+> *hue* **tertinggi**. Perhitungan ANOVA sama sekali tidak terpengaruh
+> arah skala, tetapi kalimat pembahasan akan terbalik seluruhnya kalau
+> arah ini terlewat. Pilihan D juga salah karena panelis dinilai secara
+> buta terhadap perlakuan; kaitan dengan konsentrasi pewarna baru bisa
+> ditarik setelah kode dibuka lewat *cheat sheet*.
+
+## Uji Lanjut LSD
+
+Uji lanjut hanya dilakukan **bila ANOVA signifikan**. Kalau $H_0$
+diterima, perhitungan dicukupkan sampai di sini.
+
+$$
+LSD = t_{(\alpha/2,\; DBE)} \times \sqrt{\frac{2 \cdot KTE}{p}}
+$$
+
+```{r}
+t_tabel <- qt(1 - alpha / 2, dbe)     # nilai t dua sisi
+LSD     <- t_tabel * sqrt(2 * KTE / p)
+
+round(c(t_tabel = t_tabel, LSD = LSD), 3)
+```
+
+> **Perhatikan nilai** $t$ **yang dipakai.** Modul menuliskan rumus
+> Excel `=T.INV(alpha; dbe)`. Fungsi `T.INV` mengembalikan nilai $t$
+> **satu sisi bagian kiri**, sehingga untuk $\alpha = 0{,}05$ hasilnya
+> negatif, yaitu sekitar $-1{,}66$. Nilai yang dimaksud hampir pasti
+> nilai $t$ **dua sisi**, yang di Excel ditulis `=T.INV.2T(alpha; dbe)`
+> atau `=T.INV(1-alpha/2; dbe)`, dan di R adalah
+> `qt(1 - alpha/2, dbe)`. Pada data ini perbedaannya bukan sekadar soal
+> ketelitian: $t$ satu sisi menghasilkan LSD sekitar 0,45 sedangkan $t$
+> dua sisi menghasilkan sekitar 0,53, dan ada satu pasangan sampel yang
+> kesimpulannya berubah karenanya. Konfirmasikan hal ini kepada dosen
+> pengampu sebelum menghitung.
+
+```{r}
+# selisih rata-rata antar seluruh pasangan sampel
+rata <- Ta$rata_rata
+names(rata) <- as.character(Ta$sampel)
+
+pasangan <- t(combn(names(rata), 2))
+banding <- data.frame(
+  sampel_1 = pasangan[, 1],
+  sampel_2 = pasangan[, 2],
+  selisih  = round(abs(rata[pasangan[, 1]] - rata[pasangan[, 2]]), 2)
+)
+banding$LSD       <- round(LSD, 2)
+banding$kode      <- ifelse(banding$selisih > LSD, 1, 0)
+banding$kesimpulan <- ifelse(banding$kode == 1,
+                             "Berbeda signifikan",
+                             "Tidak berbeda signifikan")
+banding
+```
+
+Kolom `kode` mengikuti aturan notasi pada modul: selisih $<$ LSD diberi
+angka 0, selisih $>$ LSD diberi angka 1.
+
+## Notasi Huruf
+
+Sampel dengan notasi huruf yang **sama** berarti tidak berbeda
+signifikan; huruf yang **berbeda** berarti berbeda signifikan.
+
+```{r}
+# install.packages("agricolae")
+library(agricolae)
+
+lsd_hasil <- LSD.test(model, "sampel", alpha = alpha,
+                      console = FALSE, group = TRUE)
+
+notasi <- lsd_hasil$groups
+notasi$sampel <- rownames(notasi)
+notasi <- notasi[, c("sampel", "skor", "groups")]
+names(notasi) <- c("sampel", "rata_rata", "notasi")
+notasi$rata_rata <- round(notasi$rata_rata, 2)
+notasi
+```
+
+```{r}
+# urutkan dari rata-rata terkecil, yaitu intensitas hue tertinggi
+notasi[order(notasi$rata_rata), ]
+```
+
+Cara membaca tabel ini:
+
+| Yang Anda lihat | Artinya |
+|------------------------------------|------------------------------------|
+| **Dua sampel bernotasi sama** | Selisih rata-ratanya lebih kecil daripada LSD; belum ada bukti keduanya berbeda |
+| **Dua sampel bernotasi berbeda** | Selisih rata-ratanya melebihi LSD; keduanya berbeda signifikan |
+| **Satu sampel bernotasi ganda**, misalnya `ab` | Sampel itu tidak berbeda dari kelompok `a` maupun kelompok `b`; posisinya di antara keduanya |
+| **Rata-rata paling kecil** | Intensitas *hue* paling tinggi, mengingat arah skalanya |
+
+## Grafik
+
+```{r fig.height=5, fig.width=8}
+ringkas <- hue %>%
+  group_by(sampel) %>%
+  summarise(rata_rata = mean(skor),
+            se        = sd(skor) / sqrt(n()),
+            .groups   = "drop") %>%
+  left_join(notasi[, c("sampel", "notasi")], by = "sampel") %>%
+  as.data.frame()
+
+ggplot(ringkas, aes(x = reorder(sampel, rata_rata), y = rata_rata)) +
+  geom_col(fill = "#2C7FB8", width = 0.6) +
+  geom_errorbar(aes(ymin = rata_rata - se, ymax = rata_rata + se),
+                width = 0.15, colour = "grey30") +
+  geom_text(aes(label = notasi, y = rata_rata + se + 0.25),
+            size = 4.2) +
+  scale_y_continuous(limits = c(0, 7), breaks = 1:7) +
+  labs(title = "Rata-Rata Skor Intensitas Hue Tiap Sampel",
+       subtitle = paste0("Huruf berbeda = berbeda signifikan (LSD = ",
+                         round(LSD, 2),
+                         "). Skor kecil = hue lebih pekat"),
+       x = "Kode sampel", y = "Rata-rata skor kategori") +
+  theme_minimal()
+```
+
+```{r fig.height=5, fig.width=8}
+ggplot(hue, aes(x = reorder(sampel, skor, FUN = mean), y = skor)) +
+  geom_boxplot(fill = "grey90", outlier.shape = NA) +
+  geom_jitter(width = 0.15, height = 0.12, alpha = 0.5,
+              colour = "#2C7FB8") +
+  scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
+  labs(title = "Sebaran Skor Tiap Sampel",
+       subtitle = "Titik digeser sedikit agar skor kembar tetap terlihat",
+       x = "Kode sampel", y = "Skor kategori") +
+  theme_minimal()
+```
+
+> **Mengapa titik-titiknya digeser (*jitter*)?** Karena skala kategori
+> hanya menghasilkan bilangan bulat, banyak panelis memberi skor yang
+> persis sama dan titiknya akan bertumpuk menjadi satu. Tanpa
+> penggeseran, grafik menyembunyikan berapa banyak panelis yang
+> sebenarnya ada di setiap nilai.
+
+## Menyusun Kesimpulan
+
+Modul menyediakan dua kerangka kesimpulan yang harus keduanya ditulis.
+
+**Kesimpulan #1 (ANOVA).** Berdasarkan hasil analisis One-Way ANOVA
+dengan tingkat konfidensi 95%, F-hitung sampel (...) $>$ atau $<$
+F-tabel (...); $H_0$ ditolak atau diterima, maka $H_1$ diterima atau
+ditolak, sehingga ada atau tidak ada perbedaan di antara sampel.
+
+**Kesimpulan #2 (LSD).** Untuk **setiap pasangan** sampel: berdasarkan
+analisis Post-Hoc LSD, sampel (kode)-(kode), selisih rata-rata (...)
+$>$ atau $<$ LSD (...), dengan tingkat konfidensi 95%, maka $H_0$
+ditolak atau diterima, sehingga ada atau tidak ada perbedaan signifikan
+antara sampel.
+
+```{r}
+# bahan kalimat Kesimpulan #2, satu baris per pasangan
+banding[, c("sampel_1", "sampel_2", "selisih", "LSD", "kesimpulan")]
+```
+
+> **Latihan menulis:** Selain kedua kesimpulan di atas, tambahkan satu
+> paragraf yang mengaitkan hasil dengan konsentrasi pewarna pada
+> *cheat sheet*. Apakah urutan intensitas *hue* menurut panelis sesuai
+> dengan urutan konsentrasi pewarna yang sebenarnya? Bila ada sampel
+> yang menyimpang, sebutkan kemungkinan penyebabnya dari tiga unsur
+> penentu warna yang dibahas di awal.
+
+## Latihan (You Do)
+
+### Latihan 1: Membaca Tabel ANOVA
+
+1.  Tampilkan ulang tabel ANOVA dan tunjukkan bahwa
+    $JKS + JKE = JKT$:
+
+```{r eval=FALSE}
+c(JKS + JKE, JKT)
+```
+
+2.  Berapa persen keragaman total yang dijelaskan oleh perbedaan antar
+    sampel?
+
+```{r eval=FALSE}
+round(100 * JKS / JKT, 1)
+```
+
+Apa arti sisanya, dan dari mana keragaman itu berasal?
+
+### Latihan 2: Pasangan yang Tidak Berbeda
+
+```{r eval=FALSE}
+subset(banding, kode == 0)
+```
+
+Untuk pasangan yang tidak berbeda signifikan, berapa selisih
+konsentrasi pewarna keduanya menurut *cheat sheet*? Apakah selisih itu
+memang terlalu kecil untuk dibedakan mata?
+
+### Latihan 3: *Challenges*
+
+1.  Modul menggunakan One-Way ANOVA, sehingga perbedaan kebiasaan
+    menilai antar panelis masuk ke dalam error. Coba masukkan panelis
+    sebagai **blok**, lalu bandingkan KTE-nya:
+
+```{r eval=FALSE}
+model2 <- aov(skor ~ sampel + panelis, data = hue)
+summary(model2)
+```
+
+KTE mana yang lebih kecil? Apa akibatnya pada nilai LSD dan pada
+jumlah pasangan yang dinyatakan berbeda? Mengapa hasil ini masuk akal
+bila dikaitkan dengan materi baseline pada Acara 3?
+
+2.  Bandingkan LSD dengan uji Tukey, yang mengendalikan peluang salah
+    pada seluruh himpunan pasangan sekaligus:
+
+```{r eval=FALSE}
+TukeyHSD(model, "sampel")
+```
+
+Manakah yang lebih longgar menyatakan perbedaan? Dengan 10 pasangan
+yang diuji sekaligus, mana yang lebih pantas dilaporkan?
+
+3.  Karena skor kategori bersifat ordinal, ulangi pengujian dengan uji
+    nonparametrik dan bandingkan kesimpulannya:
+
+```{r eval=FALSE}
+kruskal.test(skor ~ sampel, data = hue)
+```
+
+Apakah kesimpulannya berubah? Kalau tidak, apa artinya bagi keputusan
+memakai ANOVA pada data skala kategori?
+
+## Ringkasan
+
+Dalam sesi ini kita telah mempelajari:\
+- Tristimuli warna *hue*, *value*, dan *chroma*, serta perbedaan
+ketiganya\
+- Tiga unsur penentu warna yang tampak: sumber sinar, obyek, dan
+karakteristik visual panelis, termasuk gejala metameri\
+- Perbedaan *scoring difference test* dan *ranking test*, dan mengapa
+skor kembar diperbolehkan pada *scoring*\
+- Arah skala kategori, di mana skor kecil berarti intensitas *hue*
+tinggi, serta akibatnya pada penafsiran\
+- Perhitungan One-Way ANOVA secara manual: derajat bebas, FK, JKS, JKT,
+JKE, KTS, KTE, dan F-hitung, beserta pemeriksaannya dengan `aov()`\
+- Uji lanjut LSD, termasuk penggunaan nilai $t$ dua sisi\
+- Penyusunan notasi huruf dan cara membacanya, termasuk arti notasi
+ganda seperti `ab`
