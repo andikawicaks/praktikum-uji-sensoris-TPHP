@@ -241,11 +241,11 @@ window.Quarto = {
   <li><a href="#memuat-data" id="toc-memuat-data" class="nav-link" data-scroll-target="#memuat-data"><span class="header-section-number">4.3</span> Memuat Data</a></li>
   <li><a href="#konversi-satuan" id="toc-konversi-satuan" class="nav-link" data-scroll-target="#konversi-satuan"><span class="header-section-number">4.4</span> Konversi Satuan</a></li>
   <li><a href="#persentase-respon-positif" id="toc-persentase-respon-positif" class="nav-link" data-scroll-target="#persentase-respon-positif"><span class="header-section-number">4.5</span> Persentase Respon Positif</a></li>
-  <li><a href="#grafik-plotting-absolute-threshold" id="toc-grafik-plotting-absolute-threshold" class="nav-link" data-scroll-target="#grafik-plotting-absolute-threshold"><span class="header-section-number">4.6</span> Grafik Plotting Absolute Threshold</a>
+  <li><a href="#grafik-plotting-absolute-threshold" id="toc-grafik-plotting-absolute-threshold" class="nav-link" data-scroll-target="#grafik-plotting-absolute-threshold"><span class="header-section-number">4.6</span> Grafik Plotting Absolute Threshold</a></li>
+  <li><a href="#konsentrasi-benar-konsisten-dan-bet-individu" id="toc-konsentrasi-benar-konsisten-dan-bet-individu" class="nav-link" data-scroll-target="#konsentrasi-benar-konsisten-dan-bet-individu"><span class="header-section-number">4.7</span> Konsentrasi Benar Konsisten dan BET Individu</a>
   <ul class="collapse">
-  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">4.6.1</span> <em>Hinge Question</em></a></li>
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">4.7.1</span> <em>Hinge Question</em></a></li>
   </ul></li>
-  <li><a href="#konsentrasi-benar-konsisten-dan-bet-individu" id="toc-konsentrasi-benar-konsisten-dan-bet-individu" class="nav-link" data-scroll-target="#konsentrasi-benar-konsisten-dan-bet-individu"><span class="header-section-number">4.7</span> Konsentrasi Benar Konsisten dan BET Individu</a></li>
   <li><a href="#bet-kelompok" id="toc-bet-kelompok" class="nav-link" data-scroll-target="#bet-kelompok"><span class="header-section-number">4.8</span> BET Kelompok</a></li>
   <li><a href="#perbandingan-dua-estimasi" id="toc-perbandingan-dua-estimasi" class="nav-link" data-scroll-target="#perbandingan-dua-estimasi"><span class="header-section-number">4.9</span> Perbandingan Dua Estimasi</a></li>
   <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">4.10</span> Menyusun Kesimpulan</a></li>
@@ -323,7 +323,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>Definisi <span class="math inline">\(a\)</span> dan <span class="math inline">\(b\)</span> pada perhitungan BET</td>
-<td>Mengapa BET memakai rata-rata geometrik, bukan aritmetik</td>
+<td>Mengapa <em>best estimate threshold</em> (BET) memakai rata-rata geometrik, bukan aritmetik</td>
 <td>Menghitung BET individu dan BET kelompok</td>
 </tr>
 <tr class="even">
@@ -370,7 +370,7 @@ window.Quarto = {
 <p>Praktikum ini menentukan <strong>absolute threshold</strong>. Perhatikan bahwa pada pengujian ini panelis <strong>tidak diberi tahu</strong> jenis rangsangannya; ia hanya menilai apakah ada sampel yang berbeda dari yang lain.</p>
 <p>Nilai <em>threshold</em> penting bagi pengembangan produk dalam dua arah yang berlawanan. Untuk atribut yang tidak dikehendaki, misalnya rasa logam dari fortifikan mineral, konsentrasinya harus dijaga <strong>di bawah</strong> <em>detection threshold</em> agar produk tetap diterima konsumen. Sebaliknya untuk atribut yang dikehendaki, misalnya vanila pada es krim, penggunaan di bawah <em>recognition threshold</em> membuat sensasinya tidak muncul, sedangkan di atas <em>terminal threshold</em> hanya menjadi pemborosan.</p>
 <p>Metode yang dipakai adalah <strong>3-AFC</strong> (<em>Alternative Forced Choice</em>). Panelis menerima tiga sampel per set: satu sampel pengenceran dan dua kontrol berupa air mineral, lalu <strong>wajib memilih</strong> satu yang berbeda walaupun ia merasa tidak yakin. Karena hanya ada tiga pilihan, panelis yang sekadar menebak akan benar dengan peluang <span class="math inline">\(1/3\)</span>.</p>
-<p>Data yang akan kita gunakan berasal dari <strong>26 panelis</strong> pada <strong>6 seri pengenceran</strong> larutan gula. Jumlah panelis ini konsisten dengan kebutuhan sloki pada modul: 156 sloki sampel dibagi 6 pengenceran.</p>
+<p>Data yang akan kita gunakan berasal dari <strong>26 panelis</strong> pada <strong>6 seri pengenceran</strong> larutan gula atau garam.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -399,7 +399,7 @@ window.Quarto = {
 </table>
 <p>Data tersimpan pada file <code>acara5_threshold.xlsx</code>, lembar <strong>Data</strong>. Lembar <strong>Keterangan</strong> memuat definisi setiap kolom. Untuk menginput data kelompok Anda sendiri, gunakan <code>template_input_acara5.xlsx</code>.</p>
 <blockquote class="blockquote">
-<p><strong>Catatan seri pengenceran.</strong> Tabel pengenceran pada modul (Tabel 3.1) tersimpan sebagai gambar, sehingga seri yang dipakai di sini adalah <strong>seri geometrik dengan rasio 2</strong> yang berakhir pada larutan standar gula 2,4%: yaitu 0,075%, 0,15%, 0,30%, 0,60%, 1,20%, dan 2,40%. Perbandingan tetap antar tingkat bukan pilihan estetika, melainkan syarat perhitungan BET, karena BET adalah rata-rata geometrik dua konsentrasi yang berdampingan. Bila seri di laboratorium Anda berbeda, cukup ganti isi kolom <code>konsentrasi_persen</code> pada file data; seluruh perhitungan di dokumen ini mengambil serinya dari data.</p>
+<p><strong>Catatan seri pengenceran.</strong> Seri yang dipakai pada contoh pengenceran pada contoh ini adalah <strong>seri geometrik dengan rasio 2</strong> yang berakhir pada larutan standar gula 2,4%: yaitu 0,075%, 0,15%, 0,30%, 0,60%, 1,20%, dan 2,40%. Perbandingan tetap antar tingkat adalah syarat perhitungan BET, karena BET adalah rata-rata geometrik dua konsentrasi yang berdampingan. Ganti isi kolom <code>konsentrasi_persen</code> pada file data tergantung pada jenis larutannya; maka seluruh perhitungan di dokumen ini akan mengambil serinya dari data tersebut.</p>
 </blockquote>
 </section>
 <section id="memuat-data" class="level2" data-number="4.3">
@@ -577,24 +577,8 @@ window.Quarto = {
 </div>
 <p>Sumbu x memakai <strong>skala logaritmik</strong> karena seri pengencerannya geometrik. Pada skala biasa, keenam titik akan menumpuk di sebelah kiri dan kurvanya sulit dibaca.</p>
 <blockquote class="blockquote">
-<p><strong>Perhatikan bahwa interpolasi mengandaikan kurva menaik.</strong> Bila persentase respon positif turun di suatu konsentrasi, misalnya karena kelelahan indra pada set-set akhir, <code>approx()</code> dapat menghasilkan nilai yang menyesatkan atau <code>NA</code>. Selalu lihat grafiknya sebelum mempercayai angkanya.</p>
+<p><strong>Perhatikan bahwa interpolasi mengandaikan kurva menaik.</strong> Bila persentase respon positif turun di suatu konsentrasi, misalnya karena kelelahan indra pada set-set akhir, <code>approx()</code> dapat menghasilkan nilai yang menyesatkan atau <code>NA</code>. Selalu lihat grafiknya sebelum percaya dengan angkanya.</p>
 </blockquote>
-<section id="hinge-question" class="level3" data-number="4.6.1">
-<h3 data-number="4.6.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">4.6.1</span> <em>Hinge Question</em></h3>
-<blockquote class="blockquote">
-<p><strong>Sebelum melanjutkan, jawablah:</strong> Panelis 14 menjawab <strong>benar</strong> pada 0,75 g/L, <strong>salah</strong> pada 1,5 g/L, lalu <strong>benar</strong> pada 3, 6, 12, dan 24 g/L. Berapa nilai <span class="math inline">\(a\)</span> dan <span class="math inline">\(b\)</span> untuk perhitungan BET-nya?</p>
-<ol type="A">
-<li><span class="math inline">\(a = 0{,}75\)</span> dan <span class="math inline">\(b = 1{,}5\)</span><br>
-</li>
-<li><span class="math inline">\(a = 1{,}5\)</span> dan <span class="math inline">\(b = 3\)</span><br>
-</li>
-<li><span class="math inline">\(a = 0{,}75\)</span> dan <span class="math inline">\(b = 3\)</span>, karena 1,5 g/L diabaikan<br>
-</li>
-<li>Tidak dapat dihitung, karena jawabannya tidak berurutan</li>
-</ol>
-<p><strong>Jawaban: B.</strong> <span class="math inline">\(a\)</span> adalah konsentrasi <strong>tertinggi yang dijawab salah</strong>, yaitu 1,5 g/L, bukan yang pertama dijawab salah. <span class="math inline">\(b\)</span> adalah konsentrasi berikutnya yang lebih tinggi, yaitu 3 g/L. Jawaban benar pada 0,75 g/L di bawahnya dianggap kebetulan menebak, dan justru itulah sebabnya aturannya memakai yang tertinggi: yang dicari adalah titik di mana panelis mulai <strong>konsisten</strong> benar. BET-nya <span class="math inline">\(\sqrt{1{,}5 \times 3} = 2{,}12\)</span> g/L.</p>
-</blockquote>
-</section>
 </section>
 <section id="konsentrasi-benar-konsisten-dan-bet-individu" class="level2" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="konsentrasi-benar-konsisten-dan-bet-individu"><span class="header-section-number">4.7</span> Konsentrasi Benar Konsisten dan BET Individu</h2>
@@ -676,6 +660,22 @@ Salah pada konsentrasi tertinggi
 <blockquote class="blockquote">
 <p><strong>Think-aloud:</strong> “Saya selalu melihat tabel <code>kasus</code> ini sebelum menghitung BET kelompok. Panelis dengan keadaan khusus nilai BET-nya merupakan <strong>ekstrapolasi</strong>, bukan hasil pengukuran, karena ambangnya berada di luar rentang seri yang diuji. Kalau jumlahnya banyak, kesimpulannya bukan ‘threshold kelompok sebesar X’, melainkan ‘seri pengencerannya kurang tepat dan perlu digeser’. Itu temuan yang sah untuk dibahas di laporan.”</p>
 </blockquote>
+<section id="hinge-question" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">4.7.1</span> <em>Hinge Question</em></h3>
+<blockquote class="blockquote">
+<p><strong>Sebelum melanjutkan, jawablah:</strong> Panelis 14 menjawab <strong>benar</strong> pada 0,75 g/L, <strong>salah</strong> pada 1,5 g/L, lalu <strong>benar</strong> pada 3, 6, 12, dan 24 g/L. Berapa nilai <span class="math inline">\(a\)</span> dan <span class="math inline">\(b\)</span> untuk perhitungan BET-nya?</p>
+<ol type="A">
+<li><span class="math inline">\(a = 0{,}75\)</span> dan <span class="math inline">\(b = 1{,}5\)</span><br>
+</li>
+<li><span class="math inline">\(a = 1{,}5\)</span> dan <span class="math inline">\(b = 3\)</span><br>
+</li>
+<li><span class="math inline">\(a = 0{,}75\)</span> dan <span class="math inline">\(b = 3\)</span>, karena 1,5 g/L diabaikan<br>
+</li>
+<li>Tidak dapat dihitung, karena jawabannya tidak berurutan</li>
+</ol>
+<p><strong>Jawaban: B.</strong> <span class="math inline">\(a\)</span> adalah konsentrasi <strong>tertinggi yang dijawab salah</strong>, yaitu 1,5 g/L, bukan yang pertama dijawab salah. <span class="math inline">\(b\)</span> adalah konsentrasi berikutnya yang lebih tinggi, yaitu 3 g/L. Jawaban benar pada 0,75 g/L di bawahnya dianggap kebetulan menebak, dan justru itulah sebabnya aturannya memakai yang tertinggi: yang dicari adalah titik di mana panelis mulai <strong>konsisten</strong> benar. BET-nya <span class="math inline">\(\sqrt{1{,}5 \times 3} = 2{,}12\)</span> g/L.</p>
+</blockquote>
+</section>
 </section>
 <section id="bet-kelompok" class="level2" data-number="4.8">
 <h2 data-number="4.8" class="anchored" data-anchor-id="bet-kelompok"><span class="header-section-number">4.8</span> BET Kelompok</h2>
@@ -683,7 +683,7 @@ Salah pada konsentrasi tertinggi
 \text{BET kelompok} = \sqrt[n]{\text{BET}_1 \times \text{BET}_2
 \times \cdots \times \text{BET}_n}
 \]</span></p>
-<p>Akar pangkat <span class="math inline">\(n\)</span> dari perkalian <span class="math inline">\(n\)</span> nilai adalah <strong>rata-rata geometrik</strong>. Dalam praktik, lebih aman dihitung lewat logaritma, karena perkalian 26 bilangan sekaligus mudah menghasilkan angka yang terlalu besar atau terlalu kecil untuk komputer.</p>
+<p>Akar pangkat <span class="math inline">\(n\)</span> dari perkalian <span class="math inline">\(n\)</span> nilai adalah <strong>rata-rata geometrik</strong>. Dalam praktiknya, lebih baik dihitung dengan fungsi logaritma <code>log()</code>, tidak dengan perhitungan manual.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>bet_kelompok <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(bet_ind<span class="sc">$</span>bet)))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -702,7 +702,7 @@ Salah pada konsentrasi tertinggi
 </div>
 </div>
 <blockquote class="blockquote">
-<p><strong>Mengapa rata-rata geometrik?</strong> Karena seri pengencerannya bersifat <strong>perkalian</strong>, bukan penjumlahan: setiap tingkat dua kali lipat tingkat sebelumnya. Pada skala seperti ini, jarak dari 1,5 ke 3 g/L setara dengan jarak dari 12 ke 24 g/L, walaupun selisih aritmetiknya 1,5 dan 12. Rata-rata aritmetik akan tertarik oleh beberapa panelis tidak sensitif dengan BET besar, sehingga melaporkan kelompok sebagai kurang sensitif daripada kenyataannya.</p>
+<p><strong>Mengapa rata-rata geometrik?</strong> Karena seri pengencerannya bersifat <strong>perkalian</strong>, bukan penjumlahan: setiap tingkat dua kali lipat tingkat sebelumnya. Pada skala seperti ini, jarak dari 1,5 ke 3 g/L setara dengan jarak dari 12 ke 24 g/L, walaupun selisih aritmetiknya 1,5 dan 12. Rata-rata aritmetik akan tertarik oleh beberapa panelis tidak sensitif dengan BET besar, sehingga dapat melaporkan kelompok sebagai kurang sensitif daripada kenyataannya.</p>
 </blockquote>
 </section>
 <section id="perbandingan-dua-estimasi" class="level2" data-number="4.9">
@@ -747,6 +747,47 @@ Salah pada konsentrasi tertinggi
 <blockquote class="blockquote">
 <p><strong>Kedua angka tidak harus sama, dan perbedaannya informatif.</strong> Interpolasi kurva bekerja pada <strong>proporsi kelompok di setiap konsentrasi</strong>, sedangkan BET kelompok merata-ratakan <strong>satu nilai per panelis</strong>. Bila sebaran BET individu sangat lebar, keduanya bisa berbeda cukup jauh. Laporkan keduanya, jangan pilih yang angkanya lebih enak dilihat.</p>
 </blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kurva, <span class="fu">aes</span>(<span class="at">x =</span> konsentrasi_gl, <span class="at">y =</span> persen)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 33,3% - tingkat menebak, melintang penuh sebagai acuan</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">100</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey55"</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 66,7% - mendatar dari sumbu y sampai titik perpotongan</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">min</span>(seri), <span class="at">xend =</span> thr_kurva,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> ambang_respon, <span class="at">yend =</span> ambang_respon),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># turun dari titik perpotongan ke sumbu x</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> thr_kurva, <span class="at">xend =</span> thr_kurva,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> ambang_respon),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">colour =</span> <span class="st">"darkred"</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="fl">0.6</span>,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.18</span>, <span class="st">"cm"</span>), <span class="at">ends =</span> <span class="st">"first"</span>)) <span class="sc">+</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.6</span>, <span class="at">colour =</span> <span class="st">"#2C7FB8"</span>) <span class="sc">+</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">min</span>(seri), <span class="at">y =</span> <span class="dv">100</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.6</span>,</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"33,3% - tingkat menebak"</span>, <span class="at">colour =</span> <span class="st">"grey45"</span>,</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">min</span>(seri), <span class="at">y =</span> ambang_respon, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.6</span>, <span class="at">label =</span> <span class="st">"66,7% - ambang deteksi"</span>,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> thr_kurva, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.12</span>,</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"AT = "</span>, <span class="fu">round</span>(thr_kurva, <span class="dv">2</span>), <span class="st">" g/L"</span>),</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">3.4</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> seri, <span class="at">labels =</span> seri) <span class="sc">+</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>),</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Grafik Plotting Absolute Threshold"</span>,</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Konsentrasi sampel (g/L, skala logaritmik)"</span>,</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Respon positif (%)"</span>) <span class="sc">+</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_penentuan-threshold_id_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="menyusun-kesimpulan" class="level2" data-number="4.10">
 <h2 data-number="4.10" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">4.10</span> Menyusun Kesimpulan</h2>
@@ -768,7 +809,7 @@ Salah pada konsentrasi tertinggi
 <li>Tampilkan persentase respon positif pada konsentrasi terendah:</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(kurva, konsentrasi_gl <span class="sc">==</span> <span class="fu">min</span>(konsentrasi_gl))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(kurva, konsentrasi_gl <span class="sc">==</span> <span class="fu">min</span>(konsentrasi_gl))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
 <li>Apakah nilainya mendekati 33,3%? Apa artinya bila nilainya jauh <strong>di bawah</strong> 33,3%, padahal menebak secara acak saja seharusnya menghasilkan sekitar sepertiga jawaban benar?</li>
@@ -777,10 +818,10 @@ Salah pada konsentrasi tertinggi
 <section id="latihan-2-ambang-individu-terendah-dan-tertinggi" class="level3" data-number="4.11.2">
 <h3 data-number="4.11.2" class="anchored" data-anchor-id="latihan-2-ambang-individu-terendah-dan-tertinggi"><span class="header-section-number">4.11.2</span> Latihan 2: Ambang Individu Terendah dan Tertinggi</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bet_ind <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kasus <span class="sc">==</span> <span class="st">"Normal"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bet) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">n</span>()))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bet_ind <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kasus <span class="sc">==</span> <span class="st">"Normal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bet) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">n</span>()))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Berapa kali lipat perbedaan antara panelis paling sensitif dan paling tidak sensitif? Bandingkan dengan rentang seri pengenceran yang diuji.</p>
 </section>
@@ -790,27 +831,27 @@ Salah pada konsentrasi tertinggi
 <li>Hitung BET kelompok hanya dari panelis berkategori <code>Normal</code>, lalu bandingkan dengan BET kelompok seluruh panelis:</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bet_normal <span class="ot">&lt;-</span> <span class="fu">subset</span>(bet_ind, kasus <span class="sc">==</span> <span class="st">"Normal"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">semua  =</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(bet_ind<span class="sc">$</span>bet))),</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">normal =</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(bet_normal<span class="sc">$</span>bet)))), <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bet_normal <span class="ot">&lt;-</span> <span class="fu">subset</span>(bet_ind, kasus <span class="sc">==</span> <span class="st">"Normal"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">semua  =</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(bet_ind<span class="sc">$</span>bet))),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">normal =</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(bet_normal<span class="sc">$</span>bet)))), <span class="dv">2</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Ke arah mana nilainya bergeser, dan mengapa arah itu masuk akal?</p>
 <ol start="2" type="1">
 <li>Uji apakah respon positif pada konsentrasi terendah sudah berbeda nyata dari tingkat menebak <span class="math inline">\(1/3\)</span>:</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(kurva, konsentrasi_gl <span class="sc">==</span> <span class="fu">min</span>(konsentrasi_gl))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(k1<span class="sc">$</span>respon_positif, <span class="at">n =</span> k1<span class="sc">$</span>n, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>k1 <span class="ot">&lt;-</span> <span class="fu">subset</span>(kurva, konsentrasi_gl <span class="sc">==</span> <span class="fu">min</span>(konsentrasi_gl))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(k1<span class="sc">$</span>respon_positif, <span class="at">n =</span> k1<span class="sc">$</span>n, <span class="at">p =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="3" type="1">
 <li>Buat ulang grafik kurva respon dengan sumbu x <strong>linear</strong>, lalu bandingkan dengan versi logaritmik:</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kurva, <span class="fu">aes</span>(<span class="at">x =</span> konsentrasi_gl, <span class="at">y =</span> persen)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> ambang_respon, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Konsentrasi (g/L, skala linear)"</span>, <span class="at">y =</span> <span class="st">"Respon positif (%)"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(kurva, <span class="fu">aes</span>(<span class="at">x =</span> konsentrasi_gl, <span class="at">y =</span> persen)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> ambang_respon, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Konsentrasi (g/L, skala linear)"</span>, <span class="at">y =</span> <span class="st">"Respon positif (%)"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Mengapa pembacaan ambang pada sumbu linear memberi nilai yang berbeda? Mana yang konsisten dengan cara BET dihitung?</p>
 </section>
