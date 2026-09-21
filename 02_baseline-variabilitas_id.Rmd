@@ -77,6 +77,7 @@ perintah `read_excel()` di bawah.
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(ggrepel)
 library(readxl)
 ```
 
@@ -350,6 +351,7 @@ bl_panjang <- bl %>%
                                    "Konsentrasi tinggi")))
 
 ggplot(bl_panjang, aes(x = level, y = skor, group = panelis)) +
+  geom_text_repel (aes(label = panelis), size = 3, direction = "y") +
   geom_line(colour = "grey70") +
   geom_point(colour = "grey40", size = 1.8) +
   facet_wrap(~ atribut) +
