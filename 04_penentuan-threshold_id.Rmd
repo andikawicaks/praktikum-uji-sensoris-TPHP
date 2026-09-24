@@ -19,14 +19,13 @@ Setelah sesi ini, mahasiswa akan mampu:
 |------------------------|------------------------|------------------------|
 | Empat jenis *threshold* dan perbedaannya | Mengapa peluang menebak benar pada 3-AFC adalah 1/3 | Mengonversi konsentrasi dari % ke g/L |
 | Prinsip metode 3-AFC | Mengapa ambang dibaca pada respon positif 66,7%, bukan 50% | Menghitung persentase respon positif tiap konsentrasi |
-| Definisi $a$ dan $b$ pada perhitungan BET | Mengapa BET memakai rata-rata geometrik, bukan aritmetik | Menghitung BET individu dan BET kelompok |
+| Definisi $a$ dan $b$ pada perhitungan BET | Mengapa *best estimate threshold* (BET) memakai rata-rata geometrik, bukan aritmetik | Menghitung BET individu dan BET kelompok |
 | Arti *absolute threshold* bagi pengembangan produk | Bahwa nilai *threshold* bersifat spesifik untuk kelompok panelis | Membuat grafik respon positif dan membaca ambangnya |
 
 ## Sekilas tentang Threshold
 
 *Threshold* adalah ambang batas terendah rangsangan yang mulai dapat
-dirasakan oleh sekelompok panelis. Ada empat jenis yang perlu
-dibedakan:
+dirasakan oleh sekelompok panelis. Ada empat jenis yang perlu dibedakan:
 
 | Jenis | Definisi |
 |------------------------------------|------------------------------------|
@@ -43,10 +42,9 @@ Nilai *threshold* penting bagi pengembangan produk dalam dua arah yang
 berlawanan. Untuk atribut yang tidak dikehendaki, misalnya rasa logam
 dari fortifikan mineral, konsentrasinya harus dijaga **di bawah**
 *detection threshold* agar produk tetap diterima konsumen. Sebaliknya
-untuk atribut yang dikehendaki, misalnya vanila pada es krim,
-penggunaan di bawah *recognition threshold* membuat sensasinya tidak
-muncul, sedangkan di atas *terminal threshold* hanya menjadi
-pemborosan.
+untuk atribut yang dikehendaki, misalnya vanila pada es krim, penggunaan
+di bawah *recognition threshold* membuat sensasinya tidak muncul,
+sedangkan di atas *terminal threshold* hanya menjadi pemborosan.
 
 Metode yang dipakai adalah **3-AFC** (*Alternative Forced Choice*).
 Panelis menerima tiga sampel per set: satu sampel pengenceran dan dua
@@ -55,8 +53,7 @@ walaupun ia merasa tidak yakin. Karena hanya ada tiga pilihan, panelis
 yang sekadar menebak akan benar dengan peluang $1/3$.
 
 Data yang akan kita gunakan berasal dari **26 panelis** pada **6 seri
-pengenceran** larutan gula. Jumlah panelis ini konsisten dengan
-kebutuhan sloki pada modul: 156 sloki sampel dibagi 6 pengenceran.
+pengenceran** larutan gula atau garam.
 
 | Kolom | Arti |
 |------------------------------------|------------------------------------|
@@ -68,15 +65,15 @@ Data tersimpan pada file `acara5_threshold.xlsx`, lembar **Data**.
 Lembar **Keterangan** memuat definisi setiap kolom. Untuk menginput data
 kelompok Anda sendiri, gunakan `template_input_acara5.xlsx`.
 
-> **Catatan seri pengenceran.** Tabel pengenceran pada modul (Tabel 3.1)
-> tersimpan sebagai gambar, sehingga seri yang dipakai di sini adalah
-> **seri geometrik dengan rasio 2** yang berakhir pada larutan standar
-> gula 2,4%: yaitu 0,075%, 0,15%, 0,30%, 0,60%, 1,20%, dan 2,40%.
-> Perbandingan tetap antar tingkat bukan pilihan estetika, melainkan
-> syarat perhitungan BET, karena BET adalah rata-rata geometrik dua
-> konsentrasi yang berdampingan. Bila seri di laboratorium Anda
-> berbeda, cukup ganti isi kolom `konsentrasi_persen` pada file data;
-> seluruh perhitungan di dokumen ini mengambil serinya dari data.
+> **Catatan seri pengenceran.** Seri yang dipakai pada contoh
+> pengenceran pada contoh ini adalah **seri geometrik dengan rasio 2**
+> yang berakhir pada larutan standar gula 2,4%: yaitu 0,075%, 0,15%,
+> 0,30%, 0,60%, 1,20%, dan 2,40%. Perbandingan tetap antar tingkat
+> adalah syarat perhitungan BET, karena BET adalah rata-rata geometrik
+> dua konsentrasi yang berdampingan. Ganti isi kolom
+> `konsentrasi_persen` pada file data tergantung pada jenis larutannya;
+> maka seluruh perhitungan di dokumen ini akan mengambil serinya dari
+> data tersebut.
 
 ## Memuat Data
 
@@ -110,8 +107,8 @@ table(thr$benar)
 
 ## Konversi Satuan
 
-Konsentrasi dinyatakan dalam g/L agar sebanding dengan nilai
-*threshold* di literatur:
+Konsentrasi dinyatakan dalam g/L agar sebanding dengan nilai *threshold*
+di literatur:
 
 $$
 \text{konsentrasi (g/L)} = \text{konsentrasi (\%)} \times 10
@@ -213,28 +210,9 @@ dan kurvanya sulit dibaca.
 
 > **Perhatikan bahwa interpolasi mengandaikan kurva menaik.** Bila
 > persentase respon positif turun di suatu konsentrasi, misalnya karena
-> kelelahan indra pada set-set akhir, `approx()` dapat menghasilkan nilai
-> yang menyesatkan atau `NA`. Selalu lihat grafiknya sebelum mempercayai
-> angkanya.
-
-### *Hinge Question*
-
-> **Sebelum melanjutkan, jawablah:** Panelis 14 menjawab **benar** pada
-> 0,75 g/L, **salah** pada 1,5 g/L, lalu **benar** pada 3, 6, 12, dan
-> 24 g/L. Berapa nilai $a$ dan $b$ untuk perhitungan BET-nya?
->
-> A)  $a = 0{,}75$ dan $b = 1{,}5$\
-> B)  $a = 1{,}5$ dan $b = 3$\
-> C)  $a = 0{,}75$ dan $b = 3$, karena 1,5 g/L diabaikan\
-> D)  Tidak dapat dihitung, karena jawabannya tidak berurutan
->
-> **Jawaban: B.** $a$ adalah konsentrasi **tertinggi yang dijawab
-> salah**, yaitu 1,5 g/L, bukan yang pertama dijawab salah. $b$ adalah
-> konsentrasi berikutnya yang lebih tinggi, yaitu 3 g/L. Jawaban benar
-> pada 0,75 g/L di bawahnya dianggap kebetulan menebak, dan justru itulah
-> sebabnya aturannya memakai yang tertinggi: yang dicari adalah titik di
-> mana panelis mulai **konsisten** benar. BET-nya
-> $\sqrt{1{,}5 \times 3} = 2{,}12$ g/L.
+> kelelahan indra pada set-set akhir, `approx()` dapat menghasilkan
+> nilai yang menyesatkan atau `NA`. Selalu lihat grafiknya sebelum
+> percaya dengan angkanya.
 
 ## Konsentrasi Benar Konsisten dan BET Individu
 
@@ -297,6 +275,25 @@ table(bet_ind$kasus)
 > pengencerannya kurang tepat dan perlu digeser'. Itu temuan yang sah
 > untuk dibahas di laporan."
 
+### *Hinge Question*
+
+> **Sebelum melanjutkan, jawablah:** Panelis 14 menjawab **benar** pada
+> 0,75 g/L, **salah** pada 1,5 g/L, lalu **benar** pada 3, 6, 12, dan 24
+> g/L. Berapa nilai $a$ dan $b$ untuk perhitungan BET-nya?
+>
+> A)  $a = 0{,}75$ dan $b = 1{,}5$\
+> B)  $a = 1{,}5$ dan $b = 3$\
+> C)  $a = 0{,}75$ dan $b = 3$, karena 1,5 g/L diabaikan\
+> D)  Tidak dapat dihitung, karena jawabannya tidak berurutan
+>
+> **Jawaban: B.** $a$ adalah konsentrasi **tertinggi yang dijawab
+> salah**, yaitu 1,5 g/L, bukan yang pertama dijawab salah. $b$ adalah
+> konsentrasi berikutnya yang lebih tinggi, yaitu 3 g/L. Jawaban benar
+> pada 0,75 g/L di bawahnya dianggap kebetulan menebak, dan justru
+> itulah sebabnya aturannya memakai yang tertinggi: yang dicari adalah
+> titik di mana panelis mulai **konsisten** benar. BET-nya
+> $\sqrt{1{,}5 \times 3} = 2{,}12$ g/L.
+
 ## BET Kelompok
 
 $$
@@ -305,9 +302,7 @@ $$
 $$
 
 Akar pangkat $n$ dari perkalian $n$ nilai adalah **rata-rata
-geometrik**. Dalam praktik, lebih aman dihitung lewat logaritma, karena
-perkalian 26 bilangan sekaligus mudah menghasilkan angka yang terlalu
-besar atau terlalu kecil untuk komputer.
+geometrik**. Dalam praktiknya, dihitung dengan fungsi logaritma `log()`.
 
 ```{r}
 bet_kelompok <- exp(mean(log(bet_ind$bet)))
@@ -324,10 +319,10 @@ round(c(geometrik = bet_kelompok,
 > **Mengapa rata-rata geometrik?** Karena seri pengencerannya bersifat
 > **perkalian**, bukan penjumlahan: setiap tingkat dua kali lipat
 > tingkat sebelumnya. Pada skala seperti ini, jarak dari 1,5 ke 3 g/L
-> setara dengan jarak dari 12 ke 24 g/L, walaupun selisih
-> aritmetiknya 1,5 dan 12. Rata-rata aritmetik akan tertarik oleh
-> beberapa panelis tidak sensitif dengan BET besar, sehingga
-> melaporkan kelompok sebagai kurang sensitif daripada kenyataannya.
+> setara dengan jarak dari 12 ke 24 g/L, walaupun selisih aritmetiknya
+> 1,5 dan 12. Rata-rata aritmetik akan tertarik oleh beberapa panelis
+> tidak sensitif dengan BET besar, sehingga dapat melaporkan kelompok
+> sebagai kurang sensitif daripada kenyataannya.
 
 ## Perbandingan Dua Estimasi
 
@@ -347,8 +342,8 @@ ggplot(bet_ind, aes(x = bet, y = reorder(panelis, bet))) +
   geom_point(aes(colour = kasus), size = 2.6) +
   scale_x_log10(breaks = c(0.5, 1, 2, 4, 8, 16, 32)) +
   scale_colour_manual(values = c(
-    "Normal"                           = "#2E9E4F",
-    "Benar pada semua konsentrasi"     = "#2C7FB8",
+    "Normal"                           = "#2C7FB8",
+    "Benar pada semua konsentrasi"     = "#2E9E4F",
     "Salah pada konsentrasi tertinggi" = "#D7301F"), drop = FALSE) +
   labs(title = "Sebaran Best Estimate Threshold Tiap Panelis",
        subtitle = "Garis putus-putus = BET kelompok (rata-rata geometrik)",
@@ -357,24 +352,21 @@ ggplot(bet_ind, aes(x = bet, y = reorder(panelis, bet))) +
   theme(legend.position = "bottom")
 ```
 
-> **Kedua angka tidak harus sama, dan perbedaannya informatif.**
-> Interpolasi kurva bekerja pada **proporsi kelompok di setiap
-> konsentrasi**, sedangkan BET kelompok merata-ratakan **satu nilai per
-> panelis**. Bila sebaran BET individu sangat lebar, keduanya bisa
-> berbeda cukup jauh. Laporkan keduanya, jangan pilih yang angkanya
-> lebih enak dilihat.
+> **Kedua angka BET individu dan BET kelompok tidak harus sama.**
+> Laporkan keduanya, jangan pilih angka yang lebih enak dilihat.
 
 ## Menyusun Kesimpulan
 
-Kesimpulan Acara 5 yang baik menjawab tiga pertanyaan berurutan:
+Kesimpulan Acara Penentuan Threshold yang baik menjawab tiga pertanyaan
+berikut:
 
 1.  **Nilai ambang** $\rightarrow$ berapa *absolute threshold* kelompok
     dalam g/L, dari kurva maupun dari BET?
 2.  **Kesesuaian seri** $\rightarrow$ apakah seri pengenceran sudah
     mengurung nilai ambang, atau banyak panelis yang ambangnya berada di
     luar rentang yang diuji?
-3.  **Makna praktis** $\rightarrow$ apa arti nilai tersebut bila bahan
-    ini dipakai sebagai pemanis atau sebagai fortifikan pada produk?
+3.  **Makna** $\rightarrow$ apa arti nilai tersebut bila bahan ini
+    dipakai sebagai pemanis atau sebagai fortifikan pada produk?
 
 > **Latihan menulis:** Susun satu paragraf (4–6 kalimat) yang menjawab
 > ketiga pertanyaan di atas untuk data kelompok Anda. Sebutkan nilai
@@ -391,8 +383,8 @@ Kesimpulan Acara 5 yang baik menjawab tiga pertanyaan berurutan:
 subset(kurva, konsentrasi_gl == min(konsentrasi_gl))
 ```
 
-2.  Apakah nilainya mendekati 33,3%? Apa artinya bila nilainya jauh
-    **di bawah** 33,3%, padahal menebak secara acak saja seharusnya
+2.  Apakah nilainya mendekati 33,3%? Apa artinya bila nilainya jauh **di
+    bawah** 33,3%, padahal menebak secara acak saja seharusnya
     menghasilkan sekitar sepertiga jawaban benar?
 
 ### Latihan 2: Ambang Individu Terendah dan Tertinggi
@@ -445,8 +437,8 @@ Mana yang konsisten dengan cara BET dihitung?
 ## Ringkasan
 
 Dalam sesi ini kita telah mempelajari:\
-- Empat jenis *threshold* dan mengapa praktikum ini menentukan
-*absolute threshold*\
+- Empat jenis *threshold* dan mengapa praktikum ini menentukan *absolute
+threshold*\
 - Metode 3-AFC serta peluang menebak benar sebesar $1/3$\
 - Konversi konsentrasi dari % ke g/L dan perhitungan persentase respon
 positif\
