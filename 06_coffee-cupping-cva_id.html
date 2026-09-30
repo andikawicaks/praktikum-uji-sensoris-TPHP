@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="id" xml:lang="id"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tim Pengampu Praktikum Uji Sensoris">
+<meta name="dcterms.date" content="2026-09-28">
+
+<title>7&nbsp; Coffee Cupping dengan Coffee Value Assessment – Modul Praktikum Uji Sensoris dengan R</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./01_QDA-ANOVA-PCA_id.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ca13f3598d766c34924b4e560fa18cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Tidak ada hasil",
+    "search-matching-documents-text": "dokumen cocok",
+    "search-copy-link-title": "Salin tautan untuk mencari",
+    "search-hide-matches-text": "Sembunyikan kecocokan lainnya",
+    "search-more-match-text": "kecocokan lainnya di dokumen ini",
+    "search-more-matches-text": "kecocokan lainnya di dokumen ini",
+    "search-clear-button-title": "Hapus",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Batal",
+    "search-submit-button-title": "Kirim",
+    "search-label": "Mencari"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06_coffee-cupping-cva_id.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Coffee Cupping dengan Coffee Value Assessment</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alihkan bilah sisi" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Mencari" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Modul Praktikum Uji Sensoris dengan R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP" title="Kode Sumber" class="quarto-navigation-tool px-1" aria-label="Kode Sumber"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Mencari"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selamat Datang</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_r-basics-sensori_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Pengantar R dan <code>RStudio</code> untuk Uji Sensoris</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_baseline-variabilitas_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Penentuan Baseline dan Variabilitas Panelis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_seleksi-panelis_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Seleksi Panelis dengan Triangle Sequential Test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_penentuan-threshold_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Penentuan Threshold dengan Metode 3-AFC</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_intensitas-hue_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pengujian Intensitas Hue dengan Scoring Test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_QDA-ANOVA-PCA_id.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_coffee-cupping-cva_id.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Coffee Cupping dengan Coffee Value Assessment</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Isi halaman</h2>
+   
+  <ul>
+  <li><a href="#tujuan-pembelajaran" id="toc-tujuan-pembelajaran" class="nav-link active" data-scroll-target="#tujuan-pembelajaran"><span class="header-section-number">7.1</span> Tujuan Pembelajaran</a></li>
+  <li><a href="#sekilas-tentang-data-cva" id="toc-sekilas-tentang-data-cva" class="nav-link" data-scroll-target="#sekilas-tentang-data-cva"><span class="header-section-number">7.2</span> Sekilas tentang Data CVA</a></li>
+  <li><a href="#library-dan-loading-data" id="toc-library-dan-loading-data" class="nav-link" data-scroll-target="#library-dan-loading-data"><span class="header-section-number">7.3</span> <em>Library</em> dan Loading Data</a>
+  <ul class="collapse">
+  <li><a href="#menyiapkan-data" id="toc-menyiapkan-data" class="nav-link" data-scroll-target="#menyiapkan-data"><span class="header-section-number">7.3.1</span> Menyiapkan data</a></li>
+  </ul></li>
+  <li><a href="#mengapa-paired-t-test" id="toc-mengapa-paired-t-test" class="nav-link" data-scroll-target="#mengapa-paired-t-test"><span class="header-section-number">7.4</span> Mengapa <em>Paired T-test</em>?</a></li>
+  <li><a href="#penilaian-deskriptif-intensitas" id="toc-penilaian-deskriptif-intensitas" class="nav-link" data-scroll-target="#penilaian-deskriptif-intensitas"><span class="header-section-number">7.5</span> Penilaian Deskriptif: Intensitas</a></li>
+  <li><a href="#penilaian-afektif-kesan-mutu" id="toc-penilaian-afektif-kesan-mutu" class="nav-link" data-scroll-target="#penilaian-afektif-kesan-mutu"><span class="header-section-number">7.6</span> Penilaian Afektif: Kesan Mutu</a>
+  <ul class="collapse">
+  <li><a href="#hinge-question" id="toc-hinge-question" class="nav-link" data-scroll-target="#hinge-question"><span class="header-section-number">7.6.1</span> <em>Hinge Question</em></a></li>
+  </ul></li>
+  <li><a href="#skor-cva" id="toc-skor-cva" class="nav-link" data-scroll-target="#skor-cva"><span class="header-section-number">7.7</span> Skor CVA</a></li>
+  <li><a href="#data-cata-cochrans-q" id="toc-data-cata-cochrans-q" class="nav-link" data-scroll-target="#data-cata-cochrans-q"><span class="header-section-number">7.8</span> Data CATA: Cochran’s Q</a></li>
+  <li><a href="#penalty-analysis" id="toc-penalty-analysis" class="nav-link" data-scroll-target="#penalty-analysis"><span class="header-section-number">7.9</span> Penalty Analysis</a></li>
+  <li><a href="#menyusun-kesimpulan" id="toc-menyusun-kesimpulan" class="nav-link" data-scroll-target="#menyusun-kesimpulan"><span class="header-section-number">7.10</span> Menyusun Kesimpulan</a></li>
+  <li><a href="#latihan-you-do" id="toc-latihan-you-do" class="nav-link" data-scroll-target="#latihan-you-do"><span class="header-section-number">7.11</span> Latihan (You Do)</a>
+  <ul class="collapse">
+  <li><a href="#latihan-1-perbandingan-metode-cochrans-q-dan-mcnemar" id="toc-latihan-1-perbandingan-metode-cochrans-q-dan-mcnemar" class="nav-link" data-scroll-target="#latihan-1-perbandingan-metode-cochrans-q-dan-mcnemar"><span class="header-section-number">7.11.1</span> Latihan 1: Perbandingan Metode Cochran’s Q dan McNemar</a></li>
+  <li><a href="#latihan-2-challenges" id="toc-latihan-2-challenges" class="nav-link" data-scroll-target="#latihan-2-challenges"><span class="header-section-number">7.11.2</span> Latihan 2: <em>Challenges</em></a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/06_coffee-cupping-cva_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Coffee Cupping dengan Coffee Value Assessment</span></h1>
+<p class="subtitle lead">Paired t-test, Cochran’s Q, dan penalty analysis untuk dua sampel kopi</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Penulis</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tim Pengampu Praktikum Uji Sensoris </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Diterbitkan</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">28 September 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="tujuan-pembelajaran" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="tujuan-pembelajaran"><span class="header-section-number">7.1</span> Tujuan Pembelajaran</h2>
+<p>Setelah sesi ini, mahasiswa akan mampu:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mengetahui</th>
+<th>Memahami</th>
+<th>Melakukan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tiga jenis data CVA: intensitas, kesan mutu, dan CATA</td>
+<td>Mengapa tiap jenis data menuntut uji yang berbeda</td>
+<td>Memuat lembar <code>R_*</code> dan menyaring pasangan lengkap</td>
+</tr>
+<tr class="even">
+<td>Uji t berpasangan (<em>paired samples t-test</em>) untuk data kontinu dan skala 9 titik</td>
+<td>Mengapa intensitas tinggi tidak sama dengan mutu tinggi</td>
+<td>Menjalankan seluruh <em>T-test</em> sekaligus dengan <code>rstatix</code></td>
+</tr>
+<tr class="odd">
+<td>Cochran’s Q untuk data biner berulang</td>
+<td>Mengapa Cochran’s Q pada dua sampel setara dengan uji McNemar</td>
+<td>Menguji seluruh deskriptor CATA dan mengoreksi nilai p</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>+++ Mengenai penalty analysis</td>
+<td>Membuat grafik CATA <em>citation frequency difference</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sekilas-tentang-data-cva" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sekilas-tentang-data-cva"><span class="header-section-number">7.2</span> Sekilas tentang Data CVA</h2>
+<p><em>Coffee Value Assessment</em> dari form <em>descriptive</em> dan <em>affective</em> menghasilkan <strong>tiga jenis data yang berbeda sifatnya</strong>, sehingga memerlukan tiga jenis analisis:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Isi</th>
+<th>Sifat data</th>
+<th>Uji</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>R_Deskriptif</code></td>
+<td>Intensitas tujuh atribut</td>
+<td>Kontinu, skala tidak terstruktur 0–15</td>
+<td><em>Paired samples t-test</em>)</td>
+</tr>
+<tr class="even">
+<td><code>R_Afektif</code></td>
+<td>Kesan mutu (<em>Impression of quality</em>) delapan bagian + <code>Skor_CVA</code></td>
+<td>Skala 9 titik, bilangan bulat</td>
+<td><em>Paired samples t-test</em></td>
+</tr>
+<tr class="odd">
+<td><code>R_CATA</code></td>
+<td>Deskriptor dipilih atau tidak</td>
+<td>Biner (0/1), berulang pada panelis yang sama</td>
+<td>Cochran’s Q</td>
+</tr>
+</tbody>
+</table>
+<p>Penilaian <strong>deskriptif</strong> menjawab “seberapa kuat” atribut yang dinilai, sedangkan penilaian <strong>afektif</strong> menjawab “seberapa bermutu menurut saya”. Skor <em>acidity</em> 12 pada bagian deskriptif berarti keasamannya terasa kuat, bukan bahwa keasaman itu enak. Kedua hal itu sengaja dipisahkan tidak seperti form SCA cupping (2004).</p>
+<p>Pada praktikum ini, setiap panelis hanya menilai <strong>dua buah</strong> sampel, sehingga seluruh pengujian di acara ini bersifat <strong>berpasangan</strong>. Ingat, yang diuji adalah selisih kedua sampel pada atribut X dari tiap panelis, bukan selisih antara dua kelompok orang.</p>
+<p><em>Cupping score</em> pada kolom <code>Skor_CVA</code> dihitung dengan persamaan SCA Standard 104-2024:</p>
+<p><span class="math display">\[
+\text{Skor CVA} = 0{,}65625 \times \sum_{i=1}^{8} s_i + 52{,}75
+- 2(u_{\text{non-uniform}}) - 4(d_{\text{defective}})
+\]</span></p>
+</section>
+<section id="library-dan-loading-data" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="library-dan-loading-data"><span class="header-section-number">7.3</span> <em>Library</em> dan Loading Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)     <span class="co"># dplyr, tidyr, ggplot2, stringr, forcats, purrr</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)       <span class="co"># uji t, Cochran's Q, koreksi nilai p, ukuran efek</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggwordcloud)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Jika gagal, install librarynya dengan <code>install.packages('nama-library')</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># urutan sampel mengikuti sheet 'Setup': Sampel 1 lalu Sampel 2</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>urutan_sampel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"527"</span>, <span class="st">"381"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>desk_mentah <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"assets/data/CVA_Contoh_Data_Simulasi.xlsx"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sheet =</span> <span class="st">"R_Deskriptif"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>afek_mentah <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"assets/data/CVA_Contoh_Data_Simulasi.xlsx"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sheet =</span> <span class="st">"R_Afektif"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>cata_mentah <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"assets/data/CVA_Contoh_Data_Simulasi.xlsx"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sheet =</span> <span class="st">"R_CATA"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(desk_mentah)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [60 × 12] (S3: tbl_df/tbl/data.frame)
+ $ Panelis   : chr [1:60] "P01" "P01" "P02" "P02" ...
+ $ Urutan    : num [1:60] 1 2 1 2 1 2 1 2 1 2 ...
+ $ Sampel    : chr [1:60] "527" "381" "527" "381" ...
+ $ Kopi      : chr [1:60] "Ethiopia natural (light roast)" "Robusta Temanggung (dark roast)" "Ethiopia natural (light roast)" "Robusta Temanggung (dark roast)" ...
+ $ Terisi    : num [1:60] 1 1 1 1 1 1 1 1 1 1 ...
+ $ Fragrance : num [1:60] 7 13 6 10 11 8 8 9 8 8 ...
+ $ Aroma     : num [1:60] 10 7 7 9 5 8 7 11 13 9 ...
+ $ Flavor    : num [1:60] 7 10 10 11 9 7 12 8 8 9 ...
+ $ Aftertaste: num [1:60] 7 11 7 6 8 6 6 8 9 9 ...
+ $ Acidity   : num [1:60] 11 2 11 5 10 4 12 8 12 5 ...
+ $ Sweetness : num [1:60] 4 6 8 6 8 8 8 5 7 8 ...
+ $ Mouthfeel : num [1:60] 7 8 10 8 6 8 9 10 5 11 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(desk_mentah)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Panelis"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Urutan"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Sampel"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Kopi"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Terisi"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fragrance"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Aroma"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Flavor"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Aftertaste"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Acidity"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Sweetness"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Mouthfeel"],"name":[12],"type":["dbl"],"align":["right"]}],"data":[{"1":"P01","2":"1","3":"527","4":"Ethiopia natural (light roast)","5":"1","6":"7","7":"10","8":"7","9":"7","10":"11","11":"4","12":"7"},{"1":"P01","2":"2","3":"381","4":"Robusta Temanggung (dark roast)","5":"1","6":"13","7":"7","8":"10","9":"11","10":"2","11":"6","12":"8"},{"1":"P02","2":"1","3":"527","4":"Ethiopia natural (light roast)","5":"1","6":"6","7":"7","8":"10","9":"7","10":"11","11":"8","12":"10"},{"1":"P02","2":"2","3":"381","4":"Robusta Temanggung (dark roast)","5":"1","6":"10","7":"9","8":"11","9":"6","10":"5","11":"6","12":"8"},{"1":"P03","2":"1","3":"527","4":"Ethiopia natural (light roast)","5":"1","6":"11","7":"5","8":"9","9":"8","10":"10","11":"8","12":"6"},{"1":"P03","2":"2","3":"381","4":"Robusta Temanggung (dark roast)","5":"1","6":"8","7":"8","8":"7","9":"6","10":"4","11":"8","12":"8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p><em>Sheet</em> <code>R_*</code> sudah disiapkan untuk format R: satu baris per panelis × sampel, tanpa header bertingkat. <em>Sheet</em> <code>Afektif</code>, <code>Deskriptif</code>, dan <code>CATA</code> adalah format untuk mengisi, tidak bisa langsung dibaca oleh R.</p>
+<p>Format data dapat diakses pada file <code>CVA_Template_Input.xlsx</code>.</p>
+<section id="menyiapkan-data" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="menyiapkan-data"><span class="header-section-number">7.3.1</span> Menyiapkan data</h3>
+<p>Sebuah hal yang perlu dilakukan adalah menetapkan sampel sebagai faktor untuk dilakukan pengujian t-test.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rapikan <span class="ot">&lt;-</span> <span class="cf">function</span>(df) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Sampel =</span> <span class="fu">factor</span>(<span class="fu">as.character</span>(Sampel),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> urutan_sampel)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Panelis, Sampel) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>desk <span class="ot">&lt;-</span> <span class="fu">rapikan</span>(desk_mentah)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>afek <span class="ot">&lt;-</span> <span class="fu">rapikan</span>(afek_mentah)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>cata <span class="ot">&lt;-</span> <span class="fu">rapikan</span>(cata_mentah)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">lembar  =</span> <span class="fu">c</span>(<span class="st">"Deskriptif"</span>, <span class="st">"Afektif"</span>, <span class="st">"CATA"</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">baris   =</span> <span class="fu">c</span>(<span class="fu">nrow</span>(desk), <span class="fu">nrow</span>(afek), <span class="fu">nrow</span>(cata)),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">panelis =</span> <span class="fu">c</span>(<span class="fu">n_distinct</span>(desk<span class="sc">$</span>Panelis), <span class="fu">n_distinct</span>(afek<span class="sc">$</span>Panelis),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">n_distinct</span>(cata<span class="sc">$</span>Panelis)))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["lembar"],"name":[1],"type":["chr"],"align":["left"]},{"label":["baris"],"name":[2],"type":["int"],"align":["right"]},{"label":["panelis"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Deskriptif","2":"60","3":"30"},{"1":"Afektif","2":"60","3":"30"},{"1":"CATA","2":"60","3":"30"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>kopi <span class="ot">&lt;-</span> desk <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Sampel, Kopi) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>kopi</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Sampel"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Kopi"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"527","2":"Ethiopia natural (light roast)"},{"1":"381","2":"Robusta Temanggung (dark roast)"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mengapa-paired-t-test" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="mengapa-paired-t-test"><span class="header-section-number">7.4</span> Mengapa <em>Paired T-test</em>?</h2>
+<p>Setiap panelis menilai <strong>kedua</strong> sampel. Artinya skor (e.g.&nbsp;afektif, deskriptif) untuk 527 dan 381 pada panelis yang sama selalu berikatan. Keduanya berasal dari orang yang sama, dengan asumsi bahwa orang tersebut memiliki <em>threshold</em> dan cara memakai skala yang sama.</p>
+<p>Uji <em>paired t-test</em> memproses asumsi itu dengan tidak membandingkan dua kelompok yang berbeda (e.g.&nbsp;nilai afektif Golongan I dengan Golongan IV), melainkan menghitung <strong>selisih di dalam tiap panelis</strong> / <em>within-subject difference</em> (e.g.&nbsp;Andi pada sampel 527 vs Andi pada sampel 381), lalu menguji apakah rata-rata selisih itu berbeda dari nol:</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_d = 0\)</span>, rata-rata selisih sama dengan nol</p>
+<p><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu_d \neq 0\)</span></p>
+<p><span class="math display">\[
+d_i = x_{i,527} - x_{i,381}, \qquad
+t = \frac{\bar{d}}{SE}, \qquad SE = {SD / \sqrt{n}}, \qquad db = n - 1
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Independent T-test</th>
+<th>Paired T-test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Asumsi</td>
+<td>Dua kelompok orang yang berbeda (e.g.&nbsp;Golongan I vs Golongan IV)</td>
+<td>Satu kelompok orang, dua kondisi</td>
+</tr>
+<tr class="even">
+<td>Yang masuk ke penyebut</td>
+<td>Variasi <strong>antar panelis</strong> + variasi antar sampel</td>
+<td>Variasi <strong>selisih</strong> kedua sampel</td>
+</tr>
+<tr class="odd">
+<td>Derajat bebas</td>
+<td><span class="math inline">\(2n - 2\)</span></td>
+<td><span class="math inline">\(n - 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><em>Paired T-test</em> <strong>kehilangan</strong> separuh derajat bebas, tetapi <strong>menghilangkan</strong> seluruh variasi antar panelis dari penyebutnya. Contohnya, panelis A terbiasa memberi skor 6–7 sementara panelis B memberi skor 4–5 untuk kopi yang sama, sehingga variasi antar panelis jauh lebih besar daripada variasi selisih kedua skor tersebut. Kelebihan inilah yang membuat <em>paired t-test</em> cocok dilakukan pada kasus ini.</p>
+<p>Analoginya sama dengan memasukkan panelis sebagai <strong>blok</strong> pada <em>two-way</em> ANOVA.</p>
+</section>
+<section id="penilaian-deskriptif-intensitas" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="penilaian-deskriptif-intensitas"><span class="header-section-number">7.5</span> Penilaian Deskriptif: Intensitas</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atribut_desk <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fragrance"</span>, <span class="st">"Aroma"</span>, <span class="st">"Flavor"</span>, <span class="st">"Aftertaste"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Acidity"</span>, <span class="st">"Sweetness"</span>, <span class="st">"Mouthfeel"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>desk_panjang <span class="ot">&lt;-</span> desk <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Panelis, Sampel, <span class="fu">all_of</span>(atribut_desk)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">all_of</span>(atribut_desk),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"atribut"</span>, <span class="at">values_to =</span> <span class="st">"intensitas"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">atribut =</span> <span class="fu">factor</span>(atribut, <span class="at">levels =</span> atribut_desk)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(atribut, Sampel, Panelis)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>uji_desk <span class="ot">&lt;-</span> desk_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(intensitas <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>(<span class="st">"p"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>efek_desk <span class="ot">&lt;-</span> desk_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cohens_d</span>(intensitas <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(atribut, <span class="at">dz =</span> effsize)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>rata_desk <span class="ot">&lt;-</span> desk_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut, Sampel) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rata =</span> <span class="fu">mean</span>(intensitas), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sampel, <span class="at">values_from =</span> rata)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>uji_desk <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(atribut, <span class="at">selisih =</span> estimate, conf.low, conf.high,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>         statistic, df, p, p.signif) <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(efek_desk, <span class="at">by =</span> <span class="st">"atribut"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rata_desk, <span class="at">by =</span> <span class="st">"atribut"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">all_of</span>(urutan_sampel), <span class="at">.after =</span> atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>)))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["atribut"],"name":[1],"type":["fct"],"align":["left"]},{"label":["527"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["381"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["selisih"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["conf.low"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["conf.high"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["p.signif"],"name":[10],"type":["chr"],"align":["left"]},{"label":["dz"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fragrance","2":"7.833","3":"9.367","4":"-1.533","5":"-2.796","6":"-0.271","7":"-2.484","8":"29","9":"0.019","10":"*","11":"-0.454"},{"1":"Aroma","2":"7.867","3":"9.133","4":"-1.267","5":"-2.487","6":"-0.046","7":"-2.122","8":"29","9":"0.042","10":"*","11":"-0.388"},{"1":"Flavor","2":"8.767","3":"8.633","4":"0.133","5":"-0.691","6":"0.958","7":"0.331","8":"29","9":"0.743","10":"ns","11":"0.060"},{"1":"Aftertaste","2":"7.200","3":"8.033","4":"-0.833","5":"-1.733","6":"0.066","7":"-1.895","8":"29","9":"0.068","10":"ns","11":"-0.346"},{"1":"Acidity","2":"10.500","3":"4.200","4":"6.300","5":"5.294","6":"7.306","7":"12.814","8":"29","9":"0.000","10":"****","11":"2.339"},{"1":"Sweetness","2":"7.100","3":"5.000","4":"2.100","5":"1.029","6":"3.171","7":"4.009","8":"29","9":"0.000","10":"***","11":"0.732"},{"1":"Mouthfeel","2":"7.800","3":"9.033","4":"-1.233","5":"-2.256","6":"-0.211","7":"-2.467","8":"29","9":"0.020","10":"*","11":"-0.450"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Perhatikan fungsi <code>t_test()</code> yang ada di <code>uji_desk</code>. Fungsi ini menjalankan pengujian untuk seluruh atribut sekaligus karena datanya sudah dikelompokkan dengan <code>group_by()</code>. <code>paired = TRUE</code> memberikan <span class="math inline">\(d_z\)</span>, yaitu rata-rata selisih (<span class="math inline">\({\bar{d}}\)</span> ) dibagi simpangan baku selisih (<span class="math inline">\(SD\)</span>).</p>
+<p>Tabel yang didapatkan, dapat dibaca sebagai: <code>selisih</code> adalah <span class="math inline">\({\bar{d}}\)</span> . <code>statistic</code> adalah t-hitung, yang mana dapat dihitung dengan menggunakan t-tabel. Jika db-nya = 29, pada <em>two-tails</em> dengan <span class="math inline">\(\alpha\)</span> = 0.05, maka nilainya adalah 2.045. Sedangkan, <em>confidence interval low/high</em> (<code>conf.low</code>/<code>.high</code>) didapatkan dari nilai <span class="math inline">\(\bar{d} \pm t_{tabel} \times SE\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/1OVlCDEWzQr2_aGorVAvWTA.png" class="img-fluid figure-img"></p>
+<figcaption>Student’s t-distribution critical values table</figcaption>
+</figure>
+</div>
+</section>
+<section id="penilaian-afektif-kesan-mutu" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="penilaian-afektif-kesan-mutu"><span class="header-section-number">7.6</span> Penilaian Afektif: Kesan Mutu</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>atribut_afek <span class="ot">&lt;-</span> <span class="fu">c</span>(atribut_desk, <span class="st">"Overall"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>afek_panjang <span class="ot">&lt;-</span> afek <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Panelis, Sampel, <span class="fu">all_of</span>(atribut_afek)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">all_of</span>(atribut_afek),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"atribut"</span>, <span class="at">values_to =</span> <span class="st">"mutu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">atribut =</span> <span class="fu">factor</span>(atribut, <span class="at">levels =</span> atribut_afek)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(atribut, Sampel, Panelis)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>uji_afek <span class="ot">&lt;-</span> afek_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(mutu <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>(<span class="st">"p"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>efek_afek <span class="ot">&lt;-</span> afek_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cohens_d</span>(mutu <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(atribut, <span class="at">dz =</span> effsize)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>rata_afek <span class="ot">&lt;-</span> afek_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(atribut, Sampel) <span class="sc">%&gt;%</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rata =</span> <span class="fu">mean</span>(mutu), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sampel, <span class="at">values_from =</span> rata)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>uji_afek <span class="sc">%&gt;%</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(atribut, <span class="at">selisih =</span> estimate, conf.low, conf.high,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>         statistic, df, p, p.signif) <span class="sc">%&gt;%</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(efek_afek, <span class="at">by =</span> <span class="st">"atribut"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rata_afek, <span class="at">by =</span> <span class="st">"atribut"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">all_of</span>(urutan_sampel), <span class="at">.after =</span> atribut) <span class="sc">%&gt;%</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["atribut"],"name":[1],"type":["fct"],"align":["left"]},{"label":["527"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["381"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["selisih"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["conf.low"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["conf.high"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["p.signif"],"name":[10],"type":["chr"],"align":["left"]},{"label":["dz"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fragrance","2":"7.433","3":"5.767","4":"1.667","5":"1.060","6":"2.274","7":"5.614","8":"29","9":"0","10":"****","11":"1.025"},{"1":"Aroma","2":"7.367","3":"5.600","4":"1.767","5":"1.149","6":"2.384","7":"5.849","8":"29","9":"0","10":"****","11":"1.068"},{"1":"Flavor","2":"7.367","3":"5.367","4":"2.000","5":"1.412","6":"2.588","7":"6.952","8":"29","9":"0","10":"****","11":"1.269"},{"1":"Aftertaste","2":"7.300","3":"5.567","4":"1.733","5":"1.154","6":"2.313","7":"6.117","8":"29","9":"0","10":"****","11":"1.117"},{"1":"Acidity","2":"7.567","3":"5.600","4":"1.967","5":"1.512","6":"2.421","7":"8.850","8":"29","9":"0","10":"****","11":"1.616"},{"1":"Sweetness","2":"7.367","3":"5.767","4":"1.600","5":"1.066","6":"2.134","7":"6.134","8":"29","9":"0","10":"****","11":"1.120"},{"1":"Mouthfeel","2":"7.300","3":"5.467","4":"1.833","5":"1.323","6":"2.344","7":"7.347","8":"29","9":"0","10":"****","11":"1.341"},{"1":"Overall","2":"7.533","3":"5.533","4":"2.000","5":"1.561","6":"2.439","7":"9.327","8":"29","9":"0","10":"****","11":"1.703"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<section id="hinge-question" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="hinge-question"><span class="header-section-number">7.6.1</span> <em>Hinge Question</em></h3>
+<blockquote class="blockquote">
+<p><strong>Sebelum melanjutkan, jawablah:</strong> Pada atribut <strong>Flavor</strong>, intensitas kedua sampel sama (8,77 dan 8,63; <span class="math inline">\(p\)</span> = 0,74), tetapi kesan mutunya berbeda sangat jauh (7,37 dan 5,37; <span class="math inline">\(p &lt; 0{,}001\)</span>). Manakah penjelasan yang benar?</p>
+<ol type="A">
+<li>Ada kesalahan input, karena kedua hasil seharusnya sejalan<br>
+</li>
+<li>Kekuatan flavor kedua kopi sama, tetapi panelis menilai kesan mutu flavor salah satunya jauh lebih tinggi<br>
+</li>
+<li><em>T-test</em> pada bagian deskriptif kurang peka dibandingkan <em>T-test</em> pada bagian afektif<br>
+</li>
+<li>Kesan mutu flavor pasti ditentukan oleh intensitas flavor</li>
+</ol>
+<p><strong>Jawaban: B.</strong> Dua kopi tersebut bisa sama-sama kuat flavornya sementara karakter flavornya sangat berbeda, karakter itulah yang dinilai pada bagian <em>affective</em>. Inilah bukti bahwa intensitas dan kesan mutu adalah dua <em>axis</em> yang berlainan, seperti halnya alasan CVA memisahkan form <em>descriptive</em> dan <em>affective</em>. Pilihan C keliru karena kedua uji memakai panelis, rancangan, dan jumlah data yang sama. Yang berbeda adalah pertanyaannya, bukan kepekaan ujinya.</p>
+</blockquote>
+</section>
+</section>
+<section id="skor-cva" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="skor-cva"><span class="header-section-number">7.7</span> Skor CVA</h2>
+<p>Kolom <code>Skor_CVA</code> sudah dihitung di dalam file Excel dengan persamaan SCA-104, sehingga di sini kita hanya akan menguji hipotesisnya.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>uji_skor <span class="ot">&lt;-</span> afek <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(Skor_CVA <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>efek_skor <span class="ot">&lt;-</span> afek <span class="sc">%&gt;%</span> <span class="fu">cohens_d</span>(Skor_CVA <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>rata_skor <span class="ot">&lt;-</span> afek <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sampel) <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rata =</span> <span class="fu">mean</span>(Skor_CVA), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sampel, <span class="at">values_from =</span> rata)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>uji_skor <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">selisih_CVA =</span> estimate, conf.low, conf.high, statistic, df, p) <span class="sc">%&gt;%</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="at">dz =</span> efek_skor<span class="sc">$</span>effsize, rata_skor) <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">all_of</span>(urutan_sampel), <span class="at">.before =</span> selisih_CVA) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["527"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["381"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["selisih_CVA"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["conf.low"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["conf.high"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["df"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["dz"],"name":[9],"type":["dbl"],"align":["right"]}],"data":[{"1":"91.422","2":"81.929","3":"9.493","4":"8.592","5":"10.394","6":"21.547","7":"29","8":"0","9":"3.934"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Kesimpulan yang bisa ditarik dari <em>paired t-test</em> ini adalah apakah rata-rata selisih <span class="math inline">\(= 0\)</span> pada skor <em>descriptive</em> dan <em>affective</em> pada masing-masing atribut.</p>
+</section>
+<section id="data-cata-cochrans-q" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="data-cata-cochrans-q"><span class="header-section-number">7.8</span> Data CATA: Cochran’s Q</h2>
+<p>Data CATA bersifat biner dengan input 1 atau 0 yang diukur berulang pada panelis yang sama untuk kedua sampel. Uji yang biasa dipakai pada data CATA adalah <strong>Cochran’s Q</strong>. Pertama-tama, data <code>cata</code> perlu diubah terlebih dahulu menjadi format panjang.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cata_panjang <span class="ot">&lt;-</span> cata <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Panelis, Sampel, <span class="fu">matches</span>(<span class="st">"^(FA|FL|TS|MF)_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">matches</span>(<span class="st">"^(FA|FL|TS|MF)_"</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"kode"</span>, <span class="at">values_to =</span> <span class="st">"dipilih"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(kode, <span class="at">delim =</span> <span class="st">"_"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"bagian"</span>, <span class="st">"deskriptor"</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bagian =</span> <span class="fu">recode</span>(bagian,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">FA =</span> <span class="st">"Fragrance/Aroma"</span>, <span class="at">FL =</span> <span class="st">"Flavor/Aftertaste"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">TS =</span> <span class="st">"Main tastes"</span>,     <span class="at">MF =</span> <span class="st">"Mouthfeel"</span>),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">bagian =</span> <span class="fu">fct_inorder</span>(bagian),</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">deskriptor =</span> <span class="fu">str_replace_all</span>(deskriptor,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"(?&lt;=[a-z])(?=[A-Z])"</span>, <span class="st">"/"</span>))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>n_panelis <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(cata_panjang<span class="sc">$</span>Panelis)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>n_panelis</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>frek <span class="ot">&lt;-</span> cata_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(kode, bagian, deskriptor, Sampel) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(dipilih), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> n_panelis)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># deskriptor tanpa satu pun sitasi tidak dapat diuji</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>terpakai <span class="ot">&lt;-</span> cata_panjang <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(kode) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sum</span>(dipilih) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>uji_cata <span class="ot">&lt;-</span> terpakai <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(kode) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cochran_qtest</span>(dipilih <span class="sc">~</span> Sampel <span class="sc">|</span> Panelis) <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_significance</span>(<span class="st">"p"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>frek_lebar <span class="ot">&lt;-</span> frek <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(kode, bagian, deskriptor, Sampel, persen) <span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sampel, <span class="at">values_from =</span> persen) <span class="sc">%&gt;%</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">selisih =</span> .data[[urutan_sampel[<span class="dv">1</span>]]] <span class="sc">-</span> .data[[urutan_sampel[<span class="dv">2</span>]]])</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>tabel_cata <span class="ot">&lt;-</span> uji_cata <span class="sc">%&gt;%</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(kode, statistic, df, p, p.signif) <span class="sc">%&gt;%</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(frek_lebar, <span class="at">by =</span> <span class="st">"kode"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>tabel_cata <span class="sc">%&gt;%</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bagian, deskriptor, <span class="fu">all_of</span>(urutan_sampel), selisih,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">Q =</span> statistic, p, p.signif) <span class="sc">%&gt;%</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">3</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["bagian"],"name":[1],"type":["fct"],"align":["left"]},{"label":["deskriptor"],"name":[2],"type":["chr"],"align":["left"]},{"label":["527"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["381"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["selisih"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Q"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["p.signif"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"Fragrance/Aroma","2":"Roasted","3":"13.333","4":"93.333","5":"-80.000","6":"24.000","7":"0.000","8":"****"},{"1":"Fragrance/Aroma","2":"Fruity","3":"90.000","4":"10.000","5":"80.000","6":"22.154","7":"0.000","8":"****"},{"1":"Flavor/Aftertaste","2":"Fruity","3":"80.000","4":"13.333","5":"66.667","6":"20.000","7":"0.000","8":"****"},{"1":"Main tastes","2":"Bitter","3":"23.333","4":"90.000","5":"-66.667","6":"20.000","7":"0.000","8":"****"},{"1":"Flavor/Aftertaste","2":"Roasted","3":"10.000","4":"83.333","5":"-73.333","6":"18.615","7":"0.000","8":"****"},{"1":"Fragrance/Aroma","2":"Sweet","3":"73.333","4":"16.667","5":"56.667","6":"17.000","7":"0.000","8":"****"},{"1":"Mouthfeel","2":"Smooth","3":"66.667","4":"6.667","5":"60.000","6":"16.200","7":"0.000","8":"****"},{"1":"Main tastes","2":"Sour","3":"73.333","4":"13.333","5":"60.000","6":"16.200","7":"0.000","8":"****"},{"1":"Fragrance/Aroma","2":"Floral","3":"56.667","4":"3.333","5":"53.333","6":"14.222","7":"0.000","8":"***"},{"1":"Fragrance/Aroma","2":"Nutty/Cocoa","3":"23.333","4":"73.333","5":"-50.000","6":"13.235","7":"0.000","8":"***"},{"1":"Fragrance/Aroma","2":"Spicy","3":"13.333","4":"60.000","5":"-46.667","6":"12.250","7":"0.000","8":"***"},{"1":"Mouthfeel","2":"Rough","3":"6.667","4":"43.333","5":"-36.667","6":"8.067","7":"0.005","8":"**"},{"1":"Flavor/Aftertaste","2":"Nutty/Cocoa","3":"23.333","4":"63.333","5":"-40.000","6":"8.000","7":"0.005","8":"**"},{"1":"Fragrance/Aroma","2":"Sour/Fermented","3":"46.667","4":"13.333","5":"33.333","6":"7.143","7":"0.008","8":"**"},{"1":"Main tastes","2":"Sweet","3":"43.333","4":"10.000","5":"33.333","6":"7.143","7":"0.008","8":"**"},{"1":"Flavor/Aftertaste","2":"Floral","3":"30.000","4":"3.333","5":"26.667","6":"6.400","7":"0.011","8":"*"},{"1":"Mouthfeel","2":"Oily","3":"10.000","4":"36.667","5":"-26.667","6":"6.400","7":"0.011","8":"*"},{"1":"Flavor/Aftertaste","2":"Sour/Fermented","3":"50.000","4":"16.667","5":"33.333","6":"6.250","7":"0.012","8":"*"},{"1":"Main tastes","2":"Umami","3":"0.000","4":"16.667","5":"-16.667","6":"5.000","7":"0.025","8":"*"},{"1":"Flavor/Aftertaste","2":"Sweet","3":"46.667","4":"20.000","5":"26.667","6":"4.571","7":"0.033","8":"*"},{"1":"Flavor/Aftertaste","2":"Spicy","3":"13.333","4":"33.333","5":"-20.000","6":"3.600","7":"0.058","8":"ns"},{"1":"Flavor/Aftertaste","2":"Green/Vegetative","3":"3.333","4":"16.667","5":"-13.333","6":"2.667","7":"0.102","8":"ns"},{"1":"Flavor/Aftertaste","2":"Other","3":"3.333","4":"16.667","5":"-13.333","6":"2.667","7":"0.102","8":"ns"},{"1":"Mouthfeel","2":"Mouthdrying","3":"26.667","4":"46.667","5":"-20.000","6":"2.250","7":"0.134","8":"ns"},{"1":"Fragrance/Aroma","2":"Other","3":"6.667","4":"16.667","5":"-10.000","6":"1.800","7":"0.180","8":"ns"},{"1":"Mouthfeel","2":"Metallic","3":"6.667","4":"13.333","5":"-6.667","6":"0.667","7":"0.414","8":"ns"},{"1":"Fragrance/Aroma","2":"Green/Vegetative","3":"20.000","4":"13.333","5":"6.667","6":"0.500","7":"0.480","8":"ns"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Rumus Q pada kasus dua sampel adalah <span class="math inline">\(Q = (b - c)^2 / (b + c)\)</span>, dengan <span class="math inline">\(b\)</span> = jumlah panelis yang memilih deskriptor <strong>hanya</strong> pada sampel pertama dan <span class="math inline">\(c\)</span> = hanya pada sampel kedua. Panelis yang memilih pada kedua sampel, atau tidak memilih sama sekali, <strong>tidak menyumbang apa pun</strong> pada perhitungan tersebut. Artinya, panelis tersebut tidak memberi informasi apapun tentang perbedaan antar sampel. Konsekuensinya, deskriptor yang sangat sering atau sangat jarang dipilih pada kedua sampel akan sulit mencapai perbedaan signifikan walaupun jumlah panelisnya besar.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Perhatikan penyaringan <code>sum(dipilih) &gt; 0</code>.</strong> Deskriptor yang tidak pernah disitir sama sekali menghasilkan <span class="math inline">\(0/0\)</span> pada rumus di atas, dan pengujiannya gagal atau mengembalikan <code>NaN</code>. Deskriptor seperti itu dilaporkan apa adanya sebagai “tidak pernah dipilih”.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>tabel_cata <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nyata =</span> <span class="fu">if_else</span>(p <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">"Significant"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Not significant"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">label =</span> <span class="fu">fct_reorder</span>(deskriptor, selisih)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> selisih, <span class="at">y =</span> label, <span class="at">fill =</span> nyata)) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> bagian, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Significant"</span> <span class="ot">=</span> <span class="st">"#2E9E4F"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Not significant"</span> <span class="ot">=</span> <span class="st">"#B8B6AE"</span>)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Selisih Persentase Sitasi CATA"</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Positif = lebih sering disitir pada sampel "</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                         urutan_sampel[<span class="dv">1</span>]),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Selisih persentase sitasi (%)"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_coffee-cupping-cva_id_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>Bar</em> ke arah kanan menandakan bahwa deskriptor tersebut lebih sering dipilih pada sampel 527, sedangkan arah sebaliknya pada sampel 381. Panjang <em>bar</em>-nya menunjukkan besar selisihnya dalam satuan %.</p>
+</section>
+<section id="penalty-analysis" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="penalty-analysis"><span class="header-section-number">7.9</span> Penalty Analysis</h2>
+<p><em>Penalty analysis</em> adalah analisis yang mengkombinasikan data CATA dengan <strong>hedonik</strong>, dengan menghitung <em>mean drop</em>. <em>Mean drop</em> adalah selisih rata-rata skor hedonik antara penilaian yang <strong>mencentang</strong> deskriptor tertentu dengan yang <strong>tidak mencentangnya</strong> (1/0). Hasil dengan <em>mean drop</em> negatif besar dan frekuensi CATA tinggi menandakan atribut tersebut perlu untuk diperbaiki. Analisis ini sebetulnya dirancang untuk 3 atau lebih produk. Jika hanya 2 sampel, hasilnya hanya dapat mengindikasikan arah kesukaan.</p>
+<p>Uji dengan Cochran’s Q dan <em>penalty analysis</em> sering tertukar karena sama-sama pakai data CATA. Perbedaannya dapat lihat dari tabel berikut:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Selisih persentase sitasi</th>
+<th><em>Penalty analysis</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pertanyaan</td>
+<td>Deskriptor mana yang <strong>membedakan</strong> kedua kopi?</td>
+<td>Deskriptor mana yang <strong>menaikkan atau menurunkan</strong> impresi mutu?</td>
+</tr>
+<tr class="even">
+<td>Data yang dipakai</td>
+<td>CATA saja</td>
+<td>CATA <strong>dan</strong> skor mutu</td>
+</tr>
+<tr class="odd">
+<td>Uji pendamping</td>
+<td>Cochran’s Q</td>
+<td>Selisih rata-rata mutu (hedonik) saat deskriptor dipilih versus tidak</td>
+</tr>
+<tr class="even">
+<td>Satuan hasil</td>
+<td>Poin persen sitasi</td>
+<td>Poin skor mutu (hedonik)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mutu <span class="ot">&lt;-</span> afek <span class="sc">%&gt;%</span> <span class="fu">select</span>(Panelis, Sampel, Skor_CVA)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>penalti <span class="ot">&lt;-</span> terpakai <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(mutu, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Panelis"</span>, <span class="st">"Sampel"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(kode, bagian, deskriptor) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_total    =</span> <span class="fu">n</span>(),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_sitasi   =</span> <span class="fu">sum</span>(dipilih),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">persen     =</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(dipilih),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">mutu_ya    =</span> <span class="fu">mean</span>(Skor_CVA[dipilih <span class="sc">==</span> <span class="dv">1</span>]),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mutu_tidak =</span> <span class="fu">mean</span>(Skor_CVA[dipilih <span class="sc">==</span> <span class="dv">0</span>]),</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups    =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_sitasi <span class="sc">&gt;=</span> <span class="dv">3</span>, n_sitasi <span class="sc">&lt;=</span> n_total <span class="sc">-</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_drop =</span> mutu_ya <span class="sc">-</span> mutu_tidak) <span class="sc">%&gt;%</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mean_drop)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>penalti <span class="sc">%&gt;%</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_total) <span class="sc">%&gt;%</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>)))</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["kode"],"name":[1],"type":["chr"],"align":["left"]},{"label":["bagian"],"name":[2],"type":["fct"],"align":["left"]},{"label":["deskriptor"],"name":[3],"type":["chr"],"align":["left"]},{"label":["n_sitasi"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["persen"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["mutu_ya"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["mutu_tidak"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["mean_drop"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"FA_Roasted","2":"Fragrance/Aroma","3":"Roasted","4":"32","5":"53.33","6":"83.22","7":"90.62","8":"-7.40"},{"1":"FL_Roasted","2":"Flavor/Aftertaste","3":"Roasted","4":"28","5":"46.67","6":"82.77","7":"90.09","8":"-7.32"},{"1":"TS_Bitter","2":"Main tastes","3":"Bitter","4":"34","5":"56.67","6":"84.08","7":"90.08","8":"-6.00"},{"1":"TS_Umami","2":"Main tastes","3":"Umami","4":"5","5":"8.33","6":"81.62","7":"87.13","8":"-5.51"},{"1":"FL_GreenVegetative","2":"Flavor/Aftertaste","3":"Green/Vegetative","4":"6","5":"10.00","6":"81.95","7":"87.20","8":"-5.25"},{"1":"MF_Rough","2":"Mouthfeel","3":"Rough","4":"15","5":"25.00","6":"83.11","7":"87.86","8":"-4.75"},{"1":"FA_Spicy","2":"Fragrance/Aroma","3":"Spicy","4":"22","5":"36.67","6":"83.80","7":"88.34","8":"-4.54"},{"1":"FA_NuttyCocoa","2":"Fragrance/Aroma","3":"Nutty/Cocoa","4":"29","5":"48.33","6":"84.56","7":"88.65","8":"-4.09"},{"1":"FL_NuttyCocoa","2":"Flavor/Aftertaste","3":"Nutty/Cocoa","4":"26","5":"43.33","6":"84.45","7":"88.38","8":"-3.93"},{"1":"MF_Oily","2":"Mouthfeel","3":"Oily","4":"14","5":"23.33","6":"83.78","7":"87.56","8":"-3.78"},{"1":"FL_Other","2":"Flavor/Aftertaste","3":"Other","4":"6","5":"10.00","6":"83.38","7":"87.04","8":"-3.67"},{"1":"MF_Metallic","2":"Mouthfeel","3":"Metallic","4":"6","5":"10.00","6":"83.59","7":"87.02","8":"-3.43"},{"1":"FL_Spicy","2":"Flavor/Aftertaste","3":"Spicy","4":"14","5":"23.33","6":"84.24","7":"87.42","8":"-3.17"},{"1":"FA_Other","2":"Fragrance/Aroma","3":"Other","4":"7","5":"11.67","6":"84.53","7":"86.96","8":"-2.43"},{"1":"MF_Mouthdrying","2":"Mouthfeel","3":"Mouthdrying","4":"22","5":"36.67","6":"85.71","7":"87.24","8":"-1.53"},{"1":"FA_GreenVegetative","2":"Fragrance/Aroma","3":"Green/Vegetative","4":"10","5":"16.67","6":"87.99","7":"86.41","8":"1.57"},{"1":"FL_Sweet","2":"Flavor/Aftertaste","3":"Sweet","4":"20","5":"33.33","6":"88.68","7":"85.67","8":"3.00"},{"1":"FA_SourFermented","2":"Fragrance/Aroma","3":"Sour/Fermented","4":"18","5":"30.00","6":"88.95","7":"85.70","8":"3.25"},{"1":"TS_Sweet","2":"Main tastes","3":"Sweet","4":"16","5":"26.67","6":"89.37","7":"85.69","8":"3.68"},{"1":"FL_SourFermented","2":"Flavor/Aftertaste","3":"Sour/Fermented","4":"20","5":"33.33","6":"89.23","7":"85.40","8":"3.84"},{"1":"FL_Floral","2":"Flavor/Aftertaste","3":"Floral","4":"10","5":"16.67","6":"91.07","7":"85.80","8":"5.28"},{"1":"FA_Sweet","2":"Fragrance/Aroma","3":"Sweet","4":"27","5":"45.00","6":"89.62","7":"84.27","8":"5.35"},{"1":"TS_Sour","2":"Main tastes","3":"Sour","4":"26","5":"43.33","6":"89.72","7":"84.34","8":"5.38"},{"1":"FL_Fruity","2":"Flavor/Aftertaste","3":"Fruity","4":"28","5":"46.67","6":"89.82","7":"83.92","8":"5.90"},{"1":"MF_Smooth","2":"Mouthfeel","3":"Smooth","4":"22","5":"36.67","6":"90.54","7":"84.44","8":"6.10"},{"1":"FA_Floral","2":"Fragrance/Aroma","3":"Floral","4":"18","5":"30.00","6":"91.43","7":"84.64","8":"6.79"},{"1":"FA_Fruity","2":"Fragrance/Aroma","3":"Fruity","4":"30","5":"50.00","6":"90.46","7":"82.89","8":"7.57"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penalti, <span class="fu">aes</span>(<span class="at">x =</span> persen, <span class="at">y =</span> mean_drop, <span class="at">colour =</span> bagian)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.6</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> deskriptor), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.9</span>, <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penalty Analysis"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Kanan bawah = sering dipilih dan menurunkan mutu"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Frekuensi sitasi (% penilaian)"</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mean drop Skor CVA (poin)"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06_coffee-cupping-cva_id_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Peringatan penting untuk data dua sampel.</strong> <em>Penalty analysis</em> dirancang untuk banyak produk, sehingga pengaruh tiap deskriptor dapat dipisahkan dari identitas produknya. Di sini hanya ada dua kopi, dan deskriptor seperti <em>Roasted</em> nyaris hanya ditemukan pada satu sampel. Akibatnya <em>mean drop</em> deskriptor itu <strong>hampir sepenuhnya sama dengan selisih Skor CVA antar sampel</strong>, dan yang terbaca bukan “roasted menurunkan mutu” melainkan “sampel yang roasted kebetulan skornya lebih rendah”. Dengan rancangan ini, <em>penalty analysis</em> dibaca sebagai <strong>gambaran arah</strong> (<em>indication of direction</em>), bukan sebagai bukti sebab-akibat. Untuk kesimpulan yang lebih valid, dibutuhkan minimal 4 produk dengan profil beragam.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Penyaringan <code>n_sitasi &gt;= 3</code></strong> diperlukan karena <em>mean drop</em> yang hanya dihitung dari satu atau dua panelis yang mencentang deskriptor itu, analisisnya akan tidak stabil.</p>
+</blockquote>
+</section>
+<section id="menyusun-kesimpulan" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="menyusun-kesimpulan"><span class="header-section-number">7.10</span> Menyusun Kesimpulan</h2>
+<p>Kesimpulan acara ini menjawab empat pertanyaan berurutan:</p>
+<ol type="1">
+<li><strong>Profil intensitas</strong> <span class="math inline">\(\rightarrow\)</span> atribut mana yang intensitasnya berbeda nyata, dan ke arah sampel yang mana?</li>
+<li><strong><em>Impression of quality</em></strong> <span class="math inline">\(\rightarrow\)</span> bagian afektif mana yang berbeda, dan berapa selisih Skor CVA beserta <em>confidence interval</em>-nya?</li>
+<li><strong>Profil sensoris</strong> <span class="math inline">\(\rightarrow\)</span> deskriptor CATA mana yang membedakan kedua kopi?</li>
+<li><strong>Penalty analysis</strong> <span class="math inline">\(\rightarrow\)</span> deskriptor CATA mana yang meningkatkan / menurunkan hedonik kedua kopi?</li>
+</ol>
+</section>
+<section id="latihan-you-do" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="latihan-you-do"><span class="header-section-number">7.11</span> Latihan (You Do)</h2>
+<section id="latihan-1-perbandingan-metode-cochrans-q-dan-mcnemar" class="level3" data-number="7.11.1">
+<h3 data-number="7.11.1" class="anchored" data-anchor-id="latihan-1-perbandingan-metode-cochrans-q-dan-mcnemar"><span class="header-section-number">7.11.1</span> Latihan 1: Perbandingan Metode Cochran’s Q dan McNemar</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>terpakai <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kode <span class="sc">==</span> <span class="st">"FA_Fruity"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_mcnemar_test</span>(dipilih <span class="sc">~</span> Sampel <span class="sc">|</span> Panelis)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Bandingkan statistik dan nilai p-nya dengan baris <code>FA_Fruity</code> pada <code>tabel_cata</code>. Mengapa hasilnya identik?</p>
+</section>
+<section id="latihan-2-challenges" class="level3" data-number="7.11.2">
+<h3 data-number="7.11.2" class="anchored" data-anchor-id="latihan-2-challenges"><span class="header-section-number">7.11.2</span> Latihan 2: <em>Challenges</em></h3>
+<ol type="1">
+<li>Jalankan uji <em>independent T-test</em> pada Skor CVA, lalu bandingkan lebar <em>confidence interval-</em>nya dengan versi <em>paired t-test</em>:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>afek <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(Skor_CVA <span class="sc">~</span> Sampel, <span class="at">paired =</span> <span class="cn">FALSE</span>, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Mengapa versi <em>paired t-test</em> ini menghasilkan bukti lebih kuat padahal datanya persis sama?</p>
+<ol start="2" type="1">
+<li>Hitung korelasi antara selisih intensitas <em>Acidity</em> dan selisih <em>Overall liking</em> pada tiap panelis:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>selisih_per_panelis <span class="ot">&lt;-</span> <span class="cf">function</span>(df, kolom) {</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Panelis, Sampel, <span class="at">nilai =</span> <span class="fu">all_of</span>(kolom)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Sampel, <span class="at">values_from =</span> nilai) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">selisih =</span> .data[[urutan_sampel[<span class="dv">1</span>]]] <span class="sc">-</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>             .data[[urutan_sampel[<span class="dv">2</span>]]]) <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Panelis, selisih)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(<span class="fu">selisih_per_panelis</span>(desk, <span class="st">"Acidity"</span>),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">selisih_per_panelis</span>(afek, <span class="st">"Overall"</span>),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">by =</span> <span class="st">"Panelis"</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_intensitas"</span>, <span class="st">"_mutu"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(selisih_intensitas, selisih_mutu)</span></code></pre></div><button title="Salin ke Papan Klip" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Apakah panelis yang merasakan selisih keasaman lebih besar juga memberi selisih kesan mutu lebih besar? Ingat bahwa kedua selisih berada pada skala berbeda, 0–15 dan 1–9, sehingga besarannya tidak dapat dibandingkan langsung meskipun korelasinya sah.</p>
+<p>Dalam sesi ini kita telah mempelajari:<br>
+- Tiga jenis data CVA: intensitas, kesan mutu (<em>impression of quality</em>), dan CATA, serta alasannya mengapa masing-masing menggunakan uji yang berbeda<br>
+- <em>Paired t-test</em> untuk seluruh atribut sekaligus dengan <code>rstatix</code><br>
+- Bahwa intensitas dan <em>affective</em> adalah dua sumbu berbeda, seperti terlihat pada atribut <em>Flavor</em><br>
+- Cochran’s Q untuk data CATA, kesetaraannya dengan uji McNemar pada dua sampel, dan penanganan deskriptor tanpa sitasi<br>
+- <em>Penalty analysis</em> dengan data CATA dan skor CVA<br>
+- Perbedaan antara selisih persentase sitasi dan <em>penalty analysis</em>, serta mengapa <em>penalty analysis</em> pada dua sampel hanya dibaca sebagai gambaran arah</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Disalin!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Disalin!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01_QDA-ANOVA-PCA_id.html" class="pagination-link" aria-label="Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Analisis Data QDA: ANOVA, Uji Lanjut, dan PCA</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/blob/main/06_coffee-cupping-cva_id.Rmd" class="toc-action"><i class="bi bi-github"></i>Lihat sumber</a></li><li><a href="https://github.com/andikawicaks/praktikum-uji-sensoris-TPHP/issues/new" class="toc-action"><i class="bi empty"></i>Laporkan isu</a></li></ul></div></div></div></footer></body></html>
