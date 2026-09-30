@@ -774,7 +774,7 @@
     "href": "06_coffee-cupping-cva_id.html#tujuan-pembelajaran",
     "title": "7  Coffee Cupping dengan Coffee Value Assessment",
     "section": "",
-    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nTiga jenis data CVA: intensitas, kesan mutu, dan CATA\nMengapa tiap jenis data menuntut uji yang berbeda\nMemuat lembar R_* dan menyaring pasangan lengkap\n\n\nUji t berpasangan (paired samples t-test) untuk data kontinu dan skala 9 titik\nMengapa intensitas tinggi tidak sama dengan mutu tinggi\nMenjalankan seluruh T-test sekaligus dengan rstatix\n\n\nCochran’s Q untuk data biner berulang\nMengapa Cochran’s Q pada dua sampel setara dengan uji McNemar\nMenguji seluruh deskriptor CATA dan mengoreksi nilai p\n\n\n\n+++ Mengenai penalty analysis\nMembuat grafik CATA citation frequency difference",
+    "text": "Mengetahui\nMemahami\nMelakukan\n\n\n\n\nTiga jenis data CVA: intensitas, kesan mutu, dan CATA\nMengapa tiap jenis data menuntut uji yang berbeda\nMemuat lembar R_* dan menyaring pasangan lengkap\n\n\nUji t berpasangan (paired samples t-test) untuk data kontinu dan skala 9 titik\nMengapa intensitas tinggi tidak sama dengan mutu tinggi\nMenjalankan seluruh T-test sekaligus dengan rstatix\n\n\nCochran’s Q untuk data biner seperti CATA\nMengapa Cochran’s Q pada dua sampel setara dengan uji McNemar\nMenguji seluruh deskriptor CATA dan mengoreksi nilai p\n\n\nPenalty analysis untuk data CATA dan liking\n\nMembuat grafik CATA citation frequency difference",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Coffee Cupping dengan Coffee Value Assessment</span>"
     ]
