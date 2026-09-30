@@ -20,6 +20,7 @@ book:
     - 04_penentuan-threshold_id.Rmd
     - 05_intensitas-hue_id.Rmd
     - 01_QDA-ANOVA-PCA_id.Rmd
+    - 06_coffee-cupping-cva_id.Rmd
 
 lang: id
 

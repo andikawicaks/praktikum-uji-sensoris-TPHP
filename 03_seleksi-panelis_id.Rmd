@@ -16,7 +16,7 @@ editor_options:
 Setelah sesi ini, mahasiswa akan mampu:
 
 | Mengetahui | Memahami | Melakukan |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Prinsip *triangle test*, *sequential test*, dan *counter balance* | Mengapa peluang menebak benar pada *triangle test* adalah 1/3 | Menghitung jumlah benar kumulatif tiap calon panelis |
 | Arti parameter $\alpha$, $\beta$, $p_0$, dan $p_1$ | Bahwa $\alpha$ dan $\beta$ adalah dua jenis kesalahan yang berbeda | Menghitung garis batas $L_0$ dan $L_1$ |
 | Tiga wilayah keputusan: tolak, lanjut, terima | Mengapa keputusan dapat diambil sebelum set terakhir | Membuat grafik seleksi panelis dan membacanya |
@@ -52,7 +52,7 @@ Untuk setiap set hanya ada dua kemungkinan hasil, sehingga datanya
 sederhana: satu baris untuk satu panelis × satu set.
 
 | Kolom | Arti |
-|----|----|
+|------------------------------------|------------------------------------|
 | `panelis` | Nama atau kode calon panelis |
 | `set` | Nomor set *triangle test*, 1 sampai 7 |
 | `benar` | `1` jika panelis menunjuk sampel yang berbeda dengan tepat, `0` jika salah |
@@ -175,7 +175,7 @@ round(garis, 2)
 Cara membaca tabel ini:
 
 | Nilai | Artinya |
-|----|----|
+|------------------------------------|------------------------------------|
 | $L_0$ **negatif** | Belum ada jumlah benar yang cukup rendah untuk menolak. Pada set-set awal, penolakan memang belum mungkin |
 | $L_1$ **lebih besar dari** $n$ | Belum ada jumlah benar yang cukup tinggi untuk menerima, walaupun panelis benar semua |
 | Kumulatif $\geq L_1$ | Panelis masuk wilayah penerimaan |
@@ -187,9 +187,9 @@ Cara membaca tabel ini:
 > pun hanya bila panelis benar pada kelima set. Bila jumlah set
 > diperbanyak, keputusan bisa dicapai untuk lebih banyak panelis; bila
 > $\alpha$ dan $\beta$ diperbesar, garisnya merapat sehingga keputusan
-> lebih cepat tercapai tetapi risiko salah putusan naik. Tidak ada
-> pilihan yang bebas dari konsekuensi, jadi nilainya ditetapkan sebelum
-> data dikumpulkan, bukan sesudah melihat hasil.
+> lebih cepat tercapai tetapi risiko salah keputusan naik. Nilainya
+> harus ditentukan sebelum datanya dikumpulkan, bukan sesudah melihat
+> hasilnya.
 
 ### *Hinge Question*
 
@@ -310,20 +310,19 @@ ggplot(sel, aes(x = set, y = kumulatif)) +
 Cara membaca grafik ini:
 
 | Yang Anda lihat | Artinya |
-|----|----|
+|------------------------------------|------------------------------------|
 | **Garis keluar ke atas pita** | Panelis diterima pada set tersebut |
 | **Garis keluar ke bawah pita** | Panelis ditolak pada set tersebut |
 | **Garis bertahan di dalam pita sampai set terakhir** | Belum ada keputusan, panelis perlu pelatihan dan seleksi ulang |
 | **Garis mendatar** | Panelis salah pada set tersebut |
 | **Kemiringan garis 45 derajat** | Panelis benar pada semua set di rentang itu |
 
-> **Penting!** Grafik ini menilai **konsistensi**, bukan sekadar
-> banyaknya jawaban benar. Panelis yang benar pada set 1, 2, 3 lalu
-> salah pada set 5, 6, 7 punya kumulatif akhir yang sama dengan panelis
-> yang benar-salah bergantian, tetapi pola keduanya berbeda. Pola
-> seperti yang pertama sering menunjukkan kelelahan indra atau adaptasi
-> terhadap rasa, dan itu informasi yang layak dicatat pada pembahasan
-> laporan, bukan dibuang.
+> **Penting!** Grafik ini menilai **konsistensi**. Panelis yang benar
+> pada set 1, 2, 3 lalu salah pada set 5, 6, 7 punya kumulatif akhir
+> yang sama dengan panelis yang benar-salah bergantian, tetapi pola
+> keduanya berbeda. Pola seperti yang pertama sering menunjukkan
+> kelelahan indra atau adaptasi terhadap rasa, dan itu informasi yang
+> perlu dicatat pada pembahasan laporan.
 
 ## Menyusun Kesimpulan
 
