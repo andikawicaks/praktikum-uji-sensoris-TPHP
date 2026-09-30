@@ -19,8 +19,8 @@ Setelah sesi ini, mahasiswa akan mampu:
 |------------------------|------------------------|------------------------|
 | Tiga jenis data CVA: intensitas, kesan mutu, dan CATA | Mengapa tiap jenis data menuntut uji yang berbeda | Memuat lembar `R_*` dan menyaring pasangan lengkap |
 | Uji t berpasangan (*paired samples t-test*) untuk data kontinu dan skala 9 titik | Mengapa intensitas tinggi tidak sama dengan mutu tinggi | Menjalankan seluruh *T-test* sekaligus dengan `rstatix` |
-| Cochran's Q untuk data biner berulang | Mengapa Cochran's Q pada dua sampel setara dengan uji McNemar | Menguji seluruh deskriptor CATA dan mengoreksi nilai p |
-|  | +++ Mengenai penalty analysis | Membuat grafik CATA *citation frequency difference* |
+| Cochran's Q untuk data biner seperti CATA | Mengapa Cochran's Q pada dua sampel setara dengan uji McNemar | Menguji seluruh deskriptor CATA dan mengoreksi nilai p |
+| Penalty analysis untuk data CATA dan liking |  | Membuat grafik CATA *citation frequency difference* |
 
 ## Sekilas tentang Data CVA
 
